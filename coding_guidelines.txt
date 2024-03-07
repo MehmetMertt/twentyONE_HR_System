@@ -1,0 +1,13 @@
+Functions:
+camelCase
+tells what functios does
+"canAlsoBeLongIfNotOtherOpion()"
+
+Variables:
+named_with_underscore
+should be understandable and easy to read
+
+Ifelse
+Maxium of two ifs in another
+
+
