@@ -1,0 +1,10 @@
+#main {
+}
+
+QLabel {
+    font-size: 20px;
+}
+
+#Navbar {
+border: 1px solid black;
+}

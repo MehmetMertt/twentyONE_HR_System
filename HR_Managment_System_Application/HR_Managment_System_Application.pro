@@ -10,15 +10,24 @@ CONFIG += c++17
 
 SOURCES += \
     dbmanager.cpp \
+    login.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    navbar.cpp \
+    navbar_compact.cpp
 
 HEADERS += \
     dbmanager.h \
-    mainwindow.h
+    login.h \
+    mainwindow.h \
+    navbar.h \
+    navbar_compact.h
 
 FORMS += \
-    mainwindow.ui
+    login.ui \
+    mainwindow.ui \
+    navbar.ui \
+    navbar_compact.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -33,3 +42,7 @@ assests.qrc
 addFiles.sources = database.db
 addFiles.path = .
 DEPLOYMENT += addFiles
+DISTFILES +=
+
+RESOURCES += \
+    stylesheet.qrc
