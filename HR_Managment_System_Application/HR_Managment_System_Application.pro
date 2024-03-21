@@ -10,15 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    navbar.cpp \
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    navbar.h \
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    navbar.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

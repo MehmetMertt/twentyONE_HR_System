@@ -6,9 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    navbar = new Navbar(this);
+    setCentralWidget(navbar);
 }
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
 }
