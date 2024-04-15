@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/auth">
+        <file>auth_stylesheet.qss</file>
+    </qresource>
+    <qresource prefix="/sidebar">
+        <file>sidebar_stylesheet.qss</file>
+    </qresource>
+    <qresource prefix="/main">
+        <file>main_stylesheet.qss</file>
+    </qresource>
+</RCC>

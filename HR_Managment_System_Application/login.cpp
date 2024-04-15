@@ -1,15 +1,16 @@
-#include "navbar.h"
-#include "ui_navbar.h"
+#include "login.h"
+#include "ui_login.h"
 #include <QFile>
 
-Navbar::Navbar(QWidget *parent)
+
+Login::Login(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Navbar)
+    , ui(new Ui::Login)
 {
     ui->setupUi(this);
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":sidebar/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":auth/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();
@@ -21,7 +22,8 @@ Navbar::Navbar(QWidget *parent)
     }
 }
 
-Navbar::~Navbar()
+Login::~Login()
 {
     delete ui;
 }
+

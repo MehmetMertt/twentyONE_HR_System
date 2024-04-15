@@ -1,0 +1,9 @@
+#main {
+}
+
+QLabel {
+    font-size: 20px;
+}
+
+#Navbar {
+}

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include <navbar.h>
+#include <login.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,5 +23,6 @@ public:
 private:
     Ui::MainWindow *ui;
     Navbar* navbar;
+    Login* login_page;
 };
 #endif // MAINWINDOW_H

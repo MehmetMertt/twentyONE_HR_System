@@ -1,0 +1,8 @@
+QLabel {
+    font-family: "Inter";
+    font-size: 15px;
+}
+
+#Navbar {
+    background-color: red;
+}
