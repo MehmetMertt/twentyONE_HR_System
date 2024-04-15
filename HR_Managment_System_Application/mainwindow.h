@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include <navbar.h>
+#include <navbar_compact.h>
 #include <login.h>
 
 QT_BEGIN_NAMESPACE
@@ -28,6 +29,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Navbar* navbar;
+    Navbar_compact* navbar_comp;
     Login* login_page;
     QRect navbar_geometry;
 };

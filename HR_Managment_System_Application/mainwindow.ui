@@ -19,17 +19,10 @@
      <layout class="QHBoxLayout" name="sidebar"/>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
       <property name="sizeConstraint">
        <enum>QLayout::SetMinimumSize</enum>
       </property>
-      <item>
-       <widget class="Line" name="nav_line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="open_nav_button">
         <property name="text">

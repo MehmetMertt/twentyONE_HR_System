@@ -9,10 +9,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
     //login_page = new Login(this);
     //ui->main->addWidget(login_page);
+    ui->sidebar->addWidget(navbar_comp);
+    navbar_comp->hide();
     ui->open_nav_button->hide();
-    ui->nav_line->hide();
     ui->sidebar->addWidget(navbar);
 
     // Load the stylesheet from a file (recommended)
@@ -46,12 +48,12 @@ void MainWindow::on_close_nav_button_clicked()
 
     // Animate the width from the current value to 0 (hidden)
     animation->setStartValue(navbar->geometry());
-    animation->setEndValue(QRect(navbar->geometry().x(), navbar->geometry().y(), 0, navbar->geometry().height()));
+    animation->setEndValue(navbar_comp->geometry());
 
     // Connect the animation's finished signal to show the open button
     connect(animation, &QPropertyAnimation::finished, [this]() {
         navbar->hide();
-        ui->nav_line->show();
+        navbar_comp->show();
         ui->close_nav_button->hide();
         ui->open_nav_button->show();
     });
@@ -63,18 +65,18 @@ void MainWindow::on_close_nav_button_clicked()
 
 void MainWindow::on_open_nav_button_clicked()
 {
+    navbar_comp->hide();
+    navbar->show();
     // Create a property animation for the sidebar's width
     QPropertyAnimation *animation = new QPropertyAnimation(navbar, "geometry");
     animation->setDuration(200); // 100ms animation duration
 
     // Animate the width from 0 (hidden) to the current sidebar width
-    animation->setStartValue(QRect(navbar->geometry().x(), navbar->geometry().y(), 0, navbar->geometry().height()));
+    animation->setStartValue(navbar_comp->geometry());
     animation->setEndValue(navbar_geometry);
 
     // Connect the animation's finished signal to hide the open button
     connect(animation, &QPropertyAnimation::finished, [this]() {
-        navbar->show();
-        ui->nav_line->hide();
         ui->close_nav_button->show();
         ui->open_nav_button->hide();
     });

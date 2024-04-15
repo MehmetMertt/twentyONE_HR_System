@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Navbar</class>
- <widget class="QWidget" name="Navbar">
+ <class>Navbar_compact</class>
+ <widget class="QWidget" name="Navbar_compact">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>172</width>
+    <width>82</width>
     <height>600</height>
    </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>220</width>
-    <height>16777215</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_5">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <spacer name="verticalSpacer_3">
+      <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -42,18 +33,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="username">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
+      <widget class="QPushButton" name="user">
        <property name="text">
-        <string>Max Musterman</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="stylesheet.qrc">
@@ -71,9 +53,12 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_8">
+      <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -84,20 +69,11 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QPushButton" name="nav_link1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
+        <widget class="QPushButton" name="dashboard">
          <property name="text">
-          <string>Dashboard</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="stylesheet.qrc">
@@ -115,9 +91,12 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -128,7 +107,72 @@
         </spacer>
        </item>
        <item>
-        <widget class="Line" name="line">
+        <widget class="Line" name="line_2">
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="timetracking">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="stylesheet.qrc">
+           <normaloff>:/icons/zeit.svg</normaloff>:/icons/zeit.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>28</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="Line" name="line_3">
          <property name="maximumSize">
           <size>
            <width>50</width>
@@ -154,80 +198,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="nav_link2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QPushButton" name="request">
          <property name="text">
-          <string>Zeiterfassung</string>
-         </property>
-         <property name="icon">
-          <iconset resource="stylesheet.qrc">
-           <normaloff>:/icons/zeit.svg</normaloff>:/icons/zeit.svg</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>28</width>
-           <height>28</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>10</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="Line" name="line_2">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_7">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>10</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="nav_link3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Anträge</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="stylesheet.qrc">
@@ -247,28 +220,22 @@
       </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer_5">
+      <spacer name="verticalSpacer_7">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>15</height>
+         <height>40</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+      <widget class="QPushButton" name="settings">
        <property name="text">
-        <string>Settings</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="stylesheet.qrc">
@@ -286,15 +253,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+      <widget class="QPushButton" name="logout">
        <property name="text">
-        <string>Logout</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="stylesheet.qrc">
@@ -323,14 +284,14 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>10</width>
+       <width>5</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <widget class="Line" name="line_3">
+    <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>

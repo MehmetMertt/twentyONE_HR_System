@@ -13,16 +13,19 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     navbar.cpp \
+    navbar_compact.cpp
 
 HEADERS += \
     login.h \
     mainwindow.h \
     navbar.h \
+    navbar_compact.h
 
 FORMS += \
     login.ui \
     mainwindow.ui \
     navbar.ui \
+    navbar_compact.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
