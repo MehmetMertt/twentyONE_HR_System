@@ -8,4 +8,14 @@
     <qresource prefix="/main">
         <file>main_stylesheet.qss</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file>arrow_left.svg</file>
+        <file>logout.svg</file>
+        <file>settings.svg</file>
+        <file>arrow_right.svg</file>
+        <file>account.svg</file>
+        <file>antrag.svg</file>
+        <file>dashboard.svg</file>
+        <file>zeit.svg</file>
+    </qresource>
 </RCC>

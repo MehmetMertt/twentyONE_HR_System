@@ -1,8 +1,5 @@
-QLabel {
-    font-family: "Inter";
-    font-size: 15px;
+
+QPushButton {
+    font-size: 16px;
 }
 
-#Navbar {
-    background-color: red;
-}

@@ -20,9 +20,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_close_nav_button_clicked();
+
+    void on_open_nav_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     Navbar* navbar;
     Login* login_page;
+    QRect navbar_geometry;
 };
 #endif // MAINWINDOW_H

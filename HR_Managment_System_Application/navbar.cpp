@@ -8,6 +8,7 @@ Navbar::Navbar(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":sidebar/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
