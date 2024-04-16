@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
     dbmanager dbZugriff = dbmanager(path);
     dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337");
 
+
+    w.setWindowTitle("Human Resources Management System");
     w.show();
     return a.exec();
 }

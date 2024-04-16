@@ -1,0 +1,65 @@
+
+#page_header {
+  font-family: "Inter";
+  font-size: 18px;
+  color: #11698E;
+  margin-bottom: 20%;
+}
+
+
+QLineEdit[input_type = "text"] {
+  border: 1px solid rgba(248, 241, 241, 0.5);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 5%;
+}
+
+QLineEdit[input_type = "text"]:focus {
+    border: 1px solid #11698E;
+}
+
+
+#login_button, #signup_button {
+  color: #11698E;
+  border: 1px solid #11698E;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 10%;
+}
+
+#login_button:hover, #signup_button:hover {
+    background-color: #11698E;
+    color: #F8F1F1;
+}
+
+#error_text {
+    color: red;
+    font-size: 12px;
+}
+
+QComboBox{
+
+    border: 1px solid rgba(248, 241, 241, 0.5);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5%;
+
+
+}
+QComboBox::down-arrow{
+    image:url(://resourcen/icons/arrow_down.svg);
+
+}
+
+QComboBox::drop-down:button {
+    background-color: white;
+    width: 18px;
+
+}
+
+QComboBox:drop-down {
+    padding-right: 2px;
+}

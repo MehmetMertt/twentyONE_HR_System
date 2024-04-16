@@ -10,24 +10,27 @@ CONFIG += c++17
 
 SOURCES += \
     dbmanager.cpp \
-    login.cpp \
+    auth/login.cpp \
+    auth/signup.cpp \
     main.cpp \
     mainwindow.cpp \
-    navbar.cpp \
-    navbar_compact.cpp
+    nav/navbar.cpp \
+    nav/navbar_compact.cpp \
 
 HEADERS += \
     dbmanager.h \
-    login.h \
+    auth/login.h \
+    auth/signup.h \
     mainwindow.h \
-    navbar.h \
-    navbar_compact.h
+    nav/navbar.h \
+    nav/navbar_compact.h \
 
 FORMS += \
-    login.ui \
+    auth/login.ui \
+    auth/signup.ui \
     mainwindow.ui \
-    navbar.ui \
-    navbar_compact.ui
+    nav/navbar.ui \
+    nav/navbar_compact.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
