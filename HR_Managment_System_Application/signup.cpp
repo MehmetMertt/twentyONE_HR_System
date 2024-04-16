@@ -1,16 +1,17 @@
-#include "navbar.h"
-#include "ui_navbar.h"
+#include "signup.h"
+#include "ui_signup.h"
 #include <QFile>
 
-Navbar::Navbar(QWidget *parent)
+Signup::Signup(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Navbar)
+    , ui(new Ui::Signup)
 {
     ui->setupUi(this);
 
+    ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();
@@ -22,7 +23,13 @@ Navbar::Navbar(QWidget *parent)
     }
 }
 
-Navbar::~Navbar()
+Signup::~Signup()
 {
     delete ui;
 }
+
+void Signup::on_signup_button_clicked()
+{
+    //string vorname = ui->vorname_input->text();
+}
+

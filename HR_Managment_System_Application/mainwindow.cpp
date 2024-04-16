@@ -8,17 +8,20 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
     //login_page = new Login(this);
+    signup_page = new Signup(this);
     //ui->main->addWidget(login_page);
-    ui->sidebar->addWidget(navbar_comp);
+    //ui->sidebar->addWidget(navbar_comp);
+    ui->main->addWidget(signup_page);
     navbar_comp->hide();
     ui->open_nav_button->hide();
     ui->sidebar->addWidget(navbar);
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":main/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":styles/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();

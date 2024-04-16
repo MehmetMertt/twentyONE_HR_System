@@ -6,6 +6,7 @@
 #include <navbar.h>
 #include <navbar_compact.h>
 #include <login.h>
+#include <signup.h>s
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,6 +32,7 @@ private:
     Navbar* navbar;
     Navbar_compact* navbar_comp;
     Login* login_page;
+    Signup* signup_page;
     QRect navbar_geometry;
 };
 #endif // MAINWINDOW_H

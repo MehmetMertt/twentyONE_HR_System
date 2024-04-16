@@ -1,13 +1,4 @@
 <RCC>
-    <qresource prefix="/auth">
-        <file>auth_stylesheet.qss</file>
-    </qresource>
-    <qresource prefix="/sidebar">
-        <file>sidebar_stylesheet.qss</file>
-    </qresource>
-    <qresource prefix="/main">
-        <file>main_stylesheet.qss</file>
-    </qresource>
     <qresource prefix="/icons">
         <file>arrow_left.svg</file>
         <file>logout.svg</file>
@@ -17,5 +8,11 @@
         <file>antrag.svg</file>
         <file>dashboard.svg</file>
         <file>zeit.svg</file>
+        <file>arrow_down.svg</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>auth_stylesheet.qss</file>
+        <file>main_stylesheet.qss</file>
+        <file>sidebar_stylesheet.qss</file>
     </qresource>
 </RCC>

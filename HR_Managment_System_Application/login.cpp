@@ -10,7 +10,7 @@ Login::Login(QWidget *parent)
     ui->setupUi(this);
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":auth/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();
