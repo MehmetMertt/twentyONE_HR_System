@@ -39,3 +39,12 @@ assests.qrc
 addFiles.sources = database.db
 addFiles.path = .
 DEPLOYMENT += addFiles
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../mysql-connector-c++-8.3.0-macos14-arm64/lib64/release/ -lmysqlcppconn8-static
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../mysql-connector-c++-8.3.0-macos14-arm64/lib64/debug/ -lmysqlcppconn8-static
+else:unix: LIBS += -L$$PWD/../../mysql-connector-c++-8.3.0-macos14-arm64/lib64/ -lmysqlcppconn8-static
+
+INCLUDEPATH += $$PWD/../../mysql-connector-c++-8.3.0-macos14-arm64/include/jdbc/cppconn
+DEPENDPATH += $$PWD/../../mysql-connector-c++-8.3.0-macos14-arm64/include/jdbc/cppconn
