@@ -3,10 +3,11 @@
 
 #include <QMainWindow>
 
-#include <navbar.h>
-#include <navbar_compact.h>
-#include <login.h>
-#include <signup.h>s
+
+#include <nav/navbar.h>
+#include <nav/navbar_compact.h>
+#include <auth/login.h>
+#include <auth/signup.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,6 +34,7 @@ private:
     Navbar_compact* navbar_comp;
     Login* login_page;
     Signup* signup_page;
+    QRect navbar_comp_geometry;
     QRect navbar_geometry;
 };
 #endif // MAINWINDOW_H

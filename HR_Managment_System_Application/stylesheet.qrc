@@ -1,18 +1,16 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file>arrow_left.svg</file>
-        <file>logout.svg</file>
-        <file>settings.svg</file>
-        <file>arrow_right.svg</file>
-        <file>account.svg</file>
-        <file>antrag.svg</file>
-        <file>dashboard.svg</file>
-        <file>zeit.svg</file>
-        <file>arrow_down.svg</file>
-    </qresource>
-    <qresource prefix="/styles">
-        <file>auth_stylesheet.qss</file>
-        <file>main_stylesheet.qss</file>
-        <file>sidebar_stylesheet.qss</file>
+    <qresource prefix="/resourcen">
+        <file>styles/auth_stylesheet.qss</file>
+        <file>styles/main_stylesheet.qss</file>
+        <file>styles/sidebar_stylesheet.qss</file>
+        <file>icons/account.svg</file>
+        <file>icons/antrag.svg</file>
+        <file>icons/arrow_down.svg</file>
+        <file>icons/arrow_left.svg</file>
+        <file>icons/arrow_right.svg</file>
+        <file>icons/dashboard.svg</file>
+        <file>icons/logout.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/zeit.svg</file>
     </qresource>
 </RCC>

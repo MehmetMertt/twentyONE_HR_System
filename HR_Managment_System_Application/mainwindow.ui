@@ -30,7 +30,7 @@
         </property>
         <property name="icon">
          <iconset resource="stylesheet.qrc">
-          <normaloff>:/icons/arrow_right.svg</normaloff>:/icons/arrow_right.svg</iconset>
+          <normaloff>:/resourcen/icons/arrow_right.svg</normaloff>:/resourcen/icons/arrow_right.svg</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -59,7 +59,7 @@
         </property>
         <property name="icon">
          <iconset resource="stylesheet.qrc">
-          <normaloff>:/icons/arrow_left.svg</normaloff>:/icons/arrow_left.svg</iconset>
+          <normaloff>:/resourcen/icons/arrow_left.svg</normaloff>:/resourcen/icons/arrow_left.svg</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -85,7 +85,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
