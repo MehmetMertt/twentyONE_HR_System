@@ -2,13 +2,18 @@ version: '3.7'
 services:
   db:
     image: mysql:latest
+    hostname: hrmgt_db_host
     restart: always
     environment:
-      MYSQL_DATABASE: hrmng_database
-      MYSQL_USER: hrmng_admin
+      MYSQL_DATABASE: hrmgt_database
+      MYSQL_USER: hrmgt_admin
       MYSQL_PASSWORD: admin
       MYSQL_ROOT_PASSWORD: admin
-    volumes:
+      MYSQL_PORT_3306_TCP_ADDR: mysql
+      MYSQL_PORT_3306_TCP_PORT: 3306
+    ports:
+      - '3306:3306'
+    volumes:  
       - db_data:/var/lib/mysql
     networks:
       - app-network
