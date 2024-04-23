@@ -9,26 +9,37 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    auth/login.cpp \
+    auth/signup.cpp \
     dbmanager.cpp \
     main.cpp \
     mainwindow.cpp \
-    navbar.cpp \
+    nav/navbar.cpp \
+    nav/navbar_compact.cpp \
 
 HEADERS += \
+    auth/login.h \
+    auth/signup.h \
     dbmanager.h \
     mainwindow.h \
-    navbar.h \
+    nav/navbar.h \
+    nav/navbar_compact.h \
 
 
 FORMS += \
+    auth/login.ui \
+    auth/signup.ui \
     mainwindow.ui \
-    navbar.ui \
+    nav/navbar.ui \
+    nav/navbar_compact.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES += \
+    stylesheet.qrc
 
 DISTFILES += \
     ../database.db \
@@ -39,3 +50,4 @@ assests.qrc
 addFiles.sources = database.db
 addFiles.path = .
 DEPLOYMENT += addFiles
+
