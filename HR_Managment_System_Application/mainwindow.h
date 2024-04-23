@@ -6,7 +6,7 @@
 #include <navbar.h>
 #include <navbar_compact.h>
 #include <login.h>
-#include <signup.h>s
+#include <signup.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

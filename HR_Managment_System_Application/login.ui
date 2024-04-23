@@ -53,7 +53,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="username">
+      <widget class="QLineEdit" name="email_input">
        <property name="inputMask">
         <string/>
        </property>
@@ -61,7 +61,7 @@
         <string/>
        </property>
        <property name="placeholderText">
-        <string>Username</string>
+        <string>E-Mail</string>
        </property>
        <property name="input_type" stdset="0">
         <string>text</string>
@@ -69,12 +69,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="password">
+      <widget class="QLineEdit" name="passwort_input">
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
        </property>
        <property name="placeholderText">
-        <string>Password</string>
+        <string>Passwort</string>
        </property>
        <property name="input_type" stdset="0">
         <string>text</string>
