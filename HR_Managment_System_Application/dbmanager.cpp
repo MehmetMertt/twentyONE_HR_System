@@ -3,9 +3,9 @@
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager(const QString path) {
     m_db = QSqlDatabase::addDatabase("QMYSQL");
-    m_db.setHostName("localhost");
-    m_db.setDatabaseName("hrmgt");
-    m_db.setUserName("admin");
+    m_db.setHostName("127.0.0.1:3306");
+    m_db.setDatabaseName("hrmgt_database");
+    m_db.setUserName("root");
     m_db.setPassword("admin");
 
     if (!m_db.open())
