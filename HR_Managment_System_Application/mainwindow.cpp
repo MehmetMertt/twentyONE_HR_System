@@ -13,14 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-
-    db.setHostName("localhost");
-    db.setDatabaseName("hr_management_system");
-    db.setUserName("admin");
-    db.setPassword("admin");
-    bool ok = db.open();
-    qInfo() << ok;
 
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);

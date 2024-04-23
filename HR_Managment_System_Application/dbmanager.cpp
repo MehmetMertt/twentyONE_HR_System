@@ -3,14 +3,17 @@
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager(const QString path) {
     m_db = QSqlDatabase::addDatabase("QMYSQL");
-    m_db.setHostName("127.0.0.1:3306");
+    m_db.setHostName("localhost");
     m_db.setDatabaseName("hrmgt_database");
-    m_db.setUserName("root");
+    m_db.setUserName("hrmgt_admin");
     m_db.setPassword("admin");
 
     if (!m_db.open())
     {
-        qDebug() << "Error: connection with database failed";
+        QString errorMessage = m_db.lastError().text();
+
+        // Display the error message in a more informative way
+        qDebug() << "Error: connection with database failed: " << errorMessage;
     }
     else
     {
@@ -21,11 +24,14 @@ dbmanager::dbmanager(const QString path) {
 bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr){
     bool success = false;
     QSqlQuery query;
-    query.prepare("INSERT into Mitarber(Vorname, Nachname, Email, Telefonnummer) VALUES(:Vorname, :Nachname, :Email, :Telefonnummer");
-    query.bindValue(":Vorname",vorname);
-    query.bindValue(":Nachname",nachname);
-    query.bindValue(":Email",email);
-    query.bindValue(":Telefonnummer",telenr);
+    query.prepare("INSERT INTO Mitarbeiter (Vorname, Nachname, Email, Telefonnummer) VALUES(:Vorname, :Nachname, :Email, :Telefonnummer);");
+    query.bindValue(":Vorname",QString("'%1'").arg(vorname));
+    query.bindValue(":Nachname",QString("'%1'").arg(nachname));
+    query.bindValue(":Email",QString("'%1'").arg(email));
+    query.bindValue(":Telefonnummer",QString("'%1'").arg(telenr));
+
+    qDebug() << query.lastQuery();
+
     if(query.exec())
     {
         success = true;
