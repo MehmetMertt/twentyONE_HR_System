@@ -56,9 +56,10 @@ QComboBox::down-arrow{
 
 QComboBox::drop-down:button {
     background-color: white;
+    width: 18px;
 
 }
 
 QComboBox:drop-down {
-    padding-right: 10px;
+    padding-right: 2px;
 }

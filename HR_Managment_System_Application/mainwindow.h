@@ -35,6 +35,8 @@ private:
     Login* login_page;
     Signup* signup_page;
     QRect navbar_comp_geometry;
+    QRect navbar_comp_closed_geometry;
     QRect navbar_geometry;
+    QRect navbar_closed_geometry;
 };
 #endif // MAINWINDOW_H
