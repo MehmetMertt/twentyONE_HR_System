@@ -216,7 +216,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="username">
+      <widget class="QLineEdit" name="email_input">
        <property name="inputMask">
         <string/>
        </property>
@@ -232,7 +232,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="password">
+      <widget class="QLineEdit" name="passwort_input">
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
        </property>
