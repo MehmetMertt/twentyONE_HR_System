@@ -1,5 +1,4 @@
-QT       += core gui
-QT       += sql
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     auth/login.cpp \
     auth/signup.cpp \
+    dbmanager.cpp \
     main.cpp \
     mainwindow.cpp \
     nav/navbar.cpp \
@@ -20,9 +20,11 @@ SOURCES += \
 HEADERS += \
     auth/login.h \
     auth/signup.h \
+    dbmanager.h \
     mainwindow.h \
     nav/navbar.h \
     nav/navbar_compact.h \
+
 
 FORMS += \
     auth/login.ui \
@@ -36,7 +38,16 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
-
 RESOURCES += \
     stylesheet.qrc
+
+DISTFILES += \
+    ../database.db \
+    Development \
+
+RESOURCES +=
+assests.qrc
+addFiles.sources = database.db
+addFiles.path = .
+DEPLOYMENT += addFiles
+
