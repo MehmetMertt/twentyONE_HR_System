@@ -9,6 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    auth/account.cpp \
+    auth/account_adminview.cpp \
     dbmanager.cpp \
     auth/login.cpp \
     auth/signup.cpp \
@@ -18,6 +20,8 @@ SOURCES += \
     nav/navbar_compact.cpp \
 
 HEADERS += \
+    auth/account.h \
+    auth/account_adminview.h \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \
@@ -26,6 +30,8 @@ HEADERS += \
     nav/navbar_compact.h \
 
 FORMS += \
+    auth/account.ui \
+    auth/account_adminview.ui \
     auth/login.ui \
     auth/signup.ui \
     mainwindow.ui \

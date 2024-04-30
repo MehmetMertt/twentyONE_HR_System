@@ -18,7 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
     navbar_comp = new Navbar_compact(this);
     //login_page = new Login(this);
     signup_page = new Signup(this);
+    //account_page = new Account(this);
+    //account_adminview_page = new Account_adminview(this);
     //ui->main->addWidget(login_page);
+
 
     ui->main->addWidget(signup_page);
 

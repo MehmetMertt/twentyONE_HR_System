@@ -255,6 +255,9 @@
        <property name="flat">
         <bool>false</bool>
        </property>
+       <property name="button_type" stdset="0">
+        <string>primary</string>
+       </property>
       </widget>
      </item>
      <item>

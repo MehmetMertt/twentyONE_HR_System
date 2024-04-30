@@ -218,16 +218,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QLineEdit" name="titel_input">
-         <property name="placeholderText">
-          <string>Titel</string>
-         </property>
-         <property name="input_type" stdset="0">
-          <string>text</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QComboBox" name="anrede_input">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -243,6 +233,16 @@
            <width>26</width>
            <height>24</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="titel_input">
+         <property name="placeholderText">
+          <string>Titel</string>
+         </property>
+         <property name="input_type" stdset="0">
+          <string>text</string>
          </property>
         </widget>
        </item>
@@ -377,6 +377,9 @@
          </property>
          <property name="text">
           <string>Signup</string>
+         </property>
+         <property name="button_type" stdset="0">
+          <string>primary</string>
          </property>
         </widget>
        </item>
