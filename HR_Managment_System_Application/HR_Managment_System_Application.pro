@@ -15,6 +15,7 @@ SOURCES += \
     auth/login.cpp \
     auth/signup.cpp \
     main.cpp \
+    mainloading.cpp \
     mainwindow.cpp \
     nav/navbar.cpp \
     nav/navbar_compact.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \
+    mainloading.h \
     mainwindow.h \
     nav/navbar.h \
     nav/navbar_compact.h \
@@ -34,6 +36,7 @@ FORMS += \
     auth/account_adminview.ui \
     auth/login.ui \
     auth/signup.ui \
+    mainloading.ui \
     mainwindow.ui \
     nav/navbar.ui \
     nav/navbar_compact.ui \

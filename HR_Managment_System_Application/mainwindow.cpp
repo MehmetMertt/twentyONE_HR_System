@@ -13,24 +13,17 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-    navbar = new Navbar(this);
-    navbar_comp = new Navbar_compact(this);
-    //login_page = new Login(this);
-    signup_page = new Signup(this);
-    //account_page = new Account(this);
-    //account_adminview_page = new Account_adminview(this);
-    //ui->main->addWidget(login_page);
-
-
-    ui->main->addWidget(signup_page);
-
     ui->open_nav_button->hide();
-    ui->sidebar->addWidget(navbar);
+    ui->close_nav_button->hide();
 
-    ui->sidebar_comp->addWidget(navbar_comp);
+    main_loading_page = new MainLoading(this);
+    connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
 
-    navbar_comp->hide();
+    main_loading_page->setGeometry(this->geometry());
+    main_loading_page->show();
+
+
+
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -46,6 +39,27 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 }
+
+void MainWindow::onLoadingFinished() {
+    navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
+    login_page = new Login(this);
+    //signup_page = new Signup(this);
+    //account_page = new Account(this);
+    //account_adminview_page = new Account_adminview(this);
+    //ui->main->addWidget(login_page);
+
+
+    ui->main->addWidget(login_page);
+
+    ui->close_nav_button->show();
+    ui->sidebar->addWidget(navbar);
+
+    ui->sidebar_comp->addWidget(navbar_comp);
+
+    navbar_comp->hide();
+}
+
 
 MainWindow::~MainWindow()
 {

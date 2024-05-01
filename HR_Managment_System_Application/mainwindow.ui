@@ -179,6 +179,9 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
+     <layout class="QHBoxLayout" name="loading_page"/>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="sidebar_comp"/>
     </item>
     <item>

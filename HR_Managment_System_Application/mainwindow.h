@@ -9,6 +9,7 @@
 #include <auth/signup.h>
 #include <auth/account.h>
 #include <auth/account_adminview.h>
+#include <mainloading.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,8 +30,11 @@ private slots:
 
     void on_open_nav_button_clicked();
 
+    void onLoadingFinished();
+
 private:
     Ui::MainWindow *ui;
+    MainLoading* main_loading_page;
     Navbar* navbar;
     Navbar_compact* navbar_comp;
     Login* login_page;
