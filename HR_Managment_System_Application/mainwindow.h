@@ -7,9 +7,13 @@
 #include <nav/navbar_compact.h>
 #include <auth/login.h>
 #include <auth/signup.h>
+<<<<<<< Updated upstream
 #include <auth/account.h>
 #include <auth/account_adminview.h>
 #include <mainloading.h>
+=======
+#include <dashboard.h>
+>>>>>>> Stashed changes
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -40,8 +44,12 @@ private:
     Navbar_compact* navbar_comp;
     Login* login_page;
     Signup* signup_page;
+<<<<<<< Updated upstream
     Account* account_page;
     Account_adminview* account_adminview_page;
+=======
+    Dashboard* dashboard;
+>>>>>>> Stashed changes
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;
     QRect navbar_geometry;
