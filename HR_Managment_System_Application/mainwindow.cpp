@@ -13,8 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-<<<<<<< Updated upstream
-=======
 
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
@@ -25,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->main->addWidget(dashboard);
 
->>>>>>> Stashed changes
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
 

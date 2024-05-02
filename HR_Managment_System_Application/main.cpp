@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     qDebug() << databasePath.currentPath();
     QString path = databasePath.currentPath()+"/database.db"; // Not "myDb.db"
     dbmanager dbZugriff = dbmanager(path);
-    dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337");
+    dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337","Passwort");
 
 
     w.setWindowTitle("Human Resources Management System");

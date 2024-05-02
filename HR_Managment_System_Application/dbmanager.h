@@ -19,8 +19,8 @@ class dbmanager
 public:
     //QString ist eine bessere Variante von std::string supported UniCode und ist schneller
     dbmanager(const QString path);
-    bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr);
-
+    bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort);
+    bool login(QString email,QString passwort);
 private:
     QSqlDatabase m_db;
 };

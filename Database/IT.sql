@@ -1,5 +1,5 @@
 CREATE TABLE `Mitarbeiter` (
-  `MitarbeiterID` integer PRIMARY KEY,
+  `MitarbeiterID` integer PRIMARY KEY AUTO_INCREMENT,
   `Passwort` varchar(255),
   `Vorname` varchar(255),
   `Nachname` varchar(255),
@@ -13,7 +13,7 @@ CREATE TABLE `Mitarbeiter` (
 );
 
 CREATE TABLE `Ort` (
-  `OrtID` integer PRIMARY KEY,
+  `OrtID` integer PRIMARY KEY AUTO_INCREMENT,
   `Plz` integer,
   `Bundesland` varchar(255),
   `Strasse` varchar(255),
@@ -21,17 +21,17 @@ CREATE TABLE `Ort` (
 );
 
 CREATE TABLE `Abteilung` (
-  `AbteilungsID` integer PRIMARY KEY,
+  `AbteilungsID` integer PRIMARY KEY AUTO_INCREMENT,
   `Abteilungsname` varchar(255)
 );
 
 CREATE TABLE `Gehalt` (
-  `GehaltID` integer PRIMARY KEY,
+  `GehaltID` integer PRIMARY KEY AUTO_INCREMENT,
   `Monatsgehalt` float
 );
 
 CREATE TABLE `Arbeitszeiten` (
-  `ArbeitszeitenID` integer PRIMARY KEY,
+  `ArbeitszeitenID` integer PRIMARY KEY AUTO_INCREMENT,
   `Arbeitsbeginn` date,
   `Arbeitsende` date,
   `MitarbeitderID` integer,
@@ -39,7 +39,7 @@ CREATE TABLE `Arbeitszeiten` (
 );
 
 CREATE TABLE `Abweseneinheit` (
-  `AbwesenheitsID` integer PRIMARY KEY,
+  `AbwesenheitsID` integer PRIMARY KEY AUTO_INCREMENT,
   `MitarbeiterID` integer,
   `Abwesenheitsbeginn` date,
   `Abwesenheitsende` date,
