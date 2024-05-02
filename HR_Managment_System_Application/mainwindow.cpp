@@ -13,6 +13,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+<<<<<<< Updated upstream
+=======
+
+    navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
+    //login_page = new Login(this);
+    //signup_page = new Signup(this);
+    //ui->main->addWidget(login_page);
+    dashboard = new Dashboard(this);
+
+    ui->main->addWidget(dashboard);
+
+>>>>>>> Stashed changes
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
 

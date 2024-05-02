@@ -300,6 +300,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QLineEdit" name="adresse_input">
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="placeholderText">
           <string>Adresse</string>
          </property>
@@ -312,7 +318,7 @@
         <widget class="QLineEdit" name="plz_input">
          <property name="maximumSize">
           <size>
-           <width>80</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -328,9 +334,12 @@
         <widget class="QLineEdit" name="ort_input">
          <property name="maximumSize">
           <size>
-           <width>80</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="text">
+          <string/>
          </property>
          <property name="placeholderText">
           <string>Ort</string>
