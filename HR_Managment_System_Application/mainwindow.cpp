@@ -13,16 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-    navbar = new Navbar(this);
-    navbar_comp = new Navbar_compact(this);
-    //login_page = new Login(this);
-    //signup_page = new Signup(this);
-    //ui->main->addWidget(login_page);
-    dashboard = new Dashboard(this);
-
-    ui->main->addWidget(dashboard);
-
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
 
@@ -61,6 +51,21 @@ void MainWindow::onLoadingFinished() {
 
 
     ui->main->addWidget(login_page);
+    connect(login_page, &Login::login_success, this, &MainWindow::login_finished);
+
+    /*ui->close_nav_button->show();
+    ui->sidebar->addWidget(navbar);
+
+    ui->sidebar_comp->addWidget(navbar_comp);
+
+    navbar_comp->hide();*/
+}
+
+void MainWindow::login_finished()
+{
+    login_page->hide();
+    dashboard = new Dashboard(this);
+    ui->main->addWidget(dashboard);
 
     ui->close_nav_button->show();
     ui->sidebar->addWidget(navbar);
@@ -68,6 +73,7 @@ void MainWindow::onLoadingFinished() {
     ui->sidebar_comp->addWidget(navbar_comp);
 
     navbar_comp->hide();
+
 }
 
 

@@ -43,3 +43,11 @@ Login::~Login()
     */
 }
 
+
+void Login::on_login_button_clicked()
+{
+    //logic
+
+    emit login_success();
+}
+
