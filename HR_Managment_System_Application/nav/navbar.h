@@ -14,6 +14,8 @@ class Navbar : public QWidget
 public:
     explicit Navbar(QWidget *parent = nullptr);
     ~Navbar();
+    void processLoginOutButton(int logged);
+    void setUserData();
 
 private:
     Ui::Navbar *ui;

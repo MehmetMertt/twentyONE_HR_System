@@ -1,12 +1,16 @@
 #include "navbar.h"
 #include "ui_navbar.h"
 #include <QFile>
+#include <QIcon>
 
 Navbar::Navbar(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Navbar)
 {
     ui->setupUi(this);
+
+    processLoginOutButton(1);
+    setUserData();
 
 
     // Load the stylesheet from a file (recommended)
@@ -25,4 +29,18 @@ Navbar::Navbar(QWidget *parent)
 Navbar::~Navbar()
 {
     delete ui;
+}
+
+void Navbar::processLoginOutButton(int logged) {
+    if(logged) {
+        ui->login_out_button->setText("Logout");
+        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/logout.svg"));
+    } else {
+        ui->login_out_button->setText("Login");
+        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/login.svg"));
+    }
+}
+
+void Navbar::setUserData() {
+    ui->username->setText("Florian Mimmler");
 }

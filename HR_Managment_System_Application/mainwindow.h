@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void login_finished();
 
 private slots:
     void on_close_nav_button_clicked();

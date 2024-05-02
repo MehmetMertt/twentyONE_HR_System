@@ -16,7 +16,6 @@ MainLoading::MainLoading(QWidget *parent)
     // Set initial y-position (off-screen)
     initialY = screenHeight;  // Adjust based on desired starting position
 
-    // Move the widget initially to the off-screen position
 
     ui->setupUi(this);
 
@@ -29,6 +28,7 @@ MainLoading::~MainLoading()
 }
 
 void MainLoading::hideAfterDelay() {
+    qDebug("hide loading page");
     timer->stop();
     emit loadingFinished();
     QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
