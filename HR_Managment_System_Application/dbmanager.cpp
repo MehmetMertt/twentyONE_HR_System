@@ -1,6 +1,5 @@
 #include "dbmanager.h"
-#include "simplecrypt.h"
- #include <QCryptographicHash>
+#include <QCryptographicHash>
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager(const QString path) {
     m_db = QSqlDatabase::addDatabase("QMYSQL");
@@ -25,9 +24,13 @@ dbmanager::dbmanager(const QString path) {
 bool dbmanager::login(QString email, QString passwort){
     QSqlQuery query;
     bool sucess;
+    QByteArray passwortHash = passwort.toUtf8(); //verwandelt Qsrting passwort in Qbyte array
+    passwortHash=QCryptographicHash::hash(passwortHash,QCryptographicHash::Sha3_512); //Qbyte array wird geshasht mit Sha512 hash
+    QString passwortHashAsString(passwortHash); //Qbyte array wird zurueck in string verwandelt
+
     query.prepare("SELECT MitarbeiterID from Mitarbeiter WHERE Email = :Email && Passwort = :Passwort");
     query.bindValue(":Passwort",QString("'%1'").arg(email));
-    query.bindValue(":Email",QString("'%1'").arg(passwort));
+    query.bindValue(":Email",QString("'%1'").arg(passwortHashAsString));
     if(query.exec()){
         sucess = true;
         qDebug() << "Einloggen war erfolgreich";
@@ -41,14 +44,9 @@ bool dbmanager::login(QString email, QString passwort){
 bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort){
     bool success = false;
     QSqlQuery query;
-
-
-
     QByteArray passwortHash = passwort.toUtf8(); //verwandelt Qsrting passwort in Qbyte array
     passwortHash=QCryptographicHash::hash(passwortHash,QCryptographicHash::Sha3_512); //Qbyte array wird geshasht mit Sha512 hash
     QString passwortHashAsString(passwortHash); //Qbyte array wird zurueck in string verwandelt
-
-
 
     query.prepare("INSERT INTO Mitarbeiter (Vorname, Nachname, Email, Telefonnummer, Passwort) VALUES(:Vorname, :Nachname, :Email, :Telefonnummer,:Passwort);");
     query.bindValue(":Vorname",QString("'%1'").arg(vorname));
