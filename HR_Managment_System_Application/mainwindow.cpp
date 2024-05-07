@@ -73,8 +73,22 @@ void MainWindow::login_finished()
 
     connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
     connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
+
     connect(navbar, &Navbar::dashboard_clicked, this, &MainWindow::showDashboard);
     connect(navbar_comp, &Navbar_compact::dashboard_clicked, this, &MainWindow::showDashboard);
+
+    connect(navbar, &Navbar::timetracker_clicked, this, &MainWindow::showTimetracker);
+    connect(navbar_comp, &Navbar_compact::timetracker_clicked, this, &MainWindow::showTimetracker);
+
+    connect(navbar, &Navbar::request_clicked, this, &MainWindow::showRequests);
+    connect(navbar_comp, &Navbar_compact::request_clicked, this, &MainWindow::showRequests);
+
+    connect(navbar, &Navbar::settings_clicked, this, &MainWindow::showSettings);
+    connect(navbar_comp, &Navbar_compact::settings_clicked, this, &MainWindow::showSettings);
+
+    connect(navbar, &Navbar::login_out_clicked, this, &MainWindow::processLoginOut);
+    connect(navbar_comp, &Navbar_compact::login_out_clicked, this, &MainWindow::processLoginOut);
+
 
     ui->close_nav_button->show();
     ui->sidebar->addWidget(navbar);
@@ -85,8 +99,14 @@ void MainWindow::login_finished()
 
     dashboard = new Dashboard(this);
     account_page = new Account(this);
+    timetracker_page = new Timetracker(this);
+    request_page = new Requests(this);
+    settings_page = new Settings(this);
     ui->main->addWidget(dashboard);
     ui->main->addWidget(account_page);
+    ui->main->addWidget(timetracker_page);
+    ui->main->addWidget(request_page);
+    ui->main->addWidget(settings_page);
     ui->main->setCurrentWidget(dashboard);
 
 }
@@ -116,9 +136,10 @@ void MainWindow::on_close_nav_button_clicked()
     // Connect the animation's finished signal to show the open button
     connect(animationNavbar, &QPropertyAnimation::finished, [this]() {
         navbar->hide();
-        ui->sidebar->removeWidget(navbar);
+        //ui->sidebar->removeWidget(navbar);
 
-        ui->sidebar_comp->addWidget(navbar_comp);
+        //ui->sidebar_comp->addWidget(navbar_comp);
+        navbar_comp->setActiveItem(navbar->getActiveItem());
         navbar_comp->show();
         ui->close_nav_button->hide();
         ui->open_nav_button->show();
@@ -159,9 +180,10 @@ void MainWindow::on_open_nav_button_clicked()
     // Connect the animation's finished signal to hide the open button
     connect(animationNavComp, &QPropertyAnimation::finished, [this]() {
         navbar_comp->hide();
-        ui->sidebar_comp->removeWidget(navbar_comp);
+        //ui->sidebar_comp->removeWidget(navbar_comp);
 
-        ui->sidebar->addWidget(navbar);
+        //ui->sidebar->addWidget(navbar);
+        navbar->setActiveItem(navbar_comp->getActiveItem());
         navbar->show();
         //navbar->setGeometry(navbar_closed_geometry);
         ui->open_nav_button->hide();
@@ -194,5 +216,20 @@ void MainWindow::showAccount() {
 
 void MainWindow::showDashboard() {
     ui->main->setCurrentWidget(dashboard);
+}
+
+void MainWindow::showTimetracker() {
+    ui->main->setCurrentWidget(timetracker_page);
+}
+
+void MainWindow::showRequests() {
+    ui->main->setCurrentWidget(request_page);
+}
+
+void MainWindow::showSettings() {
+    ui->main->setCurrentWidget(settings_page);
+}
+
+void MainWindow::processLoginOut() {
 }
 

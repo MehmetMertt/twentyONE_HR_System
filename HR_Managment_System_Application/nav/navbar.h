@@ -17,9 +17,16 @@ public:
     void processLoginOutButton(int logged);
     void setUserData();
 
+    QString getActiveItem();
+    void setActiveItem(QString item);
+
 signals:
     void account_clicked();
     void dashboard_clicked();
+    void timetracker_clicked();
+    void request_clicked();
+    void settings_clicked();
+    void login_out_clicked();
 
 private slots:
 
@@ -27,8 +34,23 @@ private slots:
 
     void on_dashboard_clicked();
 
+    void on_timetracker_clicked();
+
+    void on_request_clicked();
+
+    void on_login_out_button_clicked();
+
+    void on_settings_clicked();
+
 private:
     Ui::Navbar *ui;
+
+    QMap<QString, QWidget*> items;
+
+    QWidget* active_item;
+
+    void removeActiveItem();
+    void addActiveItem();
 };
 
 #endif // NAVBAR_H

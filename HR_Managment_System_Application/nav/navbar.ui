@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>180</width>
+    <width>200</width>
     <height>600</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="maximumSize">
    <size>
@@ -231,6 +243,9 @@
        <property name="flat">
         <bool>true</bool>
        </property>
+       <property name="active_item" stdset="0">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -273,6 +288,9 @@
           </size>
          </property>
          <property name="flat">
+          <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
           <bool>true</bool>
          </property>
         </widget>
@@ -343,6 +361,9 @@
          <property name="flat">
           <bool>true</bool>
          </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -411,6 +432,9 @@
          <property name="flat">
           <bool>true</bool>
          </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -429,7 +453,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="settings">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>

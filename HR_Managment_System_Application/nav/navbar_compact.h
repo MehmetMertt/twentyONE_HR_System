@@ -15,17 +15,39 @@ public:
     explicit Navbar_compact(QWidget *parent = nullptr);
     ~Navbar_compact();
 
+    QString getActiveItem();
+    void setActiveItem(QString item);
+
 signals:
     void account_clicked();
     void dashboard_clicked();
+    void timetracker_clicked();
+    void request_clicked();
+    void settings_clicked();
+    void login_out_clicked();
 
 private slots:
     void on_user_clicked();
 
     void on_dashboard_clicked();
 
+    void on_timetracker_clicked();
+
+    void on_request_clicked();
+
+    void on_settings_clicked();
+
+    void on_login_out_button_clicked();
+
 private:
     Ui::Navbar_compact *ui;
+
+    QMap<QString, QWidget*> items;
+
+    QWidget* active_item;
+
+    void removeActiveItem();
+    void addActiveItem();
 };
 
 #endif // NAVBAR_COMPACT_H

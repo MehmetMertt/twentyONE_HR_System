@@ -203,6 +203,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="user">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -218,6 +221,9 @@
        </property>
        <property name="flat">
         <bool>true</bool>
+       </property>
+       <property name="active_item" stdset="0">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -241,6 +247,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QPushButton" name="dashboard">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -256,6 +265,9 @@
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -306,6 +318,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="timetracker">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -321,6 +336,9 @@
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -368,6 +386,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="request">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -383,6 +404,9 @@
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -403,6 +427,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="settings">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -419,10 +446,16 @@
        <property name="flat">
         <bool>true</bool>
        </property>
+       <property name="active_item" stdset="0">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="logout">
+      <widget class="QPushButton" name="login_out_button">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -438,6 +471,9 @@
        </property>
        <property name="flat">
         <bool>true</bool>
+       </property>
+       <property name="active_item" stdset="0">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
