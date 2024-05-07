@@ -25,6 +25,7 @@ HEADERS += \
     auth/account.h \
     auth/account_adminview.h \
     dashboard.h \
+    dbaccess.h \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \

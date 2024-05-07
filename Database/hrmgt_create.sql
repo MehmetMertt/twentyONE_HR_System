@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS Mitarbeiter,Ort,Abteilung,Gehalt,Arbeitszeiten,Abweseneinheit;
+
 CREATE TABLE `Mitarbeiter` (
   `MitarbeiterID` integer PRIMARY KEY AUTO_INCREMENT,
   `Passwort` varchar(255),

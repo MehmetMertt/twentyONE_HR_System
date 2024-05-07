@@ -5,6 +5,7 @@
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
 #include <QLineEdit>
+#include <dbaccess.h>
 
 
 Login::Login(QWidget *parent, dbmanager* dbmanager)
@@ -41,6 +42,7 @@ Login::Login(QWidget *parent)
     , ui(new Ui::Login)
 {
     ui->setupUi(this);
+    ui->error_text->hide(); // Man kann nicht vom Anfang an (bzw vom Designer) ein Label auf hide setzen, daher mittels code im Constructer
 //------------------------------------------------- INPUT VALIDIERUNG: ---------------------------------------------------
     QRegularExpression regExp_email("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,6})$");
     QValidator *email_validator = new QRegularExpressionValidator(regExp_email, this);
@@ -76,14 +78,14 @@ Login::~Login()
 
 void Login::on_login_button_clicked()
 {
-    //logic
-    bool success = db->login("fmimmler@gmail.com", "test2");
-    if(success) {
+    bool login = dbZugriff.login(ui->email_input->text(),ui->passwort_input->text());
+    qDebug() << ui->email_input->text();
+    qDebug() << ui->passwort_input->text();
+    if(login){
         emit login_success();
     } else {
-        qDebug("Try again");
+        ui->error_text->show();
     }
-
 
 }
 
