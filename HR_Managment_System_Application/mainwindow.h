@@ -35,6 +35,9 @@ private slots:
 
     void onLoadingFinished();
 
+    void showAccount();
+    void showDashboard();
+
 private:
     Ui::MainWindow *ui;
     MainLoading* main_loading_page;

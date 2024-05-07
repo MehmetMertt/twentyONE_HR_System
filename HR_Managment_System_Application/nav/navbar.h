@@ -17,6 +17,16 @@ public:
     void processLoginOutButton(int logged);
     void setUserData();
 
+signals:
+    void account_clicked();
+    void dashboard_clicked();
+
+private slots:
+
+    void on_user_clicked();
+
+    void on_dashboard_clicked();
+
 private:
     Ui::Navbar *ui;
 };

@@ -15,6 +15,15 @@ public:
     explicit Navbar_compact(QWidget *parent = nullptr);
     ~Navbar_compact();
 
+signals:
+    void account_clicked();
+    void dashboard_clicked();
+
+private slots:
+    void on_user_clicked();
+
+    void on_dashboard_clicked();
+
 private:
     Ui::Navbar_compact *ui;
 };

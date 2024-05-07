@@ -52,6 +52,7 @@ void MainWindow::onLoadingFinished() {
 
 
     ui->main->addWidget(login_page);
+    ui->main->setCurrentWidget(login_page);
     connect(login_page, &Login::login_success, this, &MainWindow::login_finished);
 
     /*ui->close_nav_button->show();
@@ -70,6 +71,11 @@ void MainWindow::login_finished()
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
 
+    connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
+    connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
+    connect(navbar, &Navbar::dashboard_clicked, this, &MainWindow::showDashboard);
+    connect(navbar_comp, &Navbar_compact::dashboard_clicked, this, &MainWindow::showDashboard);
+
     ui->close_nav_button->show();
     ui->sidebar->addWidget(navbar);
 
@@ -78,7 +84,10 @@ void MainWindow::login_finished()
     navbar_comp->hide();
 
     dashboard = new Dashboard(this);
+    account_page = new Account(this);
     ui->main->addWidget(dashboard);
+    ui->main->addWidget(account_page);
+    ui->main->setCurrentWidget(dashboard);
 
 }
 
@@ -177,5 +186,13 @@ void MainWindow::on_open_nav_button_clicked()
     // Start the animation
     animationNavComp->start();
 
+}
+
+void MainWindow::showAccount() {
+    ui->main->setCurrentWidget(account_page);
+}
+
+void MainWindow::showDashboard() {
+    ui->main->setCurrentWidget(dashboard);
 }
 

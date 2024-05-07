@@ -42,5 +42,17 @@ void Navbar::processLoginOutButton(int logged) {
 }
 
 void Navbar::setUserData() {
-    ui->username->setText("Florian Mimmler");
+    ui->user->setText("Florian Mimmler");
 }
+
+void Navbar::on_user_clicked()
+{
+    emit account_clicked();
+}
+
+
+void Navbar::on_dashboard_clicked()
+{
+    emit dashboard_clicked();
+}
+

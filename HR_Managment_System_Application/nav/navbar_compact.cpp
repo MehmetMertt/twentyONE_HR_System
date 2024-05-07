@@ -12,3 +12,14 @@ Navbar_compact::~Navbar_compact()
 {
     delete ui;
 }
+
+void Navbar_compact::on_user_clicked()
+{
+    emit account_clicked();
+}
+
+void Navbar_compact::on_dashboard_clicked()
+{
+    emit dashboard_clicked();
+}
+
