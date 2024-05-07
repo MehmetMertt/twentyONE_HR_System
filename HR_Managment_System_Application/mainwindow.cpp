@@ -64,6 +64,7 @@ void MainWindow::onLoadingFinished() {
 
 void MainWindow::login_finished()
 {
+    ui->main->removeWidget(login_page);
     login_page->hide();
 
     navbar = new Navbar(this);
@@ -106,6 +107,9 @@ void MainWindow::on_close_nav_button_clicked()
     // Connect the animation's finished signal to show the open button
     connect(animationNavbar, &QPropertyAnimation::finished, [this]() {
         navbar->hide();
+        ui->sidebar->removeWidget(navbar);
+
+        ui->sidebar_comp->addWidget(navbar_comp);
         navbar_comp->show();
         ui->close_nav_button->hide();
         ui->open_nav_button->show();
@@ -146,18 +150,21 @@ void MainWindow::on_open_nav_button_clicked()
     // Connect the animation's finished signal to hide the open button
     connect(animationNavComp, &QPropertyAnimation::finished, [this]() {
         navbar_comp->hide();
+        ui->sidebar_comp->removeWidget(navbar_comp);
 
+        ui->sidebar->addWidget(navbar);
         navbar->show();
         //navbar->setGeometry(navbar_closed_geometry);
-        ui->close_nav_button->show();
         ui->open_nav_button->hide();
+        ui->close_nav_button->show();
+
 
         // Create a property animation for the sidebar's width
         QPropertyAnimation *animationNavbar = new QPropertyAnimation(navbar, "geometry");
         animationNavbar->setDuration(200); // 100ms animation duration
         animationNavbar->setEasingCurve(QEasingCurve::InCubic);
 
-        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 180, ui->sidebar->geometry().height());
+        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 200, ui->sidebar->geometry().height());
 
         // Animate the width from 0 (hidden) to the current sidebar width
         animationNavbar->setStartValue(navbar->geometry());
