@@ -11,6 +11,7 @@
 #include <auth/account_adminview.h>
 #include <mainloading.h>
 #include <dashboard.h>
+#include <dbmanager.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -48,5 +49,7 @@ private:
     QRect navbar_comp_closed_geometry;
     QRect navbar_geometry;
     QRect navbar_closed_geometry;
+
+    dbmanager* db;
 };
 #endif // MAINWINDOW_H

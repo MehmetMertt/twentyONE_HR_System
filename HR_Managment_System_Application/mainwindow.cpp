@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     main_loading_page->setGeometry(this->geometry());
     main_loading_page->show();
 
+    db = new dbmanager("");
+    db->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+
 
 
 
@@ -43,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onLoadingFinished() {
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
-    login_page = new Login(this);
+    login_page = new Login(this, db);
     //signup_page = new Signup(this);
     //account_page = new Account(this);
     //account_adminview_page = new Account_adminview(this);

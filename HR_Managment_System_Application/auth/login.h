@@ -2,6 +2,7 @@
 #define LOGIN_H
 
 #include <QWidget>
+#include <dbmanager.h>
 
 namespace Ui {
 class Login;
@@ -12,7 +13,8 @@ class Login : public QWidget
     Q_OBJECT
 
 public:
-    explicit Login(QWidget *parent = nullptr);
+    Login(QWidget *parent = nullptr);
+    Login(QWidget *parent = nullptr, dbmanager* dbmanager = nullptr);
     ~Login();
 
 signals:
@@ -23,6 +25,7 @@ private slots:
 
 private:
     Ui::Login *ui;
+    dbmanager* db;
 };
 
 #endif // LOGIN_H

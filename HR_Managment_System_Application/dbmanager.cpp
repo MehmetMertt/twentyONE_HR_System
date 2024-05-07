@@ -30,8 +30,9 @@ bool dbmanager::login(QString email, QString passwort){
 
     query.prepare("SELECT MitarbeiterID from Mitarbeiter WHERE Email = :Email && Passwort = :Passwort");
     query.bindValue(":Passwort",QString("'%1'").arg(email));
-    query.bindValue(":Email",QString("'%1'").arg(passwortHashAsString));
+    query.bindValue(":Email",QString("'%1'").arg(passwortHash));
     if(query.exec()){
+
         sucess = true;
         qDebug() << "Einloggen war erfolgreich";
     } else {
@@ -53,7 +54,7 @@ bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email,
     query.bindValue(":Nachname",QString("'%1'").arg(nachname));
     query.bindValue(":Email",QString("'%1'").arg(email));
     query.bindValue(":Telefonnummer",QString("'%1'").arg(telenr));
-    query.bindValue(":Passwort",QString("'%1'").arg(passwortHashAsString));
+    query.bindValue(":Passwort",QString("'%1'").arg(passwortHash));
     qDebug() << query.lastQuery();
 
     if(query.exec())
