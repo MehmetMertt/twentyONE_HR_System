@@ -2,7 +2,7 @@
 #define DBACCESS_H
 #include <dbmanager.h>
 
-extern dbmanager dbZugriff;
+extern dbmanager* dbZugriff;
 
 
 #endif // DBACCESS_H

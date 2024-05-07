@@ -14,7 +14,6 @@ class Login : public QWidget
 
 public:
     Login(QWidget *parent = nullptr);
-    Login(QWidget *parent = nullptr, dbmanager* dbmanager = nullptr);
     ~Login();
 
 signals:

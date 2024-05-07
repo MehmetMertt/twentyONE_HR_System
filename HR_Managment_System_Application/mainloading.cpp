@@ -8,7 +8,7 @@ MainLoading::MainLoading(QWidget *parent)
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainLoading::hideAfterDelay);
-    timer->setInterval(3000);
+    timer->setInterval(100);
     timer->start();
 
     int screenHeight = parent->geometry().height();

@@ -55,7 +55,6 @@ DISTFILES += \
 
 RESOURCES +=
 assests.qrc
-addFiles.sources = database.db
 addFiles.path = .
 DEPLOYMENT += addFiles
 DISTFILES +=

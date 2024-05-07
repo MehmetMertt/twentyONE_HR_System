@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <dbaccess.h>
 #include <QFile>
 #include <QPropertyAnimation>
 #include <QtSql/QSqlDatabase>
@@ -22,8 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     main_loading_page->setGeometry(this->geometry());
     main_loading_page->show();
 
-    db = new dbmanager("");
-    db->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+    //db = new dbmanager();
+    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
 
 
 
@@ -46,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onLoadingFinished() {
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
-    login_page = new Login(this, db);
+    login_page = new Login(this);
     //signup_page = new Signup(this);
     //account_page = new Account(this);
     //account_adminview_page = new Account_adminview(this);

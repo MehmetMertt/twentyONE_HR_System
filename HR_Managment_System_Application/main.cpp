@@ -1,18 +1,21 @@
 #include "mainwindow.h"
-#include "dbmanager.h"
+//#include "dbmanager.h"
+#include <dbaccess.h>
 
 #include <QApplication>
 
-dbmanager dbZugriff;
+dbmanager* dbZugriff;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    dbZugriff = new dbmanager();
     MainWindow w;
+
     w.setWindowTitle("Human Resources Management System");
     w.show();
-    dbZugriff = dbmanager();
-    dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337","Password");
+
+    //dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337","Password");
 
 
 
