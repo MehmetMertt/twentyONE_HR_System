@@ -189,11 +189,20 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="nav_controls" stretch="0,0">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="sizeConstraint">
-       <enum>QLayout::SetMinimumSize</enum>
+       <enum>QLayout::SetDefaultConstraint</enum>
       </property>
       <item>
        <widget class="QPushButton" name="open_nav_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -244,7 +253,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="main"/>
+     <layout class="QHBoxLayout" name="main" stretch=""/>
     </item>
    </layout>
   </widget>

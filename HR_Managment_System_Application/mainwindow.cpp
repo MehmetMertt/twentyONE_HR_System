@@ -22,9 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     main_loading_page->setGeometry(this->geometry());
     main_loading_page->show();
+    main_loading_page->loadDB();
 
-    //db = new dbmanager();
-    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
 
 
 
@@ -45,8 +44,6 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::onLoadingFinished() {
-    navbar = new Navbar(this);
-    navbar_comp = new Navbar_compact(this);
     login_page = new Login(this);
     //signup_page = new Signup(this);
     //account_page = new Account(this);
@@ -68,8 +65,9 @@ void MainWindow::onLoadingFinished() {
 void MainWindow::login_finished()
 {
     login_page->hide();
-    dashboard = new Dashboard(this);
-    ui->main->addWidget(dashboard);
+
+    navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
 
     ui->close_nav_button->show();
     ui->sidebar->addWidget(navbar);
@@ -77,6 +75,9 @@ void MainWindow::login_finished()
     ui->sidebar_comp->addWidget(navbar_comp);
 
     navbar_comp->hide();
+
+    dashboard = new Dashboard(this);
+    ui->main->addWidget(dashboard);
 
 }
 

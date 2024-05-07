@@ -17,12 +17,14 @@ class MainLoading : public QWidget
 public:
     explicit MainLoading(QWidget *parent = nullptr);
     ~MainLoading();
+    void loadDB();
 
     signals:
         void loadingFinished();
 
 private slots:
-    void hideAfterDelay();
+    void hideWhenReady();
+
 
 private:
     Ui::MainLoading *ui;

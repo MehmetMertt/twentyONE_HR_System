@@ -1,15 +1,18 @@
 #include "mainloading.h"
 #include "ui_mainloading.h"
+#include <QThread>
+
+#include <dbaccess.h>
 
 MainLoading::MainLoading(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainLoading)
 {
 
-    timer = new QTimer(this);
+    /*timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainLoading::hideAfterDelay);
     timer->setInterval(100);
-    timer->start();
+    timer->start();*/
 
     int screenHeight = parent->geometry().height();
 
@@ -20,6 +23,11 @@ MainLoading::MainLoading(QWidget *parent)
     ui->setupUi(this);
 
 
+
+
+
+
+
 }
 
 MainLoading::~MainLoading()
@@ -27,9 +35,16 @@ MainLoading::~MainLoading()
     delete ui;
 }
 
-void MainLoading::hideAfterDelay() {
+void MainLoading::loadDB() {
+    dbZugriff = new dbmanager();
+    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+    QThread::sleep(1);
+    hideWhenReady();
+}
+
+void MainLoading::hideWhenReady() {
     qDebug("hide loading page");
-    timer->stop();
+    //timer->stop();
     emit loadingFinished();
     QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
     animation->setDuration(1000);  // Adjust duration for slide-up speed
