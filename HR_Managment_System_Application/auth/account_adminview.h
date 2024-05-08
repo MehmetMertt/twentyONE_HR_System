@@ -2,6 +2,7 @@
 #define ACCOUNT_ADMINVIEW_H
 
 #include <QWidget>
+#include "inputvalidator.h"
 
 namespace Ui {
 class Account_adminview;
@@ -17,6 +18,20 @@ public:
 
 private:
     Ui::Account_adminview *ui;
+    InputValidator *validator;
+
+private slots:
+    void onVornameInputChanged();
+    void onNachnameInputChanged();
+    void onEmailInputChanged();
+    void onTelefonInputChanged();
+    void onAdresseInputChanged();
+    void onPlzInputChanged();
+    void onOrtInputChanged();
+    void onPasswortInputChanged();
+    void onPasswort2InputChanged();
+    void on_speichern1_button_clicked();
+    void on_speichern2_button_clicked();
 };
 
 #endif // ACCOUNT_ADMINVIEW_H

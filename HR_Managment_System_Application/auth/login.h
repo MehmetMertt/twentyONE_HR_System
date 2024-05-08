@@ -2,7 +2,7 @@
 #define LOGIN_H
 
 #include <QWidget>
-#include <dbmanager.h>
+#include "inputvalidator.h"
 
 namespace Ui {
 class Login;
@@ -19,12 +19,14 @@ public:
 signals:
     void login_success();
 
-private slots:
-    void on_login_button_clicked();
-
 private:
     Ui::Login *ui;
-    dbmanager* db;
+    InputValidator *validator;
+
+private slots:
+    void onEmailInputChanged();
+    void onPasswordInputChanged();
+    void on_button_clicked();
 };
 
 #endif // LOGIN_H

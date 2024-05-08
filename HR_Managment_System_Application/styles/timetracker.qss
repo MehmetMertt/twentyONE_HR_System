@@ -1,0 +1,67 @@
+QLabel {
+
+    font-size: 14px;
+
+}
+
+#header {
+    font-size: 18px;
+}
+
+QLabel[labeltype = "data_header"] {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+QLabel[labeltype = "current_value"] {
+    font-weight: 500;
+}
+
+QLabel[labeltype = "max_value"] {
+    color: rgba(0, 0, 0, 0.24);
+}
+
+.QFrame {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #e6e6e6;
+}
+
+.QGroupBox {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+}
+
+.QGroupBox::title {
+    font-size: 18px;
+}
+
+.QProgressBar {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D3D3D3;
+    border-radius: 8px;
+    padding: 2px;
+    height: 10px;
+}
+.QProgressBar::chunk {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    border-color: #11698E;
+    background-color: #11698E;
+}
+
+QPushButton {
+  color: #11698E;
+  border: 1px solid #11698E;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 10%;
+}
+
+QPushButton:hover {
+    background-color: #11698E;
+    color: #F8F1F1;
+}

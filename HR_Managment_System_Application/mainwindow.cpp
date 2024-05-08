@@ -13,10 +13,20 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+/*
+    //was auch immer das ist:
+    navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
+    //login_page = new Login(this);
+    //signup_page = new Signup(this);
+    //ui->main->addWidget(login_page);
+    dashboard = new Dashboard(this);
+
+    ui->main->addWidget(dashboard);
 
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
-
+*/
     main_loading_page = new MainLoading(this);
     connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
 
@@ -24,9 +34,15 @@ MainWindow::MainWindow(QWidget *parent)
     main_loading_page->show();
     main_loading_page->loadDB();
 
-
-
-
+/*
+    //für account aber nur für admins:
+    navbar_comp = new Navbar_compact(this);
+    account_adminview_page = new Account_adminview(this);
+    ui->main->addWidget(account_adminview_page);
+    navbar_comp->show();
+*/
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
