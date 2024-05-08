@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
-
+*/
     main_loading_page = new MainLoading(this);
     connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
 
@@ -34,12 +34,13 @@ MainWindow::MainWindow(QWidget *parent)
     main_loading_page->show();
     main_loading_page->loadDB();
 
-
+/*
     //für account aber nur für admins:
     navbar_comp = new Navbar_compact(this);
     account_adminview_page = new Account_adminview(this);
     ui->main->addWidget(account_adminview_page);
     navbar_comp->show();
+*/
     ui->close_nav_button->hide();
     ui->open_nav_button->hide();
 

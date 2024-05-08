@@ -1,6 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include <QFile>
+#include <dbaccess.h>
 
 Login::Login(QWidget *parent)
     : QWidget(parent)
@@ -54,25 +55,19 @@ void Login::on_button_clicked(){
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
+        bool login = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
+        //Für Testing, remove for deployment
+        login = true;
+        qDebug() << ui->email_input->text();
+        qDebug() << ui->passwort_input->text();
+        if(login){
+            emit login_success();
+        } else {
+            ui->error_text->show();
+        }
 
         //FÜR DEBUGGING:
         qWarning() << "Email: " << Email << "Passwort: " << Passwort;
-    }
-
-}
-
-
-void Login::on_login_button_clicked()
-{
-    bool login = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
-    //Für Testing, remove for deployment
-    login = true;
-    qDebug() << ui->email_input->text();
-    qDebug() << ui->passwort_input->text();
-    if(login){
-        emit login_success();
-    } else {
-        ui->error_text->show();
     }
 
 }
