@@ -245,7 +245,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="login_button">
+      <widget class="QPushButton" name="button">
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
@@ -263,7 +263,7 @@
      <item>
       <widget class="QLabel" name="error_text">
        <property name="text">
-        <string>Daten ungültig!</string>
+        <string/>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

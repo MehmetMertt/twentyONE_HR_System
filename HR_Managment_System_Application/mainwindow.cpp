@@ -12,10 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-<<<<<<< Updated upstream
-=======
-
+/*
+    //was auch immer das ist:
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
     //login_page = new Login(this);
@@ -25,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->main->addWidget(dashboard);
 
->>>>>>> Stashed changes
     ui->open_nav_button->hide();
     ui->close_nav_button->hide();
 
@@ -34,9 +31,42 @@ MainWindow::MainWindow(QWidget *parent)
 
     main_loading_page->setGeometry(this->geometry());
     main_loading_page->show();
+*/
+/*
+    //für signup:
+    navbar_comp = new Navbar_compact(this);
+    signup_page = new Signup(this);
+    ui->main->addWidget(signup_page);
+    navbar_comp->show();
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
+*/
+/*
+    //für login:
+    navbar_comp = new Navbar_compact(this);
+    login_page = new Login(this);
+    ui->main->addWidget(login_page);
+    navbar_comp->show();
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
+*/
+/*
+    //für account:
+    navbar_comp = new Navbar_compact(this);
+    account_page = new Account(this);
+    ui->main->addWidget(account_page);
+    navbar_comp->show();
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
+*/
 
-
-
+    //für account aber nur für admins:
+    navbar_comp = new Navbar_compact(this);
+    account_adminview_page = new Account_adminview(this);
+    ui->main->addWidget(account_adminview_page);
+    navbar_comp->show();
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -54,6 +84,8 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::onLoadingFinished() {
+
+    //für Login:
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
     login_page = new Login(this);
@@ -71,6 +103,7 @@ void MainWindow::onLoadingFinished() {
     ui->sidebar_comp->addWidget(navbar_comp);
 
     navbar_comp->hide();
+
 }
 
 

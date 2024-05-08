@@ -65,7 +65,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_3">
+        <widget class="QLineEdit" name="titel_input">
          <property name="placeholderText">
           <string>Titel</string>
          </property>
@@ -79,7 +79,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="vorname_input">
          <property name="placeholderText">
           <string>Vorname</string>
          </property>
@@ -89,7 +89,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="nachname_input">
          <property name="placeholderText">
           <string>Nachname</string>
          </property>
@@ -103,7 +103,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLineEdit" name="lineEdit_4">
+        <widget class="QLineEdit" name="email_input">
          <property name="placeholderText">
           <string>Email</string>
          </property>
@@ -113,7 +113,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_5">
+        <widget class="QLineEdit" name="tel_input">
          <property name="placeholderText">
           <string>Telefonnummer</string>
          </property>
@@ -127,7 +127,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QLineEdit" name="lineEdit_6">
+        <widget class="QLineEdit" name="adresse_input">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -149,7 +149,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_7">
+        <widget class="QLineEdit" name="plz_input">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -165,7 +165,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_8">
+        <widget class="QLineEdit" name="ort_input">
          <property name="placeholderText">
           <string>Ort</string>
          </property>
@@ -192,7 +192,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="speichern1_button">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -248,7 +248,10 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QLineEdit" name="lineEdit_9">
+        <widget class="QLineEdit" name="passwort_input">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
          <property name="placeholderText">
           <string>Neues Passwort</string>
          </property>
@@ -258,7 +261,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_10">
+        <widget class="QLineEdit" name="passwort2_input">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
          <property name="placeholderText">
           <string>Passwort wiederholen</string>
          </property>
@@ -285,7 +291,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="speichern2_button">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -311,6 +317,16 @@
         </spacer>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="error_text">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer_2">

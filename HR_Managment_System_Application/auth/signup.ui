@@ -380,7 +380,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="signup_button">
+        <widget class="QPushButton" name="button">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
