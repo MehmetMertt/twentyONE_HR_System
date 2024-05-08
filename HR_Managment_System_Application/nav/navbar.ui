@@ -6,13 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>180</width>
+    <width>200</width>
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="maximumSize">
    <size>
-    <width>220</width>
+    <width>200</width>
     <height>16777215</height>
    </size>
   </property>
@@ -205,7 +217,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="username">
+      <widget class="QPushButton" name="user">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -231,6 +243,9 @@
        <property name="flat">
         <bool>true</bool>
        </property>
+       <property name="active_item" stdset="0">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -249,7 +264,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QPushButton" name="nav_link1">
+        <widget class="QPushButton" name="dashboard">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -273,6 +288,9 @@
           </size>
          </property>
          <property name="flat">
+          <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
           <bool>true</bool>
          </property>
         </widget>
@@ -317,12 +335,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="nav_link2">
+        <widget class="QPushButton" name="timetracker">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>Zeiterfassung</string>
@@ -339,6 +360,9 @@
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -382,12 +406,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="nav_link3">
+        <widget class="QPushButton" name="request">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>Anträge</string>
@@ -404,6 +431,9 @@
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+         <property name="active_item" stdset="0">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -423,12 +453,15 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="settings">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="text">
         <string>Settings</string>
@@ -449,12 +482,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="login_out_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="text">
         <string>Logout</string>

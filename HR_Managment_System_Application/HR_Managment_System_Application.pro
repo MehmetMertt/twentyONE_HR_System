@@ -21,11 +21,15 @@ SOURCES += \
     mainwindow.cpp \
     nav/navbar.cpp \
     nav/navbar_compact.cpp \
+    requests.cpp \
+    settings.cpp \
+    timetracker.cpp
 
 HEADERS += \
     auth/account.h \
     auth/account_adminview.h \
     dashboard.h \
+    dbaccess.h \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \
@@ -34,6 +38,9 @@ HEADERS += \
     mainwindow.h \
     nav/navbar.h \
     nav/navbar_compact.h \
+    requests.h \
+    settings.h \
+    timetracker.h
 
 FORMS += \
     auth/account.ui \
@@ -45,6 +52,9 @@ FORMS += \
     mainwindow.ui \
     nav/navbar.ui \
     nav/navbar_compact.ui \
+    requests.ui \
+    settings.ui \
+    timetracker.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -56,7 +66,6 @@ DISTFILES += \
 
 RESOURCES +=
 assests.qrc
-addFiles.sources = database.db
 addFiles.path = .
 DEPLOYMENT += addFiles
 DISTFILES +=

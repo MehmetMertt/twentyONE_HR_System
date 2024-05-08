@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <dbaccess.h>
 #include <QFile>
 #include <QPropertyAnimation>
 #include <QtSql/QSqlDatabase>
@@ -31,34 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     main_loading_page->setGeometry(this->geometry());
     main_loading_page->show();
-*/
-/*
-    //für signup:
-    navbar_comp = new Navbar_compact(this);
-    signup_page = new Signup(this);
-    ui->main->addWidget(signup_page);
-    navbar_comp->show();
-    ui->close_nav_button->hide();
-    ui->open_nav_button->hide();
-*/
-/*
-    //für login:
-    navbar_comp = new Navbar_compact(this);
-    login_page = new Login(this);
-    ui->main->addWidget(login_page);
-    navbar_comp->show();
-    ui->close_nav_button->hide();
-    ui->open_nav_button->hide();
-*/
-/*
-    //für account:
-    navbar_comp = new Navbar_compact(this);
-    account_page = new Account(this);
-    ui->main->addWidget(account_page);
-    navbar_comp->show();
-    ui->close_nav_button->hide();
-    ui->open_nav_button->hide();
-*/
+    main_loading_page->loadDB();
+
 
     //für account aber nur für admins:
     navbar_comp = new Navbar_compact(this);
@@ -84,10 +59,6 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::onLoadingFinished() {
-
-    //für Login:
-    navbar = new Navbar(this);
-    navbar_comp = new Navbar_compact(this);
     login_page = new Login(this);
     //signup_page = new Signup(this);
     //account_page = new Account(this);
@@ -96,6 +67,43 @@ void MainWindow::onLoadingFinished() {
 
 
     ui->main->addWidget(login_page);
+    ui->main->setCurrentWidget(login_page);
+    connect(login_page, &Login::login_success, this, &MainWindow::login_finished);
+
+    /*ui->close_nav_button->show();
+    ui->sidebar->addWidget(navbar);
+
+    ui->sidebar_comp->addWidget(navbar_comp);
+
+    navbar_comp->hide();*/
+}
+
+void MainWindow::login_finished()
+{
+    ui->main->removeWidget(login_page);
+    login_page->hide();
+
+    navbar = new Navbar(this);
+    navbar_comp = new Navbar_compact(this);
+
+    connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
+    connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
+
+    connect(navbar, &Navbar::dashboard_clicked, this, &MainWindow::showDashboard);
+    connect(navbar_comp, &Navbar_compact::dashboard_clicked, this, &MainWindow::showDashboard);
+
+    connect(navbar, &Navbar::timetracker_clicked, this, &MainWindow::showTimetracker);
+    connect(navbar_comp, &Navbar_compact::timetracker_clicked, this, &MainWindow::showTimetracker);
+
+    connect(navbar, &Navbar::request_clicked, this, &MainWindow::showRequests);
+    connect(navbar_comp, &Navbar_compact::request_clicked, this, &MainWindow::showRequests);
+
+    connect(navbar, &Navbar::settings_clicked, this, &MainWindow::showSettings);
+    connect(navbar_comp, &Navbar_compact::settings_clicked, this, &MainWindow::showSettings);
+
+    connect(navbar, &Navbar::login_out_clicked, this, &MainWindow::processLoginOut);
+    connect(navbar_comp, &Navbar_compact::login_out_clicked, this, &MainWindow::processLoginOut);
+
 
     ui->close_nav_button->show();
     ui->sidebar->addWidget(navbar);
@@ -103,6 +111,18 @@ void MainWindow::onLoadingFinished() {
     ui->sidebar_comp->addWidget(navbar_comp);
 
     navbar_comp->hide();
+
+    dashboard = new Dashboard(this);
+    account_page = new Account(this);
+    timetracker_page = new Timetracker(this);
+    request_page = new Requests(this);
+    settings_page = new Settings(this);
+    ui->main->addWidget(dashboard);
+    ui->main->addWidget(account_page);
+    ui->main->addWidget(timetracker_page);
+    ui->main->addWidget(request_page);
+    ui->main->addWidget(settings_page);
+    ui->main->setCurrentWidget(dashboard);
 
 }
 
@@ -131,6 +151,10 @@ void MainWindow::on_close_nav_button_clicked()
     // Connect the animation's finished signal to show the open button
     connect(animationNavbar, &QPropertyAnimation::finished, [this]() {
         navbar->hide();
+        //ui->sidebar->removeWidget(navbar);
+
+        //ui->sidebar_comp->addWidget(navbar_comp);
+        navbar_comp->setActiveItem(navbar->getActiveItem());
         navbar_comp->show();
         ui->close_nav_button->hide();
         ui->open_nav_button->show();
@@ -171,18 +195,22 @@ void MainWindow::on_open_nav_button_clicked()
     // Connect the animation's finished signal to hide the open button
     connect(animationNavComp, &QPropertyAnimation::finished, [this]() {
         navbar_comp->hide();
+        //ui->sidebar_comp->removeWidget(navbar_comp);
 
+        //ui->sidebar->addWidget(navbar);
+        navbar->setActiveItem(navbar_comp->getActiveItem());
         navbar->show();
         //navbar->setGeometry(navbar_closed_geometry);
-        ui->close_nav_button->show();
         ui->open_nav_button->hide();
+        ui->close_nav_button->show();
+
 
         // Create a property animation for the sidebar's width
         QPropertyAnimation *animationNavbar = new QPropertyAnimation(navbar, "geometry");
         animationNavbar->setDuration(200); // 100ms animation duration
         animationNavbar->setEasingCurve(QEasingCurve::InCubic);
 
-        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 180, ui->sidebar->geometry().height());
+        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 200, ui->sidebar->geometry().height());
 
         // Animate the width from 0 (hidden) to the current sidebar width
         animationNavbar->setStartValue(navbar->geometry());
@@ -195,5 +223,28 @@ void MainWindow::on_open_nav_button_clicked()
     // Start the animation
     animationNavComp->start();
 
+}
+
+void MainWindow::showAccount() {
+    ui->main->setCurrentWidget(account_page);
+}
+
+void MainWindow::showDashboard() {
+    ui->main->setCurrentWidget(dashboard);
+}
+
+void MainWindow::showTimetracker() {
+    ui->main->setCurrentWidget(timetracker_page);
+}
+
+void MainWindow::showRequests() {
+    ui->main->setCurrentWidget(request_page);
+}
+
+void MainWindow::showSettings() {
+    ui->main->setCurrentWidget(settings_page);
+}
+
+void MainWindow::processLoginOut() {
 }
 

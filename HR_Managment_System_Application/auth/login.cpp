@@ -61,3 +61,19 @@ void Login::on_button_clicked(){
 
 }
 
+
+void Login::on_login_button_clicked()
+{
+    bool login = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
+    //Für Testing, remove for deployment
+    login = true;
+    qDebug() << ui->email_input->text();
+    qDebug() << ui->passwort_input->text();
+    if(login){
+        emit login_success();
+    } else {
+        ui->error_text->show();
+    }
+
+}
+

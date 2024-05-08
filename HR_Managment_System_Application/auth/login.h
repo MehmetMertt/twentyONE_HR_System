@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "inputvalidator.h"
+#include <dbmanager.h>
 
 namespace Ui {
 class Login;
@@ -13,8 +14,14 @@ class Login : public QWidget
     Q_OBJECT
 
 public:
-    explicit Login(QWidget *parent = nullptr);
+    Login(QWidget *parent = nullptr);
     ~Login();
+
+signals:
+    void login_success();
+
+private slots:
+    void on_login_button_clicked();
 
 private:
     Ui::Login *ui;
@@ -24,6 +31,7 @@ private slots:
     void onEmailInputChanged();
     void onPasswordInputChanged();
     void on_button_clicked();
+    dbmanager* db;
 };
 
 #endif // LOGIN_H
