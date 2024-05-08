@@ -21,6 +21,10 @@ QLabel[labeltype = "max_value"] {
     color: rgba(0, 0, 0, 0.24);
 }
 
+#timer_label {
+    font-size: 16px;
+}
+
 .QFrame {
     border: 1px solid #D3D3D3;
     border-radius: 8px;
