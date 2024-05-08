@@ -21,6 +21,7 @@ public:
     dbmanager();
     bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort);
     bool login(QString email,QString passwort);
+    bool logZeit(QDateTime startzeit,QDateTime endzeit,QString notiz, int mitarbeiterID);
 private:
     QSqlDatabase m_db;
 };
