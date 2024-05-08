@@ -73,3 +73,33 @@ bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email,
     return success;
 
 }
+
+bool dbmanager::logZeit(QDateTime startzeit, QDateTime endzeit, QString notiz, int mitarbeiterID){
+
+    bool success = false;
+    QSqlQuery query;
+    QString mysqlDateStart = startzeit.toString("YYYY-mm-dd hh:mm:ss");
+    QString mysqlDateEnde = endzeit.toString("YYYY-mm-dd hh:mm:ss");
+    query.prepare("INSERT INTO Mitarbeiter (Arbeitsbeginn, Arbeitsende,Notiz) VALUES(:Arbeitsbeginn, :Arbeitsende, :Notiz) WHERE MitarbeiterID = : MitarbeiterID ;");
+    query.bindValue(":Arbeitsbeginn",QString("'%1'").arg(mysqlDateStart));
+    query.bindValue(":Arbeitsende",QString("'%1'").arg(mysqlDateEnde));
+    query.bindValue(":Notiz",QString("'%1'").arg(notiz));
+    query.bindValue(":MitarbeiterID",QString("'%1'").arg(mitarbeiterID));
+
+
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "logZeit success";
+    }
+    else
+    {
+        qDebug() << "logZeit error:"
+                 << query.lastError();
+    }
+
+    return success;
+
+
+}

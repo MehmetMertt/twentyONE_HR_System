@@ -15,6 +15,7 @@ SOURCES += \
     dbmanager.cpp \
     auth/login.cpp \
     auth/signup.cpp \
+    inputvalidator.cpp \
     main.cpp \
     mainloading.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \
+    inputvalidator.h \
     mainloading.h \
     mainwindow.h \
     nav/navbar.h \

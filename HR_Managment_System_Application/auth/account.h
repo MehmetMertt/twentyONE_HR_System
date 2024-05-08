@@ -2,6 +2,7 @@
 #define ACCOUNT_H
 
 #include <QWidget>
+#include "inputvalidator.h"
 
 namespace Ui {
 class Account;
@@ -17,6 +18,12 @@ public:
 
 private:
     Ui::Account *ui;
+    InputValidator *validator;
+
+private slots:
+    void onPasswortInputChanged();
+    void onPasswort2InputChanged();
+    void on_button_clicked();
 };
 
 #endif // ACCOUNT_H
