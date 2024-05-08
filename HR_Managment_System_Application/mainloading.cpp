@@ -37,7 +37,7 @@ MainLoading::~MainLoading()
 
 void MainLoading::loadDB() {
     dbZugriff = new dbmanager();
-    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+    //dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
     QThread::sleep(1);
     hideWhenReady();
 }
