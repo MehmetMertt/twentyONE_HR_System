@@ -23,7 +23,8 @@ SOURCES += \
     nav/navbar_compact.cpp \
     requests.cpp \
     settings.cpp \
-    timetracker.cpp
+    timetracker.cpp \
+    zeiteintrag.cpp
 
 HEADERS += \
     auth/account.h \
@@ -40,7 +41,8 @@ HEADERS += \
     nav/navbar_compact.h \
     requests.h \
     settings.h \
-    timetracker.h
+    timetracker.h \
+    zeiteintrag.h
 
 FORMS += \
     auth/account.ui \
@@ -54,7 +56,8 @@ FORMS += \
     nav/navbar_compact.ui \
     requests.ui \
     settings.ui \
-    timetracker.ui
+    timetracker.ui \
+    zeiteintrag.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
