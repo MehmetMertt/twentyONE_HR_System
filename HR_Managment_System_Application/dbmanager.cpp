@@ -74,7 +74,7 @@ bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email,
 
 }
 
-bool dbmanager::logZeit(QDateTime startzeit, QDateTime endzeit, QString notiz, int mitarbeiterID){
+bool dbmanager::createZeiteintrag(QDateTime startzeit, QDateTime endzeit, QString notiz, int mitarbeiterID){
 
     bool success = false;
     QSqlQuery query;
