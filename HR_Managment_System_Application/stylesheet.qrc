@@ -13,5 +13,6 @@
         <file>icons/settings.svg</file>
         <file>icons/zeit.svg</file>
         <file>icons/login.svg</file>
+        <file>styles/timetracker.qss</file>
     </qresource>
 </RCC>
