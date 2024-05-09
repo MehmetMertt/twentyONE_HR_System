@@ -52,8 +52,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onLoadingFinished() {
     login_page = new Login(this);
 
-    ui->main->addWidget(login_page);
+
+        ui->main->addWidget(login_page);
+   // ui->main->addWidget(dashboard);
     ui->main->setCurrentWidget(login_page);
+   // ui->main->setCurrentWidget(dashboard);
     connect(login_page, &Login::login_success, this, &MainWindow::login_finished);
 
 }
