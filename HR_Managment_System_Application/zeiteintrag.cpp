@@ -8,29 +8,29 @@ Zeiteintrag::Zeiteintrag(QWidget *parent)
     ui->setupUi(this);
 }
 
-Zeiteintrag::Zeiteintrag(int id, QDateTime date, QDateTime start, QDateTime ende, int duration, QString comment, QWidget *parent)
+Zeiteintrag::Zeiteintrag(int id, QDateTime date, QDateTime startzeit, QDateTime endzeit, int dauer, QString notiz, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Zeiteintrag)
 {
 
     this->id = id;
-    this->comment = comment;
+    this->notiz = notiz;
     this->date = date;
-    this->start = start;
-    this->ende = ende;
-    this->duration = duration;
+    this->startzeit = startzeit;
+    this->endzeit = endzeit;
+    this->dauer = dauer;
 
 
     ui->setupUi(this);
 
     ui->label_date->setText(this->date.toLocalTime().toString("dd.MM.yyyy"));
-    ui->label_time->setText(this->start.toLocalTime().toString("hh:mm") + " - " + this->ende.toLocalTime().toString("hh:mm"));
-    ui->label_duration->setText(QString::number(duration) + " h");
+    ui->label_time->setText(this->startzeit.toLocalTime().toString("hh:mm") + " - " + this->endzeit.toLocalTime().toString("hh:mm"));
+    ui->label_duration->setText(QString::number(dauer) + " h");
 
     ui->label_comment->hide();
 
-    if(comment != "") {
-        ui->label_comment->setText(comment);
+    if(notiz != "") {
+        ui->label_comment->setText(notiz);
         ui->label_comment->show();
     }
 }
