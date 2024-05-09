@@ -2,6 +2,7 @@
 #define DASHBOARD_H
 
 #include <QWidget>
+#include <QtCharts/QLineSeries>
 
 namespace Ui {
 class Dashboard;
