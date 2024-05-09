@@ -13,34 +13,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-/*
-    //was auch immer das ist:
-    navbar = new Navbar(this);
-    navbar_comp = new Navbar_compact(this);
-    //login_page = new Login(this);
-    //signup_page = new Signup(this);
-    //ui->main->addWidget(login_page);
-    dashboard = new Dashboard(this);
 
-    ui->main->addWidget(dashboard);
+    //DONT DELETE
+    //Only commented for development
+    //Uncomment to test loading and login
 
-    ui->open_nav_button->hide();
-    ui->close_nav_button->hide();
-*/
-    main_loading_page = new MainLoading(this);
-    connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
+    /*
+     * main_loading_page = new MainLoading(this);
+     * connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
 
-    main_loading_page->setGeometry(this->geometry());
-    main_loading_page->show();
-    main_loading_page->loadDB();
+     * main_loading_page->setGeometry(this->geometry());
+     * main_loading_page->show();
+     * main_loading_page->loadDB();
+    */
 
-/*
-    //für account aber nur für admins:
-    navbar_comp = new Navbar_compact(this);
-    account_adminview_page = new Account_adminview(this);
-    ui->main->addWidget(account_adminview_page);
-    navbar_comp->show();
-*/
+    //Delete after development
+    dbZugriff = new dbmanager();
+    login_finished();
+
     ui->close_nav_button->hide();
     ui->open_nav_button->hide();
 
@@ -61,28 +51,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::onLoadingFinished() {
     login_page = new Login(this);
-    //signup_page = new Signup(this);
-    //account_page = new Account(this);
-    //account_adminview_page = new Account_adminview(this);
-    //ui->main->addWidget(login_page);
 
 
-    ui->main->addWidget(login_page);
+        ui->main->addWidget(login_page);
+   // ui->main->addWidget(dashboard);
     ui->main->setCurrentWidget(login_page);
+   // ui->main->setCurrentWidget(dashboard);
     connect(login_page, &Login::login_success, this, &MainWindow::login_finished);
 
-    /*ui->close_nav_button->show();
-    ui->sidebar->addWidget(navbar);
-
-    ui->sidebar_comp->addWidget(navbar_comp);
-
-    navbar_comp->hide();*/
 }
 
 void MainWindow::login_finished()
 {
-    ui->main->removeWidget(login_page);
-    login_page->hide();
+    //Uncomment after development
+    //ui->main->removeWidget(login_page);
+    //login_page->hide();
 
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);

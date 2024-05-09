@@ -1,6 +1,7 @@
 #include "timetracker.h"
 #include "qtimer.h"
 #include "ui_timetracker.h"
+#include "zeiteintrag.h"
 
 #include <QFile>
 
@@ -9,6 +10,19 @@ Timetracker::Timetracker(QWidget *parent)
     , ui(new Ui::Timetracker)
 {
     ui->setupUi(this);
+
+
+    QListWidgetItem* listitem;
+    for(int i = 0; i < 15; i++) {
+        listitem = new QListWidgetItem();
+        Zeiteintrag* zeiteintrag = new Zeiteintrag(i, QDateTime::currentDateTime(), QDateTime::currentDateTime(), QDateTime::currentDateTime().addSecs(3600), 1, "test", this);
+
+        listitem->setSizeHint(zeiteintrag->sizeHint());
+
+        ui->listWidget->addItem(listitem);
+        ui->listWidget->setItemWidget(listitem, zeiteintrag);
+    }
+
 
     ui->button_pause->hide();
     ui->button_stop->hide();

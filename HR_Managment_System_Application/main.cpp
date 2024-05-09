@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Human Resources Management System");
     w.show();
 
-    //dbZugriff.addMitarbeiter("Mehmet","M","test@gmail.com","06641337","Password");
-
 
 
     return a.exec();

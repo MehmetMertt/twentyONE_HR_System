@@ -2,6 +2,7 @@
 #define ZEITEINTRAG_H
 
 #include <QWidget>
+#include <QDateTime>
 
 namespace Ui {
 class Zeiteintrag;
@@ -12,22 +13,20 @@ class Zeiteintrag : public QWidget
     Q_OBJECT
 
 public:
-    explicit Zeiteintrag(QWidget *parent = nullptr);
+    Zeiteintrag(QWidget *parent = nullptr);
+    Zeiteintrag(int id = 0, QDateTime date = QDateTime::currentDateTime(), QDateTime start = QDateTime::currentDateTime(), QDateTime ende = QDateTime::currentDateTime(), int duration = 0, QString comment = "", QWidget *parent = nullptr);
     ~Zeiteintrag();
-    void setStartzeit(QDateTime startzeit);
-    void setEndzeit(QDateTime endzeit);
-    void setNotiz(QString notiz);
-
-    QDateTime getStartzeit();
-    QDateTime getEndzeit();
-    QString getNotiz();
 
 private:
     Ui::Zeiteintrag *ui;
 
-    QDateTime startzeit;
-    QDateTime endzeit;
-    QString notiz;
+    int id;
+    QDateTime date;
+    QDateTime start;
+    QDateTime ende;
+    int duration;
+    QString comment;
+
 };
 
 #endif // ZEITEINTRAG_H
