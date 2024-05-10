@@ -1,3 +1,14 @@
+#navbar_container {
+    background-color: #ececec;
+    border-top-left-radius: 0;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 12px;
+    border: 1px solid rgba(11, 11, 11, 0.27);
+    border-left: none;
+}
+
+
 
 QPushButton {
     font-size: 16px;

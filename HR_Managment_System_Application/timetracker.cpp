@@ -13,15 +13,24 @@ Timetracker::Timetracker(QWidget *parent)
 
 
     QListWidgetItem* listitem;
+    Zeiteintrag* zeiteintrag;
     for(int i = 0; i < 15; i++) {
         listitem = new QListWidgetItem();
-        Zeiteintrag* zeiteintrag = new Zeiteintrag(i, QDateTime::currentDateTime(), QDateTime::currentDateTime(), QDateTime::currentDateTime().addSecs(3600), 1, "test", this);
+        zeiteintrag = new Zeiteintrag(i, QDateTime::currentDateTime(), QDateTime::currentDateTime(), QDateTime::currentDateTime().addSecs(3600*(i+1)), (i+1), "", this);
 
         listitem->setSizeHint(zeiteintrag->sizeHint());
 
         ui->listWidget->addItem(listitem);
         ui->listWidget->setItemWidget(listitem, zeiteintrag);
     }
+
+    listitem = new QListWidgetItem();
+    zeiteintrag = new Zeiteintrag(16, QDateTime::currentDateTime(), QDateTime::currentDateTime(), QDateTime::currentDateTime().addSecs(3600), 1, "test", this);
+
+    listitem->setSizeHint(zeiteintrag->sizeHint());
+
+    ui->listWidget->addItem(listitem);
+    ui->listWidget->setItemWidget(listitem, zeiteintrag);
 
 
     ui->button_pause->hide();

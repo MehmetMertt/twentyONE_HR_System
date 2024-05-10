@@ -27,12 +27,14 @@ MainWindow::MainWindow(QWidget *parent)
      * main_loading_page->loadDB();
     */
 
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
+
     //Delete after development
     dbZugriff = new dbmanager();
     login_finished();
 
-    ui->close_nav_button->hide();
-    ui->open_nav_button->hide();
+
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/main_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -143,7 +145,7 @@ void MainWindow::on_close_nav_button_clicked()
         animationNavComp->setDuration(150); // 100ms animation duration
         animationNavComp->setEasingCurve(QEasingCurve::InCubic);
 
-        navbar_comp_geometry = QRect(ui->sidebar_comp->geometry().x(), ui->sidebar_comp->geometry().y(), 72, ui->sidebar_comp->geometry().height());
+        navbar_comp_geometry = QRect(ui->sidebar_comp->geometry().x(), ui->sidebar_comp->geometry().y(), 70, ui->sidebar_comp->geometry().height());
 
         // Animate the width from the current value to 0 (hidden)
         animationNavComp->setStartValue(navbar_comp->geometry());
@@ -190,7 +192,7 @@ void MainWindow::on_open_nav_button_clicked()
         animationNavbar->setDuration(200); // 100ms animation duration
         animationNavbar->setEasingCurve(QEasingCurve::InCubic);
 
-        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 200, ui->sidebar->geometry().height());
+        navbar_geometry = QRect(ui->sidebar->geometry().x(), ui->sidebar->geometry().y(), 180, ui->sidebar->geometry().height());
 
         // Animate the width from 0 (hidden) to the current sidebar width
         animationNavbar->setStartValue(navbar->geometry());

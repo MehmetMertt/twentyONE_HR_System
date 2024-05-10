@@ -25,20 +25,12 @@ QLabel[labeltype = "max_value"] {
     font-size: 16px;
 }
 
-.QFrame {
+.QFrame, .QListWidget {
     border: 1px solid #D3D3D3;
     border-radius: 8px;
     background-color: #e6e6e6;
 }
 
-.QGroupBox {
-    border: 1px solid #D3D3D3;
-    border-radius: 8px;
-}
-
-.QGroupBox::title {
-    font-size: 18px;
-}
 
 .QProgressBar {
     border-style: solid;
