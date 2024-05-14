@@ -1,5 +1,6 @@
 #include "dbmanager.h"
 #include <QCryptographicHash>
+#include "zeiteintrag.h"
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
     m_db = QSqlDatabase::addDatabase("QMYSQL");
@@ -103,3 +104,42 @@ bool dbmanager::createZeiteintrag(QDateTime startzeit, QDateTime endzeit, QStrin
 
 
 }
+
+Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array ){
+
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("SELECT Arbeitsbeginn,Arbeitsende, Notiz FROM Arbeitszeiten WHERE  MitarbeitderID = :MitarbeiterID ");
+    query.bindValue(":MitarbeiterID",QString("'%1'").arg(mitarbeiterID));
+
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "getZeit success";
+
+        int i = 0;
+        while (query.next()) {
+
+            Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
+
+            zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
+            zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
+            zeiteintrag1->setNotiz(query.value(2).toString());
+
+            array[i] = zeiteintrag1;
+            ++i;
+            qDebug();
+        }
+    }
+    else
+    {
+        qDebug() << "getZeit error:"
+                 << query.lastError();
+    }
+
+    return array;
+}
+
+

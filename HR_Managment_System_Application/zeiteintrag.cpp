@@ -35,6 +35,7 @@ Zeiteintrag::Zeiteintrag(int id, QDateTime date, QDateTime startzeit, QDateTime 
     }
 }
 
+
 Zeiteintrag::~Zeiteintrag()
 {
     delete ui;
@@ -49,7 +50,9 @@ void Zeiteintrag::setEndzeit(QDateTime endzeit){
 void Zeiteintrag::setNotiz(QString notiz){
     this->notiz=notiz;
 }
-
+void Zeiteintrag::setID(int id){
+    this->id=id;
+}
 
 QDateTime Zeiteintrag::getStartzeit(){
     return this->startzeit;
@@ -60,4 +63,7 @@ QDateTime Zeiteintrag::getEndzeit(){
 }
 QString Zeiteintrag::getNotiz(){
     return this->notiz;
+}
+int Zeiteintrag::getID(){
+    return this->id;
 }
