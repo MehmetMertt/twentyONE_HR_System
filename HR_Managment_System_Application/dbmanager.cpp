@@ -137,6 +137,7 @@ Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array ){
     {
         qDebug() << "getZeit error:"
                  << query.lastError();
+        return 0;
     }
 
     return array;

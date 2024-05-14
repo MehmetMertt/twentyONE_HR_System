@@ -13,7 +13,7 @@
 #include <QtSql/QSqlQuery>
 #include <QDebug>
 #include <QSqlError>
-
+#include "zeiteintrag.h"
 class dbmanager
 {
 public:
@@ -22,6 +22,8 @@ public:
     bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort);
     bool login(QString email,QString passwort);
     bool createZeiteintrag(QDateTime startzeit,QDateTime endzeit,QString notiz, int mitarbeiterID);
+    Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array );
+
 private:
     QSqlDatabase m_db;
 };
