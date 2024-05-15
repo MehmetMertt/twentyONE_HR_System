@@ -1,6 +1,7 @@
 #include "dbmanager.h"
 #include <QCryptographicHash>
 #include "zeiteintrag.h"
+#include "person.h"
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
     m_db = QSqlDatabase::addDatabase("QMYSQL");
@@ -27,47 +28,57 @@ QString sha512_hash(QString pw){
 }
 
 
-bool dbmanager::login(QString email, QString passwort){
+person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
     bool sucess;
-    QString pw = sha512_hash(passwort);
+    QString pw = sha512_hash(password);
     qDebug() << pw;
-    query.prepare("SELECT MitarbeiterID from Mitarbeiter WHERE Email = :Email && Passwort = :Passwort");
-    query.bindValue(":Passwort",QString("'%1'").arg(pw));
-    query.bindValue(":Email",QString("'%1'").arg(email));
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber from EMPLOYEE as e JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
+    query.bindValue(":password",QString("%1").arg(pw));
+    query.bindValue(":mail",QString("%1").arg(mail));
+
     if(query.exec() && query.size() > 0){
         query.next();
-        int mitarbeiterID = query.value(0).toInt();
-        sucess = true;
-        qDebug() << "Einloggen war erfolgreich " + QString::number(mitarbeiterID);
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString surname = query.value(2).toString();
+        QString mail = query.value(3).toString();
+        QString phone = query.value(4).toString();
+        QString street = query.value(5).toString();
+        QString city = query.value(6).toString();
+        QString plz = query.value(7).toString();
+        QString housenumber = query.value(8).toString();
+        person * p = new person(id,name,surname,mail,phone,street,city,plz,housenumber);
+        qDebug() << "Einloggen war erfolgreich " + QString::number(id);
+        return p;
     } else {
         sucess = false;
         qDebug() << "Einloggen war NICHT erfolgreich";
     }
-    return sucess;
+    return nullptr;
 }
 
-bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort){
+bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password){
     bool success = false;
     QSqlQuery query;
-    QString pw = sha512_hash(passwort);
+    QString pw = sha512_hash(password);
 
-    query.prepare("INSERT INTO Mitarbeiter (Vorname, Nachname, Email, Telefonnummer, Passwort) VALUES(:Vorname, :Nachname, :Email, :Telefonnummer,:Passwort);");
-    query.bindValue(":Vorname",QString("'%1'").arg(vorname));
-    query.bindValue(":Nachname",QString("'%1'").arg(nachname));
-    query.bindValue(":Email",QString("'%1'").arg(email));
-    query.bindValue(":Telefonnummer",QString("'%1'").arg(telenr));
-    query.bindValue(":Passwort",QString("'%1'").arg(pw));
+    query.prepare("INSERT INTO EMPLOYEE (name, surname, mail, phone, password) VALUES(:name, :surname, :mail, :phone,:password);");
+    query.bindValue(":name",QString("%1").arg(name));
+    query.bindValue(":surname",QString("%1").arg(surname));
+    query.bindValue(":mail",QString("%1").arg(mail));
+    query.bindValue(":phone",QString("%1").arg(phone));
+    query.bindValue(":password",QString("%1").arg(pw));
     qDebug() << query.lastQuery();
 
     if(query.exec())
     {
         success = true;
-        qDebug() << "addMitarbeiter success";
+        qDebug() << "addEmployee success";
     }
     else
     {
-        qDebug() << "addPerson error:"
+        qDebug() << "addEmployee error:"
                  << query.lastError();
     }
 
@@ -75,28 +86,54 @@ bool dbmanager::addMitarbeiter(QString vorname, QString nachname, QString email,
 
 }
 
-bool dbmanager::createZeiteintrag(QDateTime startzeit, QDateTime endzeit, QString notiz, int mitarbeiterID){
+bool dbmanager::changePassword(int employeeID, QString newPassword){
+    bool success = false;
+    QSqlQuery query;
+    QString pw = sha512_hash(newPassword);
+
+    query.prepare("UPDATE EMPLOYEE SET EMPLOYEE.password = :newPassword WHERE id = :employeeID;");
+    qDebug() << pw;
+    query.bindValue(":newPassword",QString("%1").arg(pw));
+    query.bindValue(":employeeID",QString("%1").arg(employeeID));
+    qDebug() << query.lastQuery();
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "changePassword success";
+    }
+    else
+    {
+        qDebug() << "changePassword error:"
+                 << query.lastError();
+    }
+
+    return success;
+
+}
+
+bool dbmanager::createZeiteintrag(QDateTime shiftstart, QDateTime shiftend, QString note, int employeeID){
 
     bool success = false;
     QSqlQuery query;
-    QString mysqlDateStart = startzeit.toString("YYYY-mm-dd hh:mm:ss");
-    QString mysqlDateEnde = endzeit.toString("YYYY-mm-dd hh:mm:ss");
-    query.prepare("INSERT INTO Mitarbeiter (Arbeitsbeginn, Arbeitsende,Notiz) VALUES(:Arbeitsbeginn, :Arbeitsende, :Notiz) WHERE MitarbeiterID = : MitarbeiterID ;");
-    query.bindValue(":Arbeitsbeginn",QString("'%1'").arg(mysqlDateStart));
-    query.bindValue(":Arbeitsende",QString("'%1'").arg(mysqlDateEnde));
-    query.bindValue(":Notiz",QString("'%1'").arg(notiz));
-    query.bindValue(":MitarbeiterID",QString("'%1'").arg(mitarbeiterID));
+    QString mysqlDateStart = shiftstart.toString("YYYY-mm-dd hh:mm:ss");
+    QString mysqlDateEnde = shiftend.toString("YYYY-mm-dd hh:mm:ss");
+    query.prepare("INSERT INTO WORKINGHOURS (shiftstart, shiftend,employeeid, note) VALUES(:shiftstart, :shiftend,:employeeid, :note);");
+    query.bindValue(":shiftstart",QString("%1").arg(mysqlDateStart));
+    query.bindValue(":shiftend",QString("%1").arg(mysqlDateEnde));
+    query.bindValue(":note",QString("%1").arg(note));
+    query.bindValue(":employeeid",QString("%1").arg(employeeID));
 
 
 
     if(query.exec())
     {
         success = true;
-        qDebug() << "logZeit success";
+        qDebug() << "createZeiteintrag success";
     }
     else
     {
-        qDebug() << "logZeit error:"
+        qDebug() << "createZeiteintrag error:"
                  << query.lastError();
     }
 
@@ -105,19 +142,19 @@ bool dbmanager::createZeiteintrag(QDateTime startzeit, QDateTime endzeit, QStrin
 
 }
 
-Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array ){
+Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
 
     bool success = false;
     QSqlQuery query;
 
-    query.prepare("SELECT Arbeitsbeginn,Arbeitsende, Notiz FROM Arbeitszeiten WHERE  MitarbeitderID = :MitarbeiterID ");
-    query.bindValue(":MitarbeiterID",QString("'%1'").arg(mitarbeiterID));
+    query.prepare("SELECT shiftstart,shiftend, note FROM WORKINGHOURS WHERE  employeeid = :employeeid ");
+    query.bindValue(":employeeid",QString("%1").arg(employeeID));
 
 
     if(query.exec())
     {
         success = true;
-        qDebug() << "getZeit success";
+        qDebug() << "getArbeitszeiten success";
 
         int i = 0;
         while (query.next()) {
@@ -135,7 +172,7 @@ Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array ){
     }
     else
     {
-        qDebug() << "getZeit error:"
+        qDebug() << "getArbeitszeiten error:"
                  << query.lastError();
         return 0;
     }

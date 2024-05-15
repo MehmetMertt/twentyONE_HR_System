@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QIcon>
 #include <QStyle>
+#include "dbaccess.h"
+#include "person.h"
 
 Navbar::Navbar(QWidget *parent)
     : QWidget(parent)
@@ -21,7 +23,7 @@ Navbar::Navbar(QWidget *parent)
     items.insert("requests", ui->request);
     items.insert("settings", ui->settings);
     items.insert("login_out", ui->login_out_button);
-
+    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
