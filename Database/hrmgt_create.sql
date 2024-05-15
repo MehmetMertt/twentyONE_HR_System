@@ -1,61 +1,237 @@
-DROP TABLE IF EXISTS Mitarbeiter,Ort,Abteilung,Gehalt,Arbeitszeiten,Abweseneinheit;
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: db
+-- Erstellungszeit: 15. Mai 2024 um 19:07
+-- Server-Version: 8.4.0
+-- PHP-Version: 8.2.8
 
-CREATE TABLE `Mitarbeiter` (
-  `MitarbeiterID` integer PRIMARY KEY AUTO_INCREMENT,
-  `Passwort` varchar(255),
-  `Vorname` varchar(255),
-  `Nachname` varchar(255),
-  `Email` varchar(255),
-  `Telefonnummer` varchar(255),
-  `Anstellungsdatum` date,
-  `Kuendigungsdatum` date,
-  `OrtID` integer,
-  `AbteilungsID` integer,
-  `GehaltID` integer
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-CREATE TABLE `Ort` (
-  `OrtID` integer PRIMARY KEY AUTO_INCREMENT,
-  `Plz` integer,
-  `Bundesland` varchar(255),
-  `Strasse` varchar(255),
-  `Hausnummer` integer
-);
 
-CREATE TABLE `Abteilung` (
-  `AbteilungsID` integer PRIMARY KEY AUTO_INCREMENT,
-  `Abteilungsname` varchar(255)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE `Gehalt` (
-  `GehaltID` integer PRIMARY KEY AUTO_INCREMENT,
-  `Monatsgehalt` float
-);
+--
+-- Datenbank: `hrmgt_database`
+--
 
-CREATE TABLE `Arbeitszeiten` (
-  `ArbeitszeitenID` integer PRIMARY KEY AUTO_INCREMENT,
-  `Arbeitsbeginn` date,
-  `Arbeitsende` date,
-  `MitarbeitderID` integer,
-  `Notiz` text
-);
+-- --------------------------------------------------------
 
-CREATE TABLE `Abweseneinheit` (
-  `AbwesenheitsID` integer PRIMARY KEY AUTO_INCREMENT,
-  `MitarbeiterID` integer,
-  `Abwesenheitsbeginn` date,
-  `Abwesenheitsende` date,
-  `Abwesenheitsgrund` varchar(255),
-  `Notiz` varchar(255),
-  `Stauts` varchar(255)
-);
+--
+-- Tabellenstruktur für Tabelle `ABSENCE`
+--
 
-ALTER TABLE `Mitarbeiter` ADD FOREIGN KEY (`OrtID`) REFERENCES `Ort` (`OrtID`);
+CREATE TABLE `ABSENCE` (
+  `id` int NOT NULL,
+  `employeeid` int DEFAULT NULL,
+  `absencestart` date DEFAULT NULL,
+  `absenceend` date DEFAULT NULL,
+  `absencereason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-ALTER TABLE `Mitarbeiter` ADD FOREIGN KEY (`AbteilungsID`) REFERENCES `Abteilung` (`AbteilungsID`);
+-- --------------------------------------------------------
 
-ALTER TABLE `Mitarbeiter` ADD FOREIGN KEY (`GehaltID`) REFERENCES `Gehalt` (`GehaltID`);
+--
+-- Tabellenstruktur für Tabelle `ADDRESS`
+--
 
-ALTER TABLE `Arbeitszeiten` ADD FOREIGN KEY (`MitarbeitderID`) REFERENCES `Mitarbeiter` (`MitarbeiterID`);
+CREATE TABLE `ADDRESS` (
+  `id` int NOT NULL,
+  `plz` int DEFAULT NULL,
+  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `housenumber` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-ALTER TABLE `Abweseneinheit` ADD FOREIGN KEY (`MitarbeiterID`) REFERENCES `Mitarbeiter` (`MitarbeiterID`);
+--
+-- Daten für Tabelle `ADDRESS`
+--
+
+INSERT INTO `ADDRESS` (`id`, `plz`, `city`, `street`, `housenumber`) VALUES
+(1, 1010, 'Wien', 'Musterstraße 12', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `DEPARTMENT`
+--
+
+CREATE TABLE `DEPARTMENT` (
+  `id` int NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `EMPLOYEE`
+--
+
+CREATE TABLE `EMPLOYEE` (
+  `id` int NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `surname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `employmentdate` date DEFAULT NULL,
+  `terminationdate` date DEFAULT NULL,
+  `adressid` int DEFAULT NULL,
+  `departmentid` int DEFAULT NULL,
+  `salaryid` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Daten für Tabelle `EMPLOYEE`
+--
+
+INSERT INTO `EMPLOYEE` (`id`, `password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`) VALUES
+(31, 'ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `SALARY`
+--
+
+CREATE TABLE `SALARY` (
+  `id` int NOT NULL,
+  `salary` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `WORKINGHOURS`
+--
+
+CREATE TABLE `WORKINGHOURS` (
+  `id` int NOT NULL,
+  `shiftstart` date DEFAULT NULL,
+  `shiftend` date DEFAULT NULL,
+  `employeeid` int DEFAULT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Indizes der exportierten Tabellen
+--
+
+--
+-- Indizes für die Tabelle `ABSENCE`
+--
+ALTER TABLE `ABSENCE`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `MitarbeiterID` (`employeeid`);
+
+--
+-- Indizes für die Tabelle `ADDRESS`
+--
+ALTER TABLE `ADDRESS`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `DEPARTMENT`
+--
+ALTER TABLE `DEPARTMENT`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `EMPLOYEE`
+--
+ALTER TABLE `EMPLOYEE`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `mail` (`mail`),
+  ADD KEY `OrtID` (`adressid`),
+  ADD KEY `AbteilungsID` (`departmentid`),
+  ADD KEY `GehaltID` (`salaryid`);
+
+--
+-- Indizes für die Tabelle `SALARY`
+--
+ALTER TABLE `SALARY`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `WORKINGHOURS`
+--
+ALTER TABLE `WORKINGHOURS`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `MitarbeitderID` (`employeeid`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `ABSENCE`
+--
+ALTER TABLE `ABSENCE`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `ADDRESS`
+--
+ALTER TABLE `ADDRESS`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT für Tabelle `DEPARTMENT`
+--
+ALTER TABLE `DEPARTMENT`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `EMPLOYEE`
+--
+ALTER TABLE `EMPLOYEE`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT für Tabelle `SALARY`
+--
+ALTER TABLE `SALARY`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `WORKINGHOURS`
+--
+ALTER TABLE `WORKINGHOURS`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `ABSENCE`
+--
+ALTER TABLE `ABSENCE`
+  ADD CONSTRAINT `ABSENCE_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
+
+--
+-- Constraints der Tabelle `EMPLOYEE`
+--
+ALTER TABLE `EMPLOYEE`
+  ADD CONSTRAINT `EMPLOYEE_ibfk_1` FOREIGN KEY (`adressid`) REFERENCES `ADDRESS` (`id`),
+  ADD CONSTRAINT `EMPLOYEE_ibfk_2` FOREIGN KEY (`departmentid`) REFERENCES `DEPARTMENT` (`id`),
+  ADD CONSTRAINT `EMPLOYEE_ibfk_3` FOREIGN KEY (`salaryid`) REFERENCES `SALARY` (`id`);
+
+--
+-- Constraints der Tabelle `WORKINGHOURS`
+--
+ALTER TABLE `WORKINGHOURS`
+  ADD CONSTRAINT `WORKINGHOURS_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
