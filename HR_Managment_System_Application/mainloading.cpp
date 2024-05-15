@@ -13,7 +13,6 @@ MainLoading::MainLoading(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &MainLoading::hideAfterDelay);
     timer->setInterval(100);
     timer->start();*/
-
     int screenHeight = parent->geometry().height();
 
     // Set initial y-position (off-screen)
@@ -37,7 +36,7 @@ MainLoading::~MainLoading()
 
 void MainLoading::loadDB() {
     dbZugriff = new dbmanager();
-    //dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
     QThread::sleep(1);
     hideWhenReady();
 }

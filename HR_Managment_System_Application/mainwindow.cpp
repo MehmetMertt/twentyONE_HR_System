@@ -18,21 +18,22 @@ MainWindow::MainWindow(QWidget *parent)
     //Only commented for development
     //Uncomment to test loading and login
 
-    /*
-     * main_loading_page = new MainLoading(this);
-     * connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
+    //currentEmployee = new person(1,"mehmet","m","we","m","we","m","we","d");
 
-     * main_loading_page->setGeometry(this->geometry());
-     * main_loading_page->show();
-     * main_loading_page->loadDB();
-    */
+     main_loading_page = new MainLoading(this);
+     connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
+
+     main_loading_page->setGeometry(this->geometry());
+     main_loading_page->show();
+     main_loading_page->loadDB();
+
 
     ui->close_nav_button->hide();
     ui->open_nav_button->hide();
 
     //Delete after development
-    dbZugriff = new dbmanager();
-    login_finished();
+   // dbZugriff = new dbmanager();
+    //login_finished();
 
 
 
@@ -62,8 +63,8 @@ void MainWindow::onLoadingFinished() {
 void MainWindow::login_finished()
 {
     //Uncomment after development
-    //ui->main->removeWidget(login_page);
-    //login_page->hide();
+    ui->main->removeWidget(login_page);
+    login_page->hide();
 
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);

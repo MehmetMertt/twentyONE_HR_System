@@ -1,13 +1,20 @@
 #include "account.h"
 #include "ui_account.h"
 #include <QFile>
-
+#include <dbaccess.h>
 Account::Account(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Account)
 {
     ui->setupUi(this);
-
+    ui->account_tel->setText(currentEmployee->getPhone());
+    ui->account_name->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
+    ui->account_email->setText(currentEmployee->getMail());
+    QString street = currentEmployee->getStreet();
+    QString housenumber = currentEmployee->getHousenumber();
+    QString plz = currentEmployee->getPLZ();
+    QString city = currentEmployee->getCity();
+    ui->account_adresse->setText(street + " " + housenumber + " " + plz + " " + city);
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
@@ -48,7 +55,8 @@ void Account::on_button_clicked(){
         QString Passwort = ui->passwort_input->text();
         QString Passwort2 = ui->passwort2_input->text();
 
-        //Passwort in der DB aktualisieren
+        bool changePassword = dbZugriff->changePassword(currentEmployee->getID(),Passwort);
+
 
         //FÜR DEBUGGING:
         qWarning() << "Passwort: " << Passwort << "\nPasswort2: " << Passwort2;

@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     nav/navbar.cpp \
     nav/navbar_compact.cpp \
+    person.cpp \
     requests.cpp \
     settings.cpp \
     timetracker.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     mainwindow.h \
     nav/navbar.h \
     nav/navbar_compact.h \
+    person.h \
     requests.h \
     settings.h \
     timetracker.h \

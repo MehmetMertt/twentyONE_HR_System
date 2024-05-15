@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include <QFile>
 #include <dbaccess.h>
+#include "person.h"
 
 Login::Login(QWidget *parent)
     : QWidget(parent)
@@ -39,7 +40,7 @@ void Login::onEmailInputChanged(){ validator->ueberpruefeEmail(this); }
 void Login::onPasswordInputChanged(){ validator->ueberpruefePasswort(this); }
 
 void Login::on_button_clicked(){
-
+    /*
     if(validator->getEmail_erlaubt() == false && validator->getPasswort_erlaubt() == false){
         ui->error_text->setText("Es wurden keine Daten eingegeben.");
         //ui->button->setEnabled(false);
@@ -50,25 +51,26 @@ void Login::on_button_clicked(){
         ui->error_text->setText("Überprüfen Sie die Eingabe für das Passwort.");
         //ui->button->setEnabled(false);
     }else{
+*/
         QString Email = ui->email_input->text();
         QString Passwort = ui->passwort_input->text();
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
-        bool login = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
+        currentEmployee = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
         //Für Testing, remove for deployment
-        login = true;
+        //login = true;
         qDebug() << ui->email_input->text();
         qDebug() << ui->passwort_input->text();
-        if(login){
-            emit login_success();
-        } else {
+        if(currentEmployee == nullptr){
             ui->error_text->show();
+        } else {
+            emit login_success();
         }
 
         //FÜR DEBUGGING:
         qWarning() << "Email: " << Email << "Passwort: " << Passwort;
     }
 
-}
+//}
 

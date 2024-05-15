@@ -14,15 +14,17 @@
 #include <QDebug>
 #include <QSqlError>
 #include "zeiteintrag.h"
+#include "person.h"
 class dbmanager
 {
 public:
     //QString ist eine bessere Variante von std::string supported UniCode und ist schneller
     dbmanager();
-    bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr,QString passwort);
-    bool login(QString email,QString passwort);
-    bool createZeiteintrag(QDateTime startzeit,QDateTime endzeit,QString notiz, int mitarbeiterID);
-    Zeiteintrag ** getArbeitszeiten(int mitarbeiterID, Zeiteintrag **array );
+    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
+    person* login(QString mail, QString password);
+    bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
+    Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );
+    bool changePassword(int employeeID, QString newPassword);
 
 private:
     QSqlDatabase m_db;
