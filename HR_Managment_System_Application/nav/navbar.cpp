@@ -12,7 +12,6 @@ Navbar::Navbar(QWidget *parent)
 {
     ui->setupUi(this);
 
-    processLoginOutButton(1);
     setUserData();
 
     active_item = ui->dashboard;
@@ -22,7 +21,7 @@ Navbar::Navbar(QWidget *parent)
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
     items.insert("settings", ui->settings);
-    items.insert("login_out", ui->login_out_button);
+    items.insert("login_out", ui->logout_button);
     ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 
     // Load the stylesheet from a file (recommended)
@@ -41,16 +40,6 @@ Navbar::Navbar(QWidget *parent)
 Navbar::~Navbar()
 {
     delete ui;
-}
-
-void Navbar::processLoginOutButton(int logged) {
-    if(logged) {
-        ui->login_out_button->setText("Logout");
-        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/logout.svg"));
-    } else {
-        ui->login_out_button->setText("Login");
-        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/login.svg"));
-    }
 }
 
 void Navbar::setUserData() {
@@ -100,12 +89,14 @@ void Navbar::on_settings_clicked()
 }
 
 
-void Navbar::on_login_out_button_clicked()
+void Navbar::on_logout_button_clicked()
 {
+
     removeActiveItem();
-    active_item = ui->login_out_button;
+    active_item = ui->logout_button;
     addActiveItem();
-    emit login_out_clicked();
+    qDebug() << "Nav logout clicked";
+    emit logout_clicked();
 }
 
 void Navbar::removeActiveItem() {

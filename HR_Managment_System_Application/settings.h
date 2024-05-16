@@ -15,6 +15,11 @@ public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
 
+    void logout();
+
+signals:
+    void logout_success();
+
 private:
     Ui::Settings *ui;
 };

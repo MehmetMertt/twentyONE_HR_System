@@ -67,5 +67,6 @@ private:
     void showRequests();
     void showSettings();
     void processLoginOut();
+    void redirectLogout();
 };
 #endif // MAINWINDOW_H

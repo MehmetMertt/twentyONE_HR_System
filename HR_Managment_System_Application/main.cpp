@@ -4,7 +4,7 @@
 #include <QApplication>
 
 dbmanager* dbZugriff;
-person* currentEmployee;
+Person* currentEmployee;
 
 int main(int argc, char *argv[])
 {

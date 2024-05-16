@@ -14,7 +14,6 @@ class Navbar : public QWidget
 public:
     explicit Navbar(QWidget *parent = nullptr);
     ~Navbar();
-    void processLoginOutButton(int logged);
     void setUserData();
 
     QString getActiveItem();
@@ -26,7 +25,7 @@ signals:
     void timetracker_clicked();
     void request_clicked();
     void settings_clicked();
-    void login_out_clicked();
+    void logout_clicked();
 
 private slots:
 
@@ -38,7 +37,7 @@ private slots:
 
     void on_request_clicked();
 
-    void on_login_out_button_clicked();
+    void on_logout_button_clicked();
 
     void on_settings_clicked();
 

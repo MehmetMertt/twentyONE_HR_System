@@ -61,11 +61,16 @@ void Login::on_button_clicked(){
         currentEmployee = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
         //Für Testing, remove for deployment
         //login = true;
+        qDebug() << currentEmployee;
         qDebug() << ui->email_input->text();
         qDebug() << ui->passwort_input->text();
         if(currentEmployee == nullptr){
+            ui->error_text->setText("Email oder Passwort ist falsch");
             ui->error_text->show();
         } else {
+            ui->email_input->clear();
+            ui->passwort_input->clear();
+            ui->error_text->hide();
             emit login_success();
         }
 

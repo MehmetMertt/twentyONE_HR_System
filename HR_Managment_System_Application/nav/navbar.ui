@@ -350,7 +350,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="login_out_button">
+         <widget class="QPushButton" name="logout_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>

@@ -4,6 +4,6 @@
 #include <person.h>
 
 extern dbmanager* dbZugriff;
-extern person* currentEmployee;
+extern Person* currentEmployee;
 
 #endif // DBACCESS_H

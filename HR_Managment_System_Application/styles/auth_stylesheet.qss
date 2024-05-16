@@ -35,11 +35,6 @@ QPushButton[button_type = "primary"]:hover {
     color: #F8F1F1;
 }
 
-#error_text {
-    color: red;
-    font-size: 12px;
-}
-
 QComboBox{
     border: 1px solid #D3D3D3;
     border-radius: 6px;
@@ -78,4 +73,14 @@ QLabel[text_type = "subheading"] {
     font-size: 16px;
     color: grey;
 
+}
+
+#error_text {
+    color: red;
+    font-size: 12px;
+}
+
+#success_text {
+    color: green;
+    font-size: 12px;
 }

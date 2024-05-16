@@ -28,7 +28,7 @@ QString sha512_hash(QString pw){
 }
 
 
-person* dbmanager::login(QString mail, QString password){
+Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
     bool sucess;
     QString pw = sha512_hash(password);
@@ -48,7 +48,7 @@ person* dbmanager::login(QString mail, QString password){
         QString city = query.value(6).toString();
         QString plz = query.value(7).toString();
         QString housenumber = query.value(8).toString();
-        person * p = new person(id,name,surname,mail,phone,street,city,plz,housenumber);
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber);
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {

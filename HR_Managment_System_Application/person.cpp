@@ -1,6 +1,6 @@
 #include "person.h"
 
-person::person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber) {
+Person::Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber) {
     this->setName(name);
     this->setID(id);
     this->setSurname(surname);
@@ -11,3 +11,8 @@ person::person(int id, QString name, QString surname, QString mail, QString phon
     this->setPLZ(plz);
     this->setHousenumber(housenumber);
 }
+
+Person::~Person() {
+
+};
+

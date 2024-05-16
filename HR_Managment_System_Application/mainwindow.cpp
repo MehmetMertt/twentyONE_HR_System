@@ -62,30 +62,10 @@ void MainWindow::onLoadingFinished() {
 
 void MainWindow::login_finished()
 {
-    //Uncomment after development
-    ui->main->removeWidget(login_page);
-    login_page->hide();
 
     navbar = new Navbar(this);
     navbar_comp = new Navbar_compact(this);
 
-    connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
-    connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
-
-    connect(navbar, &Navbar::dashboard_clicked, this, &MainWindow::showDashboard);
-    connect(navbar_comp, &Navbar_compact::dashboard_clicked, this, &MainWindow::showDashboard);
-
-    connect(navbar, &Navbar::timetracker_clicked, this, &MainWindow::showTimetracker);
-    connect(navbar_comp, &Navbar_compact::timetracker_clicked, this, &MainWindow::showTimetracker);
-
-    connect(navbar, &Navbar::request_clicked, this, &MainWindow::showRequests);
-    connect(navbar_comp, &Navbar_compact::request_clicked, this, &MainWindow::showRequests);
-
-    connect(navbar, &Navbar::settings_clicked, this, &MainWindow::showSettings);
-    connect(navbar_comp, &Navbar_compact::settings_clicked, this, &MainWindow::showSettings);
-
-    connect(navbar, &Navbar::login_out_clicked, this, &MainWindow::processLoginOut);
-    connect(navbar_comp, &Navbar_compact::login_out_clicked, this, &MainWindow::processLoginOut);
 
 
     ui->close_nav_button->show();
@@ -106,6 +86,27 @@ void MainWindow::login_finished()
     ui->main->addWidget(request_page);
     ui->main->addWidget(settings_page);
     ui->main->setCurrentWidget(dashboard);
+
+    connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
+    connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
+
+    connect(navbar, &Navbar::dashboard_clicked, this, &MainWindow::showDashboard);
+    connect(navbar_comp, &Navbar_compact::dashboard_clicked, this, &MainWindow::showDashboard);
+
+    connect(navbar, &Navbar::timetracker_clicked, this, &MainWindow::showTimetracker);
+    connect(navbar_comp, &Navbar_compact::timetracker_clicked, this, &MainWindow::showTimetracker);
+
+    connect(navbar, &Navbar::request_clicked, this, &MainWindow::showRequests);
+    connect(navbar_comp, &Navbar_compact::request_clicked, this, &MainWindow::showRequests);
+
+    connect(navbar, &Navbar::settings_clicked, this, &MainWindow::showSettings);
+    connect(navbar_comp, &Navbar_compact::settings_clicked, this, &MainWindow::showSettings);
+
+    connect(navbar, &Navbar::logout_clicked, settings_page, &Settings::logout);
+    connect(navbar_comp, &Navbar_compact::login_out_clicked, this, &MainWindow::processLoginOut);
+
+    connect(settings_page, &Settings::logout_success, this, &MainWindow::processLoginOut);
+
 
 }
 
@@ -229,5 +230,12 @@ void MainWindow::showSettings() {
 }
 
 void MainWindow::processLoginOut() {
+    qDebug() << currentEmployee->getName();
+    ui->close_nav_button->hide();
+    ui->open_nav_button->hide();
+    navbar->hide();
+    navbar_comp->hide();
+    ui->main->setCurrentWidget(login_page);
+
 }
 

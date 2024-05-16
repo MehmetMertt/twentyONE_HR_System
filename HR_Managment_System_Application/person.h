@@ -4,10 +4,12 @@
 #include <QTCore/QString>
 #include <QString>
 
-class person
+class Person
 {
 public:
-    person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber);
+    Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber);
+    ~Person();
+
     QString getName(){return this->name;}
     int getID(){return this->id;}
     QString getSurname(){return this->surname;}
