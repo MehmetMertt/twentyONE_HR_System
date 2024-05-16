@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- Datenbank: `hrmgt_database`
 --
 
+DROP DATABASE IF EXISTS hrmgt_database;
+CREATE DATABASE hrmgt_database;
+
+use hrmgt_database;
+
 -- --------------------------------------------------------
 
 --
@@ -94,7 +99,7 @@ CREATE TABLE `EMPLOYEE` (
 --
 
 INSERT INTO `EMPLOYEE` (`id`, `password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`) VALUES
-(31, 'ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL);
+(31, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 

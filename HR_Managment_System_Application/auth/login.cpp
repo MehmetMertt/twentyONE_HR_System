@@ -40,18 +40,19 @@ void Login::onEmailInputChanged(){ validator->ueberpruefeEmail(this); }
 void Login::onPasswordInputChanged(){ validator->ueberpruefePasswort(this); }
 
 void Login::on_button_clicked(){
-    /*
-    if(validator->getEmail_erlaubt() == false && validator->getPasswort_erlaubt() == false){
-        ui->error_text->setText("Es wurden keine Daten eingegeben.");
-        //ui->button->setEnabled(false);
-    }else if(validator->getEmail_erlaubt() == false){
+
+
+    if(validator->getEmail_erlaubt() == false){
         ui->error_text->setText("Überprüfen Sie die Eingabe für die Email-Adresse.");
         //ui->button->setEnabled(false);
     }else if(validator->getPasswort_erlaubt() == false){
         ui->error_text->setText("Überprüfen Sie die Eingabe für das Passwort.");
         //ui->button->setEnabled(false);
-    }else{
-*/
+    }else if(validator->getEmail_erlaubt() == false && validator->getPasswort_erlaubt() == false){
+        ui->error_text->setText("Es wurden keine Daten eingegeben.");
+        //ui->button->setEnabled(false);
+    }else {
+
         QString Email = ui->email_input->text();
         QString Passwort = ui->passwort_input->text();
 
@@ -72,5 +73,5 @@ void Login::on_button_clicked(){
         qWarning() << "Email: " << Email << "Passwort: " << Passwort;
     }
 
-//}
+}
 
