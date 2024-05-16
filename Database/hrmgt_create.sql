@@ -91,7 +91,8 @@ CREATE TABLE `EMPLOYEE` (
   `terminationdate` date DEFAULT NULL,
   `adressid` int DEFAULT NULL,
   `departmentid` int DEFAULT NULL,
-  `salaryid` int DEFAULT NULL
+  `salaryid` int DEFAULT NULL,
+  `admin` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
