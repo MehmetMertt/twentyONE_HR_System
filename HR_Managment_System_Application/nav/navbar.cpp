@@ -91,11 +91,9 @@ void Navbar::on_settings_clicked()
 
 void Navbar::on_logout_button_clicked()
 {
-
     removeActiveItem();
     active_item = ui->logout_button;
     addActiveItem();
-    qDebug() << "Nav logout clicked";
     emit logout_clicked();
 }
 
@@ -127,4 +125,13 @@ QString Navbar::getActiveItem() {
 
 
 
+
+
+void Navbar::on_admin_button_clicked()
+{
+    removeActiveItem();
+    active_item = ui->admin_button;
+    addActiveItem();
+    emit admin_clicked();
+}
 

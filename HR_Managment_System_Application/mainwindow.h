@@ -11,6 +11,7 @@
 #include <auth/account_adminview.h>
 #include <mainloading.h>
 #include <dashboard.h>
+#include <admindashboard.h>
 #include <dbmanager.h>
 #include <timetracker.h>
 #include <requests.h>
@@ -50,6 +51,7 @@ private:
     Signup* signup_page;
     Account* account_page;
     Account_adminview* account_adminview_page;
+    AdminDashboard* admin_dashboard;
     Dashboard* dashboard;
     Timetracker* timetracker_page;
     Requests* request_page;
@@ -66,7 +68,8 @@ private:
     void showTimetracker();
     void showRequests();
     void showSettings();
-    void processLoginOut();
-    void redirectLogout();
+    void processLogout();
+    void showAdminDashboard();
+    void showSignup();
 };
 #endif // MAINWINDOW_H

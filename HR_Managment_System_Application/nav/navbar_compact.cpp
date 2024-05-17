@@ -17,7 +17,7 @@ Navbar_compact::Navbar_compact(QWidget *parent)
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
     items.insert("settings", ui->settings);
-    items.insert("login_out", ui->login_out_button);
+    items.insert("login_out", ui->logout_button);
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -80,12 +80,12 @@ void Navbar_compact::on_settings_clicked()
 }
 
 
-void Navbar_compact::on_login_out_button_clicked()
+void Navbar_compact::on_logout_button_clicked()
 {
     removeActiveItem();
-    active_item = ui->login_out_button;
+    active_item = ui->logout_button;
     addActiveItem();
-    emit login_out_clicked();
+    emit logout_clicked();
 }
 
 

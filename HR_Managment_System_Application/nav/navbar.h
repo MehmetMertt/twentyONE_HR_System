@@ -26,6 +26,7 @@ signals:
     void request_clicked();
     void settings_clicked();
     void logout_clicked();
+    void admin_clicked();
 
 private slots:
 
@@ -40,6 +41,8 @@ private slots:
     void on_logout_button_clicked();
 
     void on_settings_clicked();
+
+    void on_admin_button_clicked();
 
 private:
     Ui::Navbar *ui;

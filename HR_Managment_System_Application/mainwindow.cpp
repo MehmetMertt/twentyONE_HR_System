@@ -80,11 +80,15 @@ void MainWindow::login_finished()
     timetracker_page = new Timetracker(this);
     request_page = new Requests(this);
     settings_page = new Settings(this);
+    admin_dashboard = new AdminDashboard(this);
+    signup_page = new Signup(this);
     ui->main->addWidget(dashboard);
     ui->main->addWidget(account_page);
     ui->main->addWidget(timetracker_page);
     ui->main->addWidget(request_page);
     ui->main->addWidget(settings_page);
+    ui->main->addWidget(admin_dashboard);
+    ui->main->addWidget(signup_page);
     ui->main->setCurrentWidget(dashboard);
 
     connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
@@ -99,15 +103,21 @@ void MainWindow::login_finished()
     connect(navbar, &Navbar::request_clicked, this, &MainWindow::showRequests);
     connect(navbar_comp, &Navbar_compact::request_clicked, this, &MainWindow::showRequests);
 
+    connect(navbar, &Navbar::admin_clicked, this, &MainWindow::showAdminDashboard);
+
+
+
+
     connect(navbar, &Navbar::settings_clicked, this, &MainWindow::showSettings);
     connect(navbar_comp, &Navbar_compact::settings_clicked, this, &MainWindow::showSettings);
 
     connect(navbar, &Navbar::logout_clicked, settings_page, &Settings::logout);
-    connect(navbar_comp, &Navbar_compact::login_out_clicked, this, &MainWindow::processLoginOut);
+    connect(navbar_comp, &Navbar_compact::logout_clicked, settings_page, &Settings::logout);
 
-    connect(settings_page, &Settings::logout_success, this, &MainWindow::processLoginOut);
+    connect(settings_page, &Settings::logout_success, this, &MainWindow::processLogout);
 
-
+    connect(admin_dashboard, &AdminDashboard::new_employee_clicked, this, &MainWindow::showSignup);
+    connect(signup_page, &Signup::signup_success, this, &MainWindow::showAdminDashboard);
 }
 
 
@@ -229,8 +239,15 @@ void MainWindow::showSettings() {
     ui->main->setCurrentWidget(settings_page);
 }
 
-void MainWindow::processLoginOut() {
-    qDebug() << currentEmployee->getName();
+void MainWindow::showAdminDashboard() {
+    ui->main->setCurrentWidget(admin_dashboard);
+}
+
+void MainWindow::showSignup() {
+    ui->main->setCurrentWidget(signup_page);
+}
+
+void MainWindow::processLogout() {
     ui->close_nav_button->hide();
     ui->open_nav_button->hide();
     navbar->hide();

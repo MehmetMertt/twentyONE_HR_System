@@ -1,6 +1,7 @@
 #include "signup.h"
 #include "ui_signup.h"
 #include <QFile>
+#include "dbaccess.h"
 
 Signup::Signup(QWidget *parent)
     : QWidget(parent)
@@ -102,6 +103,27 @@ void Signup::on_button_clicked()
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
+        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
+
+        if(signup) {
+            ui->error_text->setText("");
+            ui->error_text->hide();
+
+            ui->vorname_input->clear();
+            ui->nachname_input->clear();
+            ui->email_input->clear();
+            ui->tel_input->clear();
+            ui->adresse_input->clear();
+            ui->plz_input->clear();
+            ui->ort_input->clear();
+            ui->passwort_input->clear();
+
+            emit signup_success();
+
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+            ui->error_text->show();
+        }
 
         //FÜR DEBUGGING:
         qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;

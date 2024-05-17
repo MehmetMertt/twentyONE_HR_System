@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    admindashboard.cpp \
     auth/account.cpp \
     auth/account_adminview.cpp \
     dashboard.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     zeiteintrag.cpp
 
 HEADERS += \
+    admindashboard.h \
     auth/account.h \
     auth/account_adminview.h \
     dashboard.h \
@@ -48,6 +50,7 @@ HEADERS += \
     zeiteintrag.h
 
 FORMS += \
+    admindashboard.ui \
     auth/account.ui \
     auth/account_adminview.ui \
     auth/login.ui \
