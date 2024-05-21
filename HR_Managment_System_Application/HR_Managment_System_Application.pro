@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     mainloading.cpp \
     mainwindow.cpp \
+    mitarbeiterview.cpp \
     nav/navbar.cpp \
     nav/navbar_compact.cpp \
     person.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     inputvalidator.h \
     mainloading.h \
     mainwindow.h \
+    mitarbeiterview.h \
     nav/navbar.h \
     nav/navbar_compact.h \
     person.h \
@@ -58,6 +60,7 @@ FORMS += \
     mainloading.ui \
     dashboard.ui \
     mainwindow.ui \
+    mitarbeiterview.ui \
     nav/navbar.ui \
     nav/navbar_compact.ui \
     requests.ui \

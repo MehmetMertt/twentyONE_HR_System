@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "inputvalidator.h"
+#include "person.h"
 
 namespace Ui {
 class Account_adminview;
@@ -15,10 +16,16 @@ class Account_adminview : public QWidget
 public:
     explicit Account_adminview(QWidget *parent = nullptr);
     ~Account_adminview();
+    void initPage(int mitarbeiterID);
 
 private:
     Ui::Account_adminview *ui;
     InputValidator *validator;
+
+    Person* mitarbeiter;
+
+    void loadMitarbeiter(int mitarbeiterID);
+    void setDataInView();
 
 private slots:
     void onVornameInputChanged();

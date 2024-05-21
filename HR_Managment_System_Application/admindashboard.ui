@@ -44,13 +44,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="edit_user_button">
        <property name="text">
-        <string>Edit other user</string>
+        <string>Edit user</string>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QListWidget" name="employee_list"/>
    </item>
    <item>
     <spacer name="verticalSpacer">

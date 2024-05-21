@@ -17,12 +17,15 @@ public:
 
 signals:
     void new_employee_clicked();
+    void edit_employee(int id);
 
 private slots:
     void on_new_employee_button_clicked();
 
 private:
     Ui::AdminDashboard *ui;
+
+    void processEditMitarbeiter(int id);
 };
 
 #endif // ADMINDASHBOARD_H

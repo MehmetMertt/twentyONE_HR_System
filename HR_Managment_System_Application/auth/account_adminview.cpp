@@ -2,6 +2,8 @@
 #include "ui_account_adminview.h"
 #include <QFile>
 
+#include "dbaccess.h"
+
 Account_adminview::Account_adminview(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Account_adminview)
@@ -100,6 +102,12 @@ void Account_adminview::on_speichern1_button_clicked(){
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
 
+        if(1) {
+            ui->success_text->setText("Daten erfolgreich bearbeitet");
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+        }
+
         //FÜR DEBUGGING:
         qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
         qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort;
@@ -111,20 +119,61 @@ void Account_adminview::on_speichern2_button_clicked(){
     if(ui->passwort_input->text() == ""){
         ui->error_text->setText("Das Passwortfeld ist leer.");
         //ui->button->setEnabled(false);
-    }else if(ui->passwort_input->text() == ui->passwort2_input->text()){
+    }else if(ui->passwort_input->text() != ui->passwort2_input->text()){
+        ui->error_text->setText("Die eingegebenen Passwörter stimmen nicht überein.");
+        //ui->button->setEnabled(false);
+    } else {
+
         ui->error_text->setText("");
         //ui->button->setEnabled(true);
 
-        QString Passwort = ui->passwort_input->text();
-        QString Passwort2 = ui->passwort2_input->text();
+        QString passwort = ui->passwort_input->text();
+        QString passwort2 = ui->passwort2_input->text();
 
         //Passwort in der DB aktualisieren
+        bool password_success = dbZugriff->changePassword(this->mitarbeiter->getID(), passwort);
+
+        if(password_success) {
+            ui->success_text->setText("Passwort erfolgreich bearbeitet");
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+        }
 
         //FÜR DEBUGGING:
-        qWarning() << "Passwort: " << Passwort << "\nPasswort2: " << Passwort2;
+        qWarning() << "Passwort: " << passwort << "\nPasswort2: " << passwort2;
 
-    }else{
-        ui->error_text->setText("Die eingegebenen Passwörter stimmen nicht überein.");
-        //ui->button->setEnabled(false);
     }
+}
+
+void Account_adminview::initPage(int mitarbeiterID) {
+
+    loadMitarbeiter(mitarbeiterID);
+
+    setDataInView();
+
+}
+
+void Account_adminview::loadMitarbeiter(int mitarbeiterID) {
+
+    //TODO:
+    //this->mitarbeiter = dbZugriff->getMitarbeiter(mitarbeiterID)
+
+    //check errors
+
+    //FOR TESTING:
+    this->mitarbeiter = currentEmployee;
+
+}
+
+void Account_adminview::setDataInView() {
+
+    ui->email_input->setText(this->mitarbeiter->getMail());
+    ui->tel_input->setText(this->mitarbeiter->getPhone());
+    //ui->anrede_input->setText(//mitarbeiter anrede);
+    ui->nachname_input->setText(this->mitarbeiter->getSurname());
+    ui->vorname_input->setText(this->mitarbeiter->getName());
+    ui->adresse_input->setText(this->mitarbeiter->getStreet() + " " + this->mitarbeiter->getHousenumber());
+    ui->ort_input->setText(this->mitarbeiter->getCity());
+    ui->plz_input->setText(this->mitarbeiter->getPLZ());
+
 }

@@ -82,6 +82,7 @@ void MainWindow::login_finished()
     settings_page = new Settings(this);
     admin_dashboard = new AdminDashboard(this);
     signup_page = new Signup(this);
+    account_adminview_page = new Account_adminview(this);
     ui->main->addWidget(dashboard);
     ui->main->addWidget(account_page);
     ui->main->addWidget(timetracker_page);
@@ -89,6 +90,7 @@ void MainWindow::login_finished()
     ui->main->addWidget(settings_page);
     ui->main->addWidget(admin_dashboard);
     ui->main->addWidget(signup_page);
+    ui->main->addWidget(account_adminview_page);
     ui->main->setCurrentWidget(dashboard);
 
     connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
@@ -118,6 +120,8 @@ void MainWindow::login_finished()
 
     connect(admin_dashboard, &AdminDashboard::new_employee_clicked, this, &MainWindow::showSignup);
     connect(signup_page, &Signup::signup_success, this, &MainWindow::showAdminDashboard);
+
+    connect(admin_dashboard, &AdminDashboard::edit_employee, this, &MainWindow::openEditEmployeeView);
 }
 
 
@@ -256,3 +260,7 @@ void MainWindow::processLogout() {
 
 }
 
+void MainWindow::openEditEmployeeView(int id) {
+    account_adminview_page->initPage(id);
+    ui->main->setCurrentWidget(account_adminview_page);
+}

@@ -71,5 +71,6 @@ private:
     void processLogout();
     void showAdminDashboard();
     void showSignup();
+    void openEditEmployeeView(int id);
 };
 #endif // MAINWINDOW_H
