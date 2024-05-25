@@ -153,7 +153,7 @@ Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
 
     if(query.exec())
     {
-        success = true;
+        //success = true;
         qDebug() << "getArbeitszeiten success";
 
         int i = 0;
@@ -178,6 +178,63 @@ Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
     }
 
     return array;
+}
+
+Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime shiftstart,QDateTime shiftend){
+
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("SELECT shiftstart,shiftend, note FROM WORKINGHOURS WHERE  employeeid = :employeeid AND (shiftstart BETWEEN :shiftstart AND :shiftend )");
+    query.bindValue(":employeeid",QString("%1").arg(employeeID));
+    query.bindValue(":shiftstart",QString("%1").arg(shiftstart.toString("yyyy-MM-dd hh:mm:ss")));
+    query.bindValue(":shiftend",QString("%1").arg(shiftend.toString("yyyy-MM-dd hh:mm:ss")));
+
+    if(query.exec())
+    {
+        //success = true;
+        qDebug() << "getArbeitszeiten success";
+
+        int i = 0;
+        while (query.next()) {
+
+            Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
+
+            zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
+            zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
+            zeiteintrag1->setNotiz(query.value(2).toString());
+
+            array[i] = zeiteintrag1;
+            ++i;
+            qDebug();
+        }
+    }
+    else
+    {
+        qDebug() << "getArbeitszeiten error:"
+                 << query.lastError();
+        return 0;
+    }
+
+    return array;
+
+}
+
+int getArbeitsstunden(int employeeID){
+
+    bool success = false;
+    QSqlQuery query;
+                                                                                                                                          //Makedate function to get first day of current year
+    query.prepare("SELECT SUM(TIMESTAMPDIFF(HOUR,shiftstart,shiftend)) FROM WORKINGHOURS WHERE  employeeid = :employeeid AND shiftstart > MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1))) ") ;
+    query.bindValue(":employeeid",QString("%1").arg(employeeID));
+
+    if(query.exec()){
+
+        return query.value(0);
+    }
+
+    return 0;
+
 }
 
 

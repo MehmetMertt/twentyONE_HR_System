@@ -25,7 +25,8 @@ public:
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
     Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );
     bool changePassword(int employeeID, QString newPassword);
-
+    Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
+    int getArbeitsstunden(int employeeID);
 private:
     QSqlDatabase m_db;
 };
