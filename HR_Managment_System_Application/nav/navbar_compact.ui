@@ -469,7 +469,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="admin_button">
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>

@@ -9,6 +9,12 @@ AdminDashboard::AdminDashboard(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AdminDashboard)
 {
+
+    if(currentEmployee->getAdmin() == false){ // double check if current Employeee is Admin
+        qDebug() << "User tries to get into Admin-Page somehow";
+        return;
+    }
+
     ui->setupUi(this);
 
 

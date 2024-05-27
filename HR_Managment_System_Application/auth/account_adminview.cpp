@@ -9,7 +9,6 @@ Account_adminview::Account_adminview(QWidget *parent)
     , ui(new Ui::Account_adminview)
 {
     ui->setupUi(this);
-
     ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
 
     // Load the stylesheet from a file (recommended)
@@ -96,13 +95,15 @@ void Account_adminview::on_speichern1_button_clicked(){
         QString Email = ui->email_input->text();
         QString Telefon = ui->tel_input->text();
         QString Adresse = ui->adresse_input->text();
-        QString Plz = ui->plz_input->text();
+        int Plz = ui->plz_input->text().toInt();
         QString Ort = ui->ort_input->text();
-
+        QString Password = ui->passwort_input->text();
+        QString title = ui->anrede_input->itemData(ui->anrede_input->currentIndex()).toString(); // Um value von combobox zu bekommen
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
+        bool success = dbZugriff->addMitarbeiter(Vorname,Nachname,Email,Telefon,Password,Adresse,Plz,Ort,title);
 
-        if(1) {
+        if(success) {
             ui->success_text->setText("Daten erfolgreich bearbeitet");
         } else {
             ui->error_text->setText("Ein Fehler ist aufgetreten");
@@ -110,7 +111,7 @@ void Account_adminview::on_speichern1_button_clicked(){
 
         //FÜR DEBUGGING:
         qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
-        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort;
+        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort << "Title: " << title;
     }
 }
 

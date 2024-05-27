@@ -4,6 +4,9 @@
 #include "person.h"
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
+    /*
+     * The credentials should never ever be implemented like this in deployment!
+     */
     m_db = QSqlDatabase::addDatabase("QMYSQL");
     m_db.setHostName("localhost");
     m_db.setDatabaseName("hrmgt_database");
@@ -33,7 +36,7 @@ Person* dbmanager::login(QString mail, QString password){
     bool sucess;
     QString pw = sha512_hash(password);
     qDebug() << pw;
-    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber from EMPLOYEE as e JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin,t.title from EMPLOYEE as e JOIN TITLES as t on e.title = t.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
     query.bindValue(":password",QString("%1").arg(pw));
     query.bindValue(":mail",QString("%1").arg(mail));
 
@@ -48,7 +51,11 @@ Person* dbmanager::login(QString mail, QString password){
         QString city = query.value(6).toString();
         QString plz = query.value(7).toString();
         QString housenumber = query.value(8).toString();
-        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber);
+        bool isAdmin = (query.value(9).toInt() == 1 )? true : false;
+        QString anrede = query.value(10).toString();
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber,isAdmin,anrede);
+        qDebug() << isAdmin;
+        qDebug() << anrede;
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
@@ -58,28 +65,57 @@ Person* dbmanager::login(QString mail, QString password){
     return nullptr;
 }
 
-bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password){
+bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString title){
     bool success = false;
-    QSqlQuery query;
+    QSqlQuery queryAddress;
     QString pw = sha512_hash(password);
+    int housenumber = 4;
+    queryAddress.prepare("INSERT into ADDRESS (plz, city, street, housenumber VALUES(:plz,:city,:street,:housenumber);");
+    queryAddress.bindValue(":city",QString("%1").arg(city));
+    queryAddress.bindValue(":plz",QString("%1").arg(plz));
+    queryAddress.bindValue(":street",QString("%1").arg(street));
+    queryAddress.bindValue(":housenumber",QString("%1").arg(housenumber));
+    if(queryAddress.exec() == false){
+        qDebug() << "inserting adress not working: "
+                 << queryAddress.lastError();
+        return false;
+    }
+    QVariant id = queryAddress.lastInsertId();
+    Q_ASSERT(id.isValid() && !id.isNull());
+    int addressId = id.toInt();
 
-    query.prepare("INSERT INTO EMPLOYEE (name, surname, mail, phone, password) VALUES(:name, :surname, :mail, :phone,:password);");
-    query.bindValue(":name",QString("%1").arg(name));
-    query.bindValue(":surname",QString("%1").arg(surname));
-    query.bindValue(":mail",QString("%1").arg(mail));
-    query.bindValue(":phone",QString("%1").arg(phone));
-    query.bindValue(":password",QString("%1").arg(pw));
-    qDebug() << query.lastQuery();
+    QSqlQuery queryEmployee;
+    int titleid = 0;
+    if(title == "Herr"){ // switch using qstring is illegal...
+        titleid = 1;
+    } else if(title == "Frau"){
+        titleid = 2;
+    } else if(title == "Divers"){
+        titleid = 3;
+    } else {
+        titleid = 0;
+    }
 
-    if(query.exec())
+
+    queryEmployee.prepare("INSERT INTO EMPLOYEE (name, surname, mail, phone, password,adressid,title) VALUES(:name, :surname, :mail, :phone,:password,:addressid,:title);");
+
+    queryEmployee.bindValue(":name",QString("%1").arg(name));
+    queryEmployee.bindValue(":surname",QString("%1").arg(surname));
+    queryEmployee.bindValue(":mail",QString("%1").arg(mail));
+    queryEmployee.bindValue(":phone",QString("%1").arg(phone));
+    queryEmployee.bindValue(":password",QString("%1").arg(pw));
+    queryEmployee.bindValue(":addressid",QString("%1").arg(addressId));
+    queryEmployee.bindValue(":title",QString("%1").arg(titleid));
+
+    if(queryEmployee.exec())
     {
         success = true;
         qDebug() << "addEmployee success";
     }
     else
     {
-        qDebug() << "addEmployee error:"
-                 << query.lastError();
+        qDebug() << "addEmployee error: "
+                 << queryEmployee.lastError();
     }
 
     return success;
@@ -230,7 +266,7 @@ int getArbeitsstunden(int employeeID){
 
     if(query.exec()){
 
-        return query.value(0);
+        return query.value(0).toInt();
     }
 
     return 0;

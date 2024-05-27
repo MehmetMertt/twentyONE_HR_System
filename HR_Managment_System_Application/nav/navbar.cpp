@@ -23,7 +23,9 @@ Navbar::Navbar(QWidget *parent)
     items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
     ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
-
+    if(currentEmployee->getAdmin() == false){
+        ui->admin_button->setVisible(false);
+    }
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
@@ -43,7 +45,7 @@ Navbar::~Navbar()
 }
 
 void Navbar::setUserData() {
-    ui->user->setText("Florian Mimmler");
+    ui->user->setText("Max Mustermann");
 }
 
 void Navbar::on_user_clicked()
