@@ -180,10 +180,9 @@ bool dbmanager::createZeiteintrag(QDateTime shiftstart, QDateTime shiftend, QStr
 
 Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
 
-    bool success = false;
     QSqlQuery query;
 
-    query.prepare("SELECT shiftstart,shiftend, note FROM WORKINGHOURS WHERE  employeeid = :employeeid ");
+    query.prepare("SELECT shiftstart,shiftend, note,id FROM WORKINGHOURS WHERE  employeeid = :employeeid ");
     query.bindValue(":employeeid",QString("%1").arg(employeeID));
 
 
@@ -200,6 +199,8 @@ Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
             zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
             zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
             zeiteintrag1->setNotiz(query.value(2).toString());
+            zeiteintrag1->setTimentryId(query.value(3).toInt());
+
 
             array[i] = zeiteintrag1;
             ++i;
@@ -221,7 +222,7 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
     bool success = false;
     QSqlQuery query;
 
-    query.prepare("SELECT shiftstart,shiftend, note FROM WORKINGHOURS WHERE  employeeid = :employeeid AND (shiftstart BETWEEN :shiftstart AND :shiftend )");
+    query.prepare("SELECT shiftstart,shiftend,note,id FROM WORKINGHOURS WHERE  employeeid = :employeeid AND (shiftstart BETWEEN :shiftstart AND :shiftend )");
     query.bindValue(":employeeid",QString("%1").arg(employeeID));
     query.bindValue(":shiftstart",QString("%1").arg(shiftstart.toString("yyyy-MM-dd hh:mm:ss")));
     query.bindValue(":shiftend",QString("%1").arg(shiftend.toString("yyyy-MM-dd hh:mm:ss")));
@@ -239,6 +240,7 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
             zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
             zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
             zeiteintrag1->setNotiz(query.value(2).toString());
+            zeiteintrag1->setTimentryId(query.value(3).toInt());
 
             array[i] = zeiteintrag1;
             ++i;
@@ -258,7 +260,6 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
 
 int getArbeitsstunden(int employeeID){
 
-    bool success = false;
     QSqlQuery query;
                                                                                                                                           //Makedate function to get first day of current year
     query.prepare("SELECT SUM(TIMESTAMPDIFF(HOUR,shiftstart,shiftend)) FROM WORKINGHOURS WHERE  employeeid = :employeeid AND shiftstart > MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1))) ") ;
@@ -305,4 +306,29 @@ bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString
 
 }
 
+bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note){
+
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("UPDATE WORKINGHOURS SET shiftstart = :start, shiftend = :end, note = :note WHERE id= :id ");
+    query.bindValue(":start",QString("%1").arg(start.toString("yyyy-MM-dd hh:mm:ss")));
+    query.bindValue(":end",QString("%1").arg(end.toString("yyyy-MM-dd hh:mm:ss")));
+    query.bindValue(":note",QString("%1").arg(note));
+    query.bindValue(":id",QString("%1").arg(timeentryId));
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "Edit success";
+        return success;
+    }
+    else
+    {
+        qDebug() << "edit error:"
+                 << query.lastError();
+        return success;
+    }
+
+}
 

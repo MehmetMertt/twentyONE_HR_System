@@ -22,22 +22,25 @@ public:
     void setStartzeit(QDateTime start);
     void setEndzeit(QDateTime ende);
     void setNotiz(QString notiz);
-    void setID(int id);
+    void setEmployeeId(int id);
+    void setTimentryId(int id);
 
     QDateTime getStartzeit();
     QDateTime getEndzeit();
     QString getNotiz();
-    int getID();
+    int getEmployeeId();
+    int getTimeentryId();
 
 private:
     Ui::Zeiteintrag *ui;
 
-    int id;
+    int employeeId;
     QDateTime date;
     QDateTime startzeit;
     QDateTime endzeit;
     int dauer;
     QString notiz;
+    int timeentryId;
 
 
 

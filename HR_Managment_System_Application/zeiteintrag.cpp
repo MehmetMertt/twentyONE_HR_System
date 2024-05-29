@@ -8,12 +8,12 @@ Zeiteintrag::Zeiteintrag(QWidget *parent)
     ui->setupUi(this);
 }
 
-Zeiteintrag::Zeiteintrag(int id, QDateTime date, QDateTime startzeit, QDateTime endzeit, int dauer, QString notiz, QWidget *parent)
+Zeiteintrag::Zeiteintrag(int employeeId, QDateTime date, QDateTime startzeit, QDateTime endzeit, int dauer, QString notiz, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Zeiteintrag)
 {
 
-    this->id = id;
+    this->employeeId = employeeId;
     this->notiz = notiz;
     this->date = date;
     this->startzeit = startzeit;
@@ -50,8 +50,12 @@ void Zeiteintrag::setEndzeit(QDateTime endzeit){
 void Zeiteintrag::setNotiz(QString notiz){
     this->notiz=notiz;
 }
-void Zeiteintrag::setID(int id){
-    this->id=id;
+void Zeiteintrag::setEmployeeId(int id){
+    this->employeeId=id;
+}
+void Zeiteintrag::setTimentryId(int id){
+
+    this->timeentryId=id;
 }
 
 QDateTime Zeiteintrag::getStartzeit(){
@@ -64,6 +68,10 @@ QDateTime Zeiteintrag::getEndzeit(){
 QString Zeiteintrag::getNotiz(){
     return this->notiz;
 }
-int Zeiteintrag::getID(){
-    return this->id;
+int Zeiteintrag::getEmployeeId(){
+    return this->employeeId;
+}
+
+int Zeiteintrag::getTimeentryId(){
+    return this->timeentryId;
 }
