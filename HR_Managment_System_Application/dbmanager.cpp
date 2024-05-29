@@ -273,4 +273,36 @@ int getArbeitsstunden(int employeeID){
 
 }
 
+bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note){
+
+
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("INSERT  INTO ABSENCE (employeeid, absencestart,absenceend,absencereason,note) VALUES(:id, :start, :end, :reason, :note) ");
+
+    query.bindValue(":id",QString("%1").arg(id));
+    query.bindValue(":start",QString("%1").arg(start.toString("yyyy-MM-dd hh:mm:ss")));
+    query.bindValue(":end",QString("%1").arg(end.toString("yyyy-MM-dd hh:mm:ss")));
+    query.bindValue(":reason",QString("%1").arg(reason));
+    query.bindValue(":note",QString("%1").arg(note));
+
+
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "Absence submission success";
+        return success;
+    }
+    else
+    {
+        qDebug() << "Absence submission error:"
+                 << query.lastError();
+        return success;
+    }
+
+
+}
+
 

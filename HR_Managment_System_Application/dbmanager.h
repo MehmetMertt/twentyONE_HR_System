@@ -27,6 +27,8 @@ public:
     bool changePassword(int employeeID, QString newPassword);
     Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
     int getArbeitsstunden(int employeeID);
+    bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note);
+
 private:
     QSqlDatabase m_db;
 };
