@@ -278,8 +278,10 @@ void dbmanager::getAllEmployees(){
             QString city = "";   //im admindashboard ein Personobjekt benötigt wird
             QString plz = "";
             QString housenumber = "";
-            int admin = query.value(1).toInt();
-            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin);
+            bool admin = query.value(1).toBool();
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, "");
+            //Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin,QString anrede);
+
             this->persons.push_back(person);
         }
     }

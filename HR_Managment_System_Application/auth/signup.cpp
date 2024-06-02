@@ -104,10 +104,10 @@ void Signup::on_button_clicked()
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //zuerst in ADRESS einfügen und dann EMPLOYEE, weil so solls angeblich funktionieren, funktioniert aber nicht
-        bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
-        signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
+        //bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
+        //signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
         //oder eine andere Funktion
-        //bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort,title);
+        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort,title);
 
         if(signup == true) {
             ui->error_text->setText("");
