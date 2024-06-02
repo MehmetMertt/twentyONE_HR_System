@@ -8,7 +8,7 @@
 class Person
 {
 public:
-    Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, int admin);
+    Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin,QString anrede);
     ~Person();
 
     QString getName(){return this->name;}
@@ -20,8 +20,10 @@ public:
     QString getCity(){return this->city;}
     QString getHousenumber(){return this->housenumber;}
     QString getPLZ(){return this->plz;}
-    int getAdmin(){ return this->admin; }
-/*  Setter komplett unnötig imo
+    bool getAdmin(){return this->isAdmin;}
+    QString getAnrede(){return this->anrede;}
+
+
     void setName(QString name){this->name = name;}
     void setID(int id){this->id = id;}
     void setSurname(QString surname){ this->surname = surname;}
@@ -31,8 +33,8 @@ public:
     void setCity(QString city){ this->city = city;}
     void setHousenumber(QString housenumber){ this->housenumber = housenumber;}
     void setPLZ(QString plz){ this->plz = plz;}
-*/
-
+    void setAdmin(bool val){this->isAdmin = val;}
+    void setAnrede(QString val){this->anrede = val;}
 private:
     QString name;
     QString surname;
@@ -42,6 +44,8 @@ private:
     QString city;
     QString plz;
     QString housenumber;
+    bool isAdmin;
+    QString anrede;
     int id;
     int admin;
 };

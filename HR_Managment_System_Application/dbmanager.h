@@ -29,10 +29,15 @@ public:
 
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
     bool addMitarbeiterAdresse(QString plz, QString city, QString street);
+    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString title);
     Person* login(QString mail, QString password);
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
     Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );
+    Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
     bool changePassword(int employeeID, QString newPassword);
+    int getArbeitsstunden(int employeeID);
+    bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note);
+    bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note);
 
     //TEST
     QVector<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet

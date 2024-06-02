@@ -25,11 +25,10 @@ Navbar::Navbar(QWidget *parent)
     if(currentEmployee->getAdmin() == 1){
         items.insert("admin_page", ui->admin_button); //kA, wie das mit items funktioniert und ob die nicht vllt iwie removed werden sollen, wenn currentUser nicht admin ist
         ui->admin_button->setHidden(false); //sicherheitshalber falls admin sich mit nicht admin account einloggt
-        ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname() + " (admin)");
     }else{
         ui->admin_button->setHidden(true);
-        ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
     }
+    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -50,7 +49,7 @@ Navbar::~Navbar()
 }
 
 void Navbar::setUserData() {
-    ui->user->setText("Florian Mimmler");
+    ui->user->setText("Max Mustermann");
 }
 
 void Navbar::on_user_clicked()

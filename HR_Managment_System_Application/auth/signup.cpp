@@ -97,14 +97,17 @@ void Signup::on_button_clicked()
         QString Email = ui->email_input->text();
         QString Telefon = ui->tel_input->text();
         QString Adresse = ui->adresse_input->text();
-        QString Plz = ui->plz_input->text();
+        int Plz = ui->plz_input->text().toInt();
         QString Ort = ui->ort_input->text();
         QString Passwort = ui->passwort_input->text();
+        QString title = ui->titel_input->text();
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //zuerst in ADRESS einfügen und dann EMPLOYEE, weil so solls angeblich funktionieren, funktioniert aber nicht
         bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
         signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
+        //oder eine andere Funktion
+        //bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort,title);
 
         if(signup == true) {
             ui->error_text->setText("");

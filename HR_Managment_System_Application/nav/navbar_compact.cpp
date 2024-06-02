@@ -1,8 +1,10 @@
 #include "navbar_compact.h"
 #include "ui_navbar_compact.h"
-
 #include <QFile>
 #include <QStyle>
+#include "dbaccess.h"
+#include "person.h"
+
 
 #include "dbaccess.h"
 
@@ -24,7 +26,9 @@ Navbar_compact::Navbar_compact(QWidget *parent)
         ui->admin_button->setHidden(true);
     items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
-
+    if(currentEmployee->getAdmin() == false){
+        ui->admin_button->setVisible(false);
+    }
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
