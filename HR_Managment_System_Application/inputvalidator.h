@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
+#pragma once
 
 class InputValidator : public QObject {
     Q_OBJECT

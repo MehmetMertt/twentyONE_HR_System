@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "inputvalidator.h"
+#pragma once
 
 namespace Ui {
 class Account;

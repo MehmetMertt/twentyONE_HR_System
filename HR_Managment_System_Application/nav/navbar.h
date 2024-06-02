@@ -2,6 +2,7 @@
 #define NAVBAR_H
 
 #include <QWidget>
+#pragma once
 
 namespace Ui {
 class Navbar;

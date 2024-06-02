@@ -16,7 +16,14 @@
 #include <timetracker.h>
 #include <requests.h>
 #include <settings.h>
-
+//---------------------------
+#pragma once
+#include <dbaccess.h>
+#include <QFile>
+#include <QPropertyAnimation>
+#include <QtSql/QSqlDatabase>
+#include <QDebug>
+//---------------------------
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

@@ -53,17 +53,13 @@ void Login::on_button_clicked(){
         //ui->button->setEnabled(false);
     }else {
 
-        QString Email = ui->email_input->text();
-        QString Passwort = ui->passwort_input->text();
-
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
-        //oder eine andere Funktion
         currentEmployee = dbZugriff->login(ui->email_input->text(),ui->passwort_input->text());
         //Für Testing, remove for deployment
         //login = true;
-        qDebug() << currentEmployee;
-        qDebug() << ui->email_input->text();
-        qDebug() << ui->passwort_input->text();
+        //qDebug() << currentEmployee;
+        //qDebug() << ui->email_input->text();
+        //qDebug() << ui->passwort_input->text();
         if(currentEmployee == nullptr){
             ui->error_text->setText("Email oder Passwort ist falsch");
             ui->error_text->show();
@@ -73,10 +69,6 @@ void Login::on_button_clicked(){
             ui->error_text->hide();
             emit login_success();
         }
-
-        //FÜR DEBUGGING:
-        qWarning() << "Email: " << Email << "Passwort: " << Passwort;
     }
-
 }
 

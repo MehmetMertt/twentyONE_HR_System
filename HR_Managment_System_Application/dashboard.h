@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QLineSeries>
+#pragma once
+#include "dbaccess.h"
 
 namespace Ui {
 class Dashboard;

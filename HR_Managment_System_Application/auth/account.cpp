@@ -73,8 +73,5 @@ void Account::on_button_clicked(){
         ui->passwort_input->clear();
         ui->passwort2_input->clear();
         ui->error_text->clear();
-
-        //FÜR DEBUGGING:
-        qWarning() << "Passwort: " << passwort << "\nPasswort2: " << passwort2;
     }
 }

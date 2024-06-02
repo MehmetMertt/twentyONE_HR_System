@@ -2,6 +2,8 @@
 #define ADMINDASHBOARD_H
 
 #include <QWidget>
+#pragma once
+#include "person.h"
 
 namespace Ui {
 class AdminDashboard;

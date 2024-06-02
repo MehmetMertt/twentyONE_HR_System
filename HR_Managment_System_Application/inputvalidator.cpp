@@ -7,19 +7,20 @@ InputValidator::InputValidator(QWidget *parent) : QObject(parent){
     this->Nachname_validator = new QRegularExpressionValidator(RegExp_name, this);
     this->Ort_validator = new QRegularExpressionValidator(RegExp_name, this);
 
-    QRegularExpression RegExp_email("^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?@[a-zA-Z0-9]+(\.[a-zA-Z]+)$");
+    //QRegularExpression RegExp_email("^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?@[a-zA-Z0-9]+(\.[a-zA-Z]+)$");
+    QRegularExpression RegExp_email("^[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*@[a-zA-Z]+(-[a-zA-Z]+)?\\.[a-zA-Z]{2,}$");
     this->Email_validator = new QRegularExpressionValidator(RegExp_email, this);
 
     QRegularExpression RegExp_telefon("\\+43[0-9]{1,3}[0-9]{1,8}");
     this->Telefon_validator = new QRegularExpressionValidator(RegExp_telefon, this);
 
-    QRegularExpression RegExp_adresse("^[a-zA-Z-]+\\s?[0-9]+$");
+    QRegularExpression RegExp_adresse("^[A-Za-zäöüßÄÖÜ]+\\s?[0-9]+(/\\d+)?$");
     this->Adresse_validator = new QRegularExpressionValidator(RegExp_adresse, this);
 
     QRegularExpression RegExp_plz("[0-9]{4}");
     this->Plz_validator = new QRegularExpressionValidator(RegExp_plz, this);
 
-    QRegularExpression RegExp_passwort("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W]).{8,}$");
+    QRegularExpression RegExp_passwort("^(?=.*[a-zäöüß])(?=.*[A-ZÄÖÜ])(?=.*\\d)(?=.*[\\W]).{8,}$"); //"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W]).{8,}$"
     this->Passwort_validator = new QRegularExpressionValidator(RegExp_passwort, this);
 
     Vorname_erlaubt = false;
@@ -104,8 +105,8 @@ void InputValidator::ueberpruefeOrt(QWidget *window){
 
 void InputValidator::ueberpruefePasswort(QWidget *window){
     setPasswort_erlaubt(window->findChild<QLineEdit*>("passwort_input")->hasAcceptableInput());
-    if(getPasswort_erlaubt() == false){
-        window->findChild<QLabel*>("error_text")->setText("Das ist kein gültiges Passwort.");
+    if(getPasswort_erlaubt() == false){ //größter Pfusch dieser setText also wenn jmd was besser einfällt bitte umsetzen :)
+        window->findChild<QLabel*>("error_text")->setText("Ein gültiges Passwort muss mindestens \n8 Zeichen lang sein und aus mindestens \n1 Großbuchstaben, 1 Kleinbuchstaben, 1 Zahl \nund 1 speziellen Zeichen bestehen.");
     }else{
         window->findChild<QLabel*>("error_text")->setText("");
         //window->findChild<QPushButton*>("button")->setEnabled(true);

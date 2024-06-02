@@ -2,6 +2,7 @@
 #define REQUESTS_H
 
 #include <QWidget>
+#pragma once
 
 namespace Ui {
 class Requests;

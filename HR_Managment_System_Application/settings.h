@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QWidget>
+#pragma once
 
 namespace Ui {
 class Settings;

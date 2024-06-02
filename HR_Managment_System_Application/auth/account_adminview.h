@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "inputvalidator.h"
 #include "person.h"
+#pragma once
 
 namespace Ui {
 class Account_adminview;

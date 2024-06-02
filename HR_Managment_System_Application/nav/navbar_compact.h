@@ -2,6 +2,7 @@
 #define NAVBAR_COMPACT_H
 
 #include <QWidget>
+#pragma once
 
 namespace Ui {
 class Navbar_compact;
@@ -25,6 +26,7 @@ signals:
     void request_clicked();
     void settings_clicked();
     void logout_clicked();
+    void admin_clicked();
 
 private slots:
     void on_user_clicked();
@@ -38,6 +40,8 @@ private slots:
     void on_settings_clicked();
 
     void on_logout_button_clicked();
+
+    void on_admin_button_clicked();
 
 private:
     Ui::Navbar_compact *ui;

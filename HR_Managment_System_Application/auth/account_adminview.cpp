@@ -107,10 +107,6 @@ void Account_adminview::on_speichern1_button_clicked(){
         } else {
             ui->error_text->setText("Ein Fehler ist aufgetreten");
         }
-
-        //FÜR DEBUGGING:
-        qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
-        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort;
     }
 }
 
@@ -128,7 +124,7 @@ void Account_adminview::on_speichern2_button_clicked(){
         //ui->button->setEnabled(true);
 
         QString passwort = ui->passwort_input->text();
-        QString passwort2 = ui->passwort2_input->text();
+        //QString passwort2 = ui->passwort2_input->text();
 
         //Passwort in der DB aktualisieren
         bool password_success = dbZugriff->changePassword(this->mitarbeiter->getID(), passwort);
@@ -138,10 +134,6 @@ void Account_adminview::on_speichern2_button_clicked(){
         } else {
             ui->error_text->setText("Ein Fehler ist aufgetreten");
         }
-
-        //FÜR DEBUGGING:
-        qWarning() << "Passwort: " << passwort << "\nPasswort2: " << passwort2;
-
     }
 }
 

@@ -21,6 +21,13 @@ dbmanager::dbmanager() {
     }
 }
 
+dbmanager::~dbmanager(){
+    for(int i = 0; i < this->mitarbeiter.size(); i++)
+        delete this->mitarbeiter[i];
+    for(int i = 0; i < this->persons.size(); i++)
+        delete this->persons[i];
+}
+
 QString sha512_hash(QString pw){
     QByteArray passwortHash = pw.toUtf8();
     QByteArray hash = QCryptographicHash::hash(passwortHash, QCryptographicHash::Sha512);
@@ -33,7 +40,7 @@ Person* dbmanager::login(QString mail, QString password){
     bool sucess;
     QString pw = sha512_hash(password);
     qDebug() << pw;
-    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber from EMPLOYEE as e JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber, admin from EMPLOYEE as e JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
     query.bindValue(":password",QString("%1").arg(pw));
     query.bindValue(":mail",QString("%1").arg(mail));
 
@@ -48,11 +55,12 @@ Person* dbmanager::login(QString mail, QString password){
         QString city = query.value(6).toString();
         QString plz = query.value(7).toString();
         QString housenumber = query.value(8).toString();
-        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber);
+        int admin = query.value(9).toInt();
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber,admin);
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
-        sucess = false;
+        sucess = false; //mit dieser local variable wird fett gar nichts gemacht
         qDebug() << "Einloggen war NICHT erfolgreich";
     }
     return nullptr;
@@ -84,6 +92,23 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
 
     return success;
 
+}
+
+bool dbmanager::addMitarbeiterAdresse(QString plz, QString city, QString street){
+    bool success = false;
+    QSqlQuery query;
+    query.prepare("INSERT INTO ADDRESS (plz, city, street) VALUES(:plz, :city, :street);");
+    query.bindValue(":plz",QString("%1").arg(plz));
+    query.bindValue(":city",QString("%1").arg(city));
+    query.bindValue(":street",QString("%1").arg(street));
+
+    if(query.exec()){
+        success = true;
+        qDebug() << "addEmployee success";
+    }else
+        qDebug() << "addEmployee error:"  << query.lastError();
+
+    return success;
 }
 
 bool dbmanager::changePassword(int employeeID, QString newPassword){
@@ -179,5 +204,70 @@ Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
 
     return array;
 }
+/*
+void dbmanager::getAllEmployees(QVector<Person*> &persons){
+    QSqlQuery query("SELECT * FROM EMPLOYEE");
+    if(query.exec()){
+        while (query.next()){
+            int id = query.value(0).toInt();
+            QString name = query.value(2).toString();
+            QString surname = query.value(3).toString();
+            QString mail = query.value(4).toString();
+            QString phone = query.value(5).toString();
+            QString street = ""; //sind im Ergebnis der query nicht enthalten + aber nötig um ein neues Objekt zu erstellen (Konstruktor), weil
+            QString city = "";   //im admindashboard ein Personobjekt benötigt wird
+            QString plz = "";
+            QString housenumber = "";
+            int admin = query.value(1).toInt();
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin);
 
+            persons.push_back(person);
+        }
+    }else
+        qDebug() << "could not fetch employees from database.";
+}
+//*/
+void dbmanager::getAllEmployees(){
+    QSqlQuery query("SELECT * FROM EMPLOYEE");
+    if(query.exec()){
+        while (query.next()){
+            int id = query.value(0).toInt();
+            QString name = query.value(2).toString();
+            QString surname = query.value(3).toString();
+            QString mail = query.value(4).toString();
+            QString phone = query.value(5).toString();
+            QString street = ""; //sind im Ergebnis der query nicht enthalten + aber nötig um ein neues Objekt zu erstellen (Konstruktor), weil
+            QString city = "";   //im admindashboard ein Personobjekt benötigt wird
+            QString plz = "";
+            QString housenumber = "";
+            int admin = query.value(1).toInt();
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin);
 
+            this->persons.push_back(person);
+        }
+    }else
+        qDebug() << "could not fetch employees from database.";
+}
+/*
+void dbmanager::getActiveEmployees(){
+    QSqlQuery query("SELECT * FROM EMPLOYEE where active = 1");
+    if(query.exec()){
+        while (query.next()){
+            int id = query.value(0).toInt();
+            QString name = query.value(2).toString();
+            QString surname = query.value(3).toString();
+            QString mail = query.value(4).toString();
+            QString phone = query.value(5).toString();
+            QString street = ""; //sind im Ergebnis der query nicht enthalten + aber nötig um ein neues Objekt zu erstellen (Konstruktor), weil
+            QString city = "";   //im admindashboard ein Personobjekt benötigt wird
+            QString plz = "";
+            QString housenumber = "";
+            int admin = query.value(1).toInt();
+            Person *activeperson = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin);
+
+            this->activepersons.push_back(person);
+        }
+    }else
+        qDebug() << "could not fetch employees from database.";
+}
+*/

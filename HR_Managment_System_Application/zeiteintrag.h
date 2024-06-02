@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDateTime>
+#pragma once
 
 namespace Ui {
 class Zeiteintrag;

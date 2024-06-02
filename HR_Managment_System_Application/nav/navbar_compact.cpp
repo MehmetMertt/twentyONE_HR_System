@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QStyle>
 
+#include "dbaccess.h"
+
 Navbar_compact::Navbar_compact(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Navbar_compact)
@@ -16,6 +18,10 @@ Navbar_compact::Navbar_compact(QWidget *parent)
     items.insert("dashboard", ui->dashboard);
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
+    if(currentEmployee->getAdmin() == 1){
+        items.insert("admin_page", ui->admin_button);
+    }else
+        ui->admin_button->setHidden(true);
     items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
 
@@ -111,6 +117,12 @@ QString Navbar_compact::getActiveItem() {
     return items.key(active_item);
 }
 
-
+void Navbar_compact::on_admin_button_clicked()
+{
+    removeActiveItem();
+    active_item = ui->admin_button;
+    addActiveItem();
+    emit admin_clicked();
+}
 
 

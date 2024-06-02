@@ -102,10 +102,11 @@ void Signup::on_button_clicked()
         QString Passwort = ui->passwort_input->text();
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
-        //oder eine andere Funktion
-        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
+        //zuerst in ADRESS einfügen und dann EMPLOYEE, weil so solls angeblich funktionieren, funktioniert aber nicht
+        bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
+        signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
 
-        if(signup) {
+        if(signup == true) {
             ui->error_text->setText("");
             ui->error_text->hide();
 
@@ -124,9 +125,5 @@ void Signup::on_button_clicked()
             ui->error_text->setText("Ein Fehler ist aufgetreten");
             ui->error_text->show();
         }
-
-        //FÜR DEBUGGING:
-        qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
-        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort << "\nPasswort: " << Passwort;
     }
 }

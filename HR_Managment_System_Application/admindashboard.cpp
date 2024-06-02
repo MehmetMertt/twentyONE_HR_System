@@ -1,8 +1,6 @@
 #include "admindashboard.h"
 #include "ui_admindashboard.h"
 
-#include "mitarbeiterview.h"
-#include "person.h"
 #include "dbaccess.h"
 
 AdminDashboard::AdminDashboard(QWidget *parent)
@@ -12,7 +10,7 @@ AdminDashboard::AdminDashboard(QWidget *parent)
     ui->setupUi(this);
 
 
-
+/*
     QListWidgetItem* listitem;
     MitarbeiterView* mitarbeiter;
     for(int i = 0; i < 1; i++) {
@@ -28,10 +26,22 @@ AdminDashboard::AdminDashboard(QWidget *parent)
 
 
     }
+//*/
+
+    for(int i = 0; i < dbZugriff->persons.size(); i++){
+        QListWidgetItem *listitem = new QListWidgetItem();
+        dbZugriff->mitarbeiter.push_back(new MitarbeiterView(this, dbZugriff->persons[i]));
+        connect(dbZugriff->mitarbeiter.back(), &MitarbeiterView::editEmployee, this, &AdminDashboard::processEditMitarbeiter);
+        listitem->setSizeHint(dbZugriff->mitarbeiter.back()->sizeHint());
+        ui->employee_list->addItem(listitem);
+        ui->employee_list->setItemWidget(listitem, dbZugriff->mitarbeiter.back());
+    }
+//*/
 }
 
 AdminDashboard::~AdminDashboard()
 {
+
     delete ui;
 }
 

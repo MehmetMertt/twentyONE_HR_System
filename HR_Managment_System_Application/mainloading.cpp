@@ -36,13 +36,13 @@ MainLoading::~MainLoading()
 
 void MainLoading::loadDB() {
     dbZugriff = new dbmanager();
-    dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test");
+    //dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "test"); // <- ist im SQL-Skript schon drinnen
     QThread::sleep(1);
     hideWhenReady();
 }
 
 void MainLoading::hideWhenReady() {
-    qDebug("hide loading page");
+    //qDebug("hide loading page");
     //timer->stop();
     emit loadingFinished();
     QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");

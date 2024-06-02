@@ -5,6 +5,7 @@
 #include <QList>
 #include <QPair>
 #include <QDateTime>
+#pragma once
 
 namespace Ui {
 class Timetracker;

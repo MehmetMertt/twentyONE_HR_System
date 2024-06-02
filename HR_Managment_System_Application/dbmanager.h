@@ -15,16 +15,31 @@
 #include <QSqlError>
 #include "zeiteintrag.h"
 #include "person.h"
+#pragma once
+
+//TEST
+#include "mitarbeiterview.h"
+
 class dbmanager
 {
 public:
     //QString ist eine bessere Variante von std::string supported UniCode und ist schneller
     dbmanager();
+    ~dbmanager();
+
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
+    bool addMitarbeiterAdresse(QString plz, QString city, QString street);
     Person* login(QString mail, QString password);
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
     Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );
     bool changePassword(int employeeID, QString newPassword);
+
+    //TEST
+    QVector<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
+    QVector<Person*> activepersons; //hier auch
+    QVector<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
+    void getAllEmployees();
+    //void getActiveEmployees();
 
 private:
     QSqlDatabase m_db;
