@@ -8,7 +8,7 @@ Account::Account(QWidget *parent)
 {
     ui->setupUi(this);
     ui->account_tel->setText(currentEmployee->getPhone());
-    ui->account_name->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
+    ui->account_name->setText(currentEmployee->getGender() + " " + currentEmployee->getTitle() + " " + currentEmployee->getName() + " " + currentEmployee->getSurname());
     ui->account_email->setText(currentEmployee->getMail());
     QString street = currentEmployee->getStreet();
     QString housenumber = currentEmployee->getHousenumber();

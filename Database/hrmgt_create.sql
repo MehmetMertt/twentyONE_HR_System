@@ -61,7 +61,7 @@ CREATE TABLE `ADDRESS` (
 --
 
 INSERT INTO `ADDRESS` (`id`, `plz`, `city`, `street`, `housenumber`) VALUES
-(1, 1010, 'Wien', 'Musterstraße 12', 13);
+(1, 1010, 'Wien', 'Musterstraße', 13);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `EMPLOYEE` (
 --
 
 INSERT INTO `EMPLOYEE` (`password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `gender`, `title`) VALUES
-('d787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Boss');
+('d787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+4367006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Boss');
 
 -- --------------------------------------------------------
 

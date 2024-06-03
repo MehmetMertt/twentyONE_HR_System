@@ -9,6 +9,7 @@ Signup::Signup(QWidget *parent)
 {
     ui->setupUi(this);
     ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
+    ui->anrede_input->setCurrentIndex(2);
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -101,13 +102,14 @@ void Signup::on_button_clicked()
         QString Ort = ui->ort_input->text();
         QString Passwort = ui->passwort_input->text();
         QString title = ui->titel_input->text();
+        QString gender = ui->anrede_input->currentText();
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //zuerst in ADRESS einfügen und dann EMPLOYEE, weil so solls angeblich funktionieren, funktioniert aber nicht
         //bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
         //signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
         //oder eine andere Funktion
-        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort,title);
+        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort, gender, title);
 
         if(signup == true) {
             ui->error_text->setText("");
@@ -121,6 +123,8 @@ void Signup::on_button_clicked()
             ui->plz_input->clear();
             ui->ort_input->clear();
             ui->passwort_input->clear();
+            ui->titel_input->clear();
+            ui->anrede_input->setCurrentIndex(2);
 
             emit signup_success();
 

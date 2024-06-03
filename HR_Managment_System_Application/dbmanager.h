@@ -29,7 +29,7 @@ public:
 
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
     bool addMitarbeiterAdresse(QString plz, QString city, QString street);
-    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString title);
+    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString gender, QString title);
     Person* login(QString mail, QString password);
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
     Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );

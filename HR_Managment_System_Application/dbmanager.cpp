@@ -43,7 +43,7 @@ Person* dbmanager::login(QString mail, QString password){
     bool sucess;
     QString pw = sha512_hash(password);
     qDebug() << pw;
-    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin,t.title from EMPLOYEE as e JOIN TITLES as t on e.title = t.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
     query.bindValue(":password",QString("%1").arg(pw));
     query.bindValue(":mail",QString("%1").arg(mail));
 
@@ -59,12 +59,11 @@ Person* dbmanager::login(QString mail, QString password){
         QString plz = query.value(7).toString();
         QString housenumber = query.value(8).toString();
         int admin = query.value(9).toInt();
-        
-        
-        QString anrede = query.value(10).toString();
-        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber,admin,anrede);
+        QString gender = query.value(10).toString();
+        QString title = query.value(11).toString();
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber,admin,gender, title);
         qDebug() << admin;
-        qDebug() << anrede;
+        qDebug() << gender;
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
@@ -74,12 +73,14 @@ Person* dbmanager::login(QString mail, QString password){
     return nullptr;
 }
 
-bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString title){
+bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString address, int plz, QString city, QString gender, QString title){
     bool success = false;
     QSqlQuery queryAddress;
     QString pw = sha512_hash(password);
-    int housenumber = 4;
-    queryAddress.prepare("INSERT into ADDRESS (plz, city, street, housenumber VALUES(:plz,:city,:street,:housenumber);");
+    QStringList address_components = address.split(" ");
+    QString street = address_components[0];
+    int housenumber = address_components[1].toInt();
+    queryAddress.prepare("INSERT into ADDRESS (plz, city, street, housenumber) VALUES(:plz,:city,:street,:housenumber);");
     queryAddress.bindValue(":city",QString("%1").arg(city));
     queryAddress.bindValue(":plz",QString("%1").arg(plz));
     queryAddress.bindValue(":street",QString("%1").arg(street));
@@ -94,19 +95,19 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
     int addressId = id.toInt();
 
     QSqlQuery queryEmployee;
-    int titleid = 0;
-    if(title == "Herr"){ // switch using qstring is illegal...
-        titleid = 1;
-    } else if(title == "Frau"){
-        titleid = 2;
-    } else if(title == "Divers"){
-        titleid = 3;
+    int genderId = 0;
+    if(gender == "Herr"){ // switch using qstring is illegal...
+        genderId = 1;
+    } else if(gender == "Frau"){
+        genderId = 2;
+    } else if(gender == "Divers"){
+        genderId = 3;
     } else {
-        titleid = 0;
+        genderId = 0;
     }
 
 
-    queryEmployee.prepare("INSERT INTO EMPLOYEE (name, surname, mail, phone, password,adressid,title) VALUES(:name, :surname, :mail, :phone,:password,:addressid,:title);");
+    queryEmployee.prepare("INSERT INTO EMPLOYEE (name, surname, mail, phone, password,adressid,gender,title) VALUES(:name, :surname, :mail, :phone,:password,:addressid,:gender,:title);");
 
     queryEmployee.bindValue(":name",QString("%1").arg(name));
     queryEmployee.bindValue(":surname",QString("%1").arg(surname));
@@ -114,7 +115,8 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
     queryEmployee.bindValue(":phone",QString("%1").arg(phone));
     queryEmployee.bindValue(":password",QString("%1").arg(pw));
     queryEmployee.bindValue(":addressid",QString("%1").arg(addressId));
-    queryEmployee.bindValue(":title",QString("%1").arg(titleid));
+    queryEmployee.bindValue(":gender",QString("%1").arg(genderId));
+    queryEmployee.bindValue(":title", QString("%1").arg(title));
 
     if(queryEmployee.exec())
     {
@@ -279,7 +281,7 @@ void dbmanager::getAllEmployees(){
             QString plz = "";
             QString housenumber = "";
             bool admin = query.value(1).toBool();
-            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, "");
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, "", "");
             //Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin,QString anrede);
 
             this->persons.push_back(person);

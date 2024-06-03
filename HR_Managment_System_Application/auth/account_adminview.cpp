@@ -98,10 +98,11 @@ void Account_adminview::on_speichern1_button_clicked(){
         int Plz = ui->plz_input->text().toInt();
         QString Ort = ui->ort_input->text();
         QString Password = ui->passwort_input->text();
-        QString title = ui->anrede_input->itemData(ui->anrede_input->currentIndex()).toString(); // Um value von combobox zu bekommen
+        QString gender = ui->anrede_input->itemData(ui->anrede_input->currentIndex()).toString(); // Um value von combobox zu bekommen
+        QString title = ui->titel_input->text();
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
-        bool success = dbZugriff->addMitarbeiter(Vorname,Nachname,Email,Telefon,Password,Adresse,Plz,Ort,title);
+        bool success = dbZugriff->addMitarbeiter(Vorname,Nachname,Email,Telefon,Password,Adresse,Plz,Ort,gender,title);
 
         if(success) {
             ui->success_text->setText("Daten erfolgreich bearbeitet");
@@ -162,7 +163,8 @@ void Account_adminview::setDataInView() {
 
     ui->email_input->setText(this->mitarbeiter->getMail());
     ui->tel_input->setText(this->mitarbeiter->getPhone());
-    //ui->anrede_input->setText(//mitarbeiter anrede);
+    ui->anrede_input->setCurrentText(this->mitarbeiter->getGender());
+    ui->titel_input->setText(this->mitarbeiter->getTitle());
     ui->nachname_input->setText(this->mitarbeiter->getSurname());
     ui->vorname_input->setText(this->mitarbeiter->getName());
     ui->adresse_input->setText(this->mitarbeiter->getStreet() + " " + this->mitarbeiter->getHousenumber());
