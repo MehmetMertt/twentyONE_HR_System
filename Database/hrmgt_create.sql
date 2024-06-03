@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- Datenbank: `hrmgt_database`
 --
 
+DROP DATABASE IF EXISTS hrmgt_database;
+CREATE DATABASE hrmgt_database;
+
+use hrmgt_database;
+
 -- --------------------------------------------------------
 
 --
