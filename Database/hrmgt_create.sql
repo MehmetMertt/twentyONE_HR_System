@@ -93,15 +93,16 @@ CREATE TABLE `EMPLOYEE` (
   `departmentid` int DEFAULT NULL,
   `salaryid` int DEFAULT NULL,
   `admin` int DEFAULT '0',
-  `title` int NOT NULL
+  `gender` int NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Daten für Tabelle `EMPLOYEE`
 --
 
-INSERT INTO `EMPLOYEE` (`id`, `password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `title`) VALUES
-(31, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL, 1, 2);
+INSERT INTO `EMPLOYEE` (`password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `gender`, `title`) VALUES
+('d787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+43 67006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Boss');
 
 -- --------------------------------------------------------
 
@@ -117,19 +118,19 @@ CREATE TABLE `SALARY` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `TITLES`
+-- Tabellenstruktur für Tabelle `GENDERS`
 --
 
-CREATE TABLE `TITLES` (
+CREATE TABLE `GENDERS` (
   `id` int NOT NULL,
-  `title` varchar(50) NOT NULL
+  `gender` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Daten für Tabelle `TITLES`
+-- Daten für Tabelle `GENDERS`
 --
 
-INSERT INTO `TITLES` (`id`, `title`) VALUES
+INSERT INTO `GENDERS` (`id`, `gender`) VALUES
 (1, 'Herr'),
 (2, 'Frau'),
 (3, 'Divers');
@@ -180,7 +181,7 @@ ALTER TABLE `EMPLOYEE`
   ADD KEY `OrtID` (`adressid`),
   ADD KEY `AbteilungsID` (`departmentid`),
   ADD KEY `GehaltID` (`salaryid`),
-  ADD KEY `title` (`title`);
+  ADD KEY `gender` (`gender`);
 
 --
 -- Indizes für die Tabelle `SALARY`
@@ -189,9 +190,9 @@ ALTER TABLE `SALARY`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `TITLES`
+-- Indizes für die Tabelle `GENDERS`
 --
-ALTER TABLE `TITLES`
+ALTER TABLE `GENDERS`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -227,7 +228,7 @@ ALTER TABLE `DEPARTMENT`
 -- AUTO_INCREMENT für Tabelle `EMPLOYEE`
 --
 ALTER TABLE `EMPLOYEE`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT für Tabelle `SALARY`
@@ -236,9 +237,9 @@ ALTER TABLE `SALARY`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `TITLES`
+-- AUTO_INCREMENT für Tabelle `GENDERS`
 --
-ALTER TABLE `TITLES`
+ALTER TABLE `GENDERS`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -264,7 +265,7 @@ ALTER TABLE `EMPLOYEE`
   ADD CONSTRAINT `EMPLOYEE_ibfk_1` FOREIGN KEY (`adressid`) REFERENCES `ADDRESS` (`id`),
   ADD CONSTRAINT `EMPLOYEE_ibfk_2` FOREIGN KEY (`departmentid`) REFERENCES `DEPARTMENT` (`id`),
   ADD CONSTRAINT `EMPLOYEE_ibfk_3` FOREIGN KEY (`salaryid`) REFERENCES `SALARY` (`id`),
-  ADD CONSTRAINT `EMPLOYEE_ibfk_4` FOREIGN KEY (`title`) REFERENCES `TITLES` (`id`);
+  ADD CONSTRAINT `EMPLOYEE_ibfk_4` FOREIGN KEY (`gender`) REFERENCES `GENDERS` (`id`);
 
 --
 -- Constraints der Tabelle `WORKINGHOURS`
