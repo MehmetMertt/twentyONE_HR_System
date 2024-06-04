@@ -80,13 +80,16 @@ void MainWindow::login_finished()
     timetracker_page = new Timetracker(this);
     request_page = new Requests(this);
     settings_page = new Settings(this);
+    editZeiteintrag_page = new EditZeiteintrag(this);
 
     ui->main->addWidget(dashboard);
     ui->main->addWidget(account_page);
     ui->main->addWidget(timetracker_page);
     ui->main->addWidget(request_page);
     ui->main->addWidget(settings_page);
+    ui->main->addWidget(editZeiteintrag_page);
     ui->main->setCurrentWidget(dashboard);
+
 
     connect(navbar, &Navbar::account_clicked, this, &MainWindow::showAccount);
     connect(navbar_comp, &Navbar_compact::account_clicked, this, &MainWindow::showAccount);
@@ -101,6 +104,8 @@ void MainWindow::login_finished()
     connect(navbar, &Navbar::logout_clicked, settings_page, &Settings::logout);
     connect(navbar_comp, &Navbar_compact::logout_clicked, settings_page, &Settings::logout);
     connect(settings_page, &Settings::logout_success, this, &MainWindow::processLogout);
+
+    connect(timetracker_page, &Timetracker::openEditZeiteintrag, this, &MainWindow::openEditZeiteintragView);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -249,6 +254,7 @@ void MainWindow::showDashboard() {
 }
 
 void MainWindow::showTimetracker() {
+    timetracker_page->loadData();
     ui->main->setCurrentWidget(timetracker_page);
 }
 
@@ -280,4 +286,9 @@ void MainWindow::processLogout() {
 void MainWindow::openEditEmployeeView(int id) {
     account_adminview_page->initPage(id);
     ui->main->setCurrentWidget(account_adminview_page);
+}
+
+void MainWindow::openEditZeiteintragView(QList<Timestamp*> timestamps) {
+    editZeiteintrag_page->initPage(timestamps);
+    ui->main->setCurrentWidget(editZeiteintrag_page);
 }

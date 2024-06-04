@@ -143,8 +143,8 @@ INSERT INTO `GENDERS` (`id`, `gender`) VALUES
 
 CREATE TABLE `WORKINGHOURS` (
   `id` int NOT NULL,
-  `shiftstart` date DEFAULT NULL,
-  `shiftend` date DEFAULT NULL,
+  `shiftstart` datetime DEFAULT NULL,
+  `shiftend` datetime DEFAULT NULL,
   `employeeid` int DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -8,7 +8,7 @@ Zeiteintrag::Zeiteintrag(QWidget *parent)
     ui->setupUi(this);
 }
 
-Zeiteintrag::Zeiteintrag(int employeeId, QDateTime date, QDateTime startzeit, QDateTime endzeit, int dauer, QString notiz, QWidget *parent)
+Zeiteintrag::Zeiteintrag(int employeeId, QDateTime date, QDateTime startzeit, QDateTime endzeit, double dauer, QString notiz, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Zeiteintrag)
 {

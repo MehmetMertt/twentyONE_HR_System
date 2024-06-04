@@ -180,8 +180,8 @@ bool dbmanager::createZeiteintrag(QDateTime shiftstart, QDateTime shiftend, QStr
 
     bool success = false;
     QSqlQuery query;
-    QString mysqlDateStart = shiftstart.toString("YYYY-mm-dd hh:mm:ss");
-    QString mysqlDateEnde = shiftend.toString("YYYY-mm-dd hh:mm:ss");
+    QString mysqlDateStart = shiftstart.toString("yyyy-MM-dd hh:mm:ss");
+    QString mysqlDateEnde = shiftend.toString("yyyy-MM-dd hh:mm:ss");
     query.prepare("INSERT INTO WORKINGHOURS (shiftstart, shiftend,employeeid, note) VALUES(:shiftstart, :shiftend,:employeeid, :note);");
     query.bindValue(":shiftstart",QString("%1").arg(mysqlDateStart));
     query.bindValue(":shiftend",QString("%1").arg(mysqlDateEnde));
@@ -206,43 +206,46 @@ bool dbmanager::createZeiteintrag(QDateTime shiftstart, QDateTime shiftend, QStr
 
 }
 
-Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array ){
+QList<Zeiteintrag*> dbmanager::getArbeitszeiten(int employeeID){
 
     QSqlQuery query;
 
     query.prepare("SELECT shiftstart,shiftend, note,id FROM WORKINGHOURS WHERE  employeeid = :employeeid ");
     query.bindValue(":employeeid",QString("%1").arg(employeeID));
 
+    QList<Zeiteintrag*> zeiteintrag_list = {};
 
     if(query.exec())
     {
         //success = true;
         qDebug() << "getArbeitszeiten success";
 
-        int i = 0;
+        Zeiteintrag* zeiteintrag;
+
         while (query.next()) {
 
-            Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
+            QDateTime startzeit = QDateTime::fromString(query.value(0).toString(), Qt::ISODate);
+            QDateTime endzeit = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
+            QDateTime date = QDateTime::fromString(query.value(0).toString(), Qt::ISODate);
+            QString notiz = query.value(2).toString();
+            int id = query.value(3).toInt();
+            double dauer = startzeit.secsTo(endzeit) / 3600.0;
 
-            zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
-            zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
-            zeiteintrag1->setNotiz(query.value(2).toString());
-            zeiteintrag1->setTimentryId(query.value(3).toInt());
+            zeiteintrag = new Zeiteintrag(employeeID, date, startzeit, endzeit, dauer, notiz, nullptr);
+            zeiteintrag->setTimentryId(id);
+
+            zeiteintrag_list.push_back(zeiteintrag);
 
 
-            array[i] = zeiteintrag1;
-            ++i;
-            qDebug();
         }
     }
     else
     {
         qDebug() << "getArbeitszeiten error:"
                  << query.lastError();
-        return 0;
+        return {};
     }
-
-    return array;
+    return zeiteintrag_list;
 }
 /*
 void dbmanager::getAllEmployees(QVector<Person*> &persons){

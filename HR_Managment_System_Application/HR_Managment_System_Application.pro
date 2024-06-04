@@ -17,6 +17,8 @@ SOURCES += \
     dbmanager.cpp \
     auth/login.cpp \
     auth/signup.cpp \
+    editzeiteintrag.cpp \
+    editzeiteintragitem.cpp \
     inputvalidator.cpp \
     main.cpp \
     mainloading.cpp \
@@ -27,6 +29,7 @@ SOURCES += \
     person.cpp \
     requests.cpp \
     settings.cpp \
+    timestamp.cpp \
     timetracker.cpp \
     zeiteintrag.cpp
 
@@ -39,6 +42,8 @@ HEADERS += \
     dbmanager.h \
     auth/login.h \
     auth/signup.h \
+    editzeiteintrag.h \
+    editzeiteintragitem.h \
     inputvalidator.h \
     mainloading.h \
     mainwindow.h \
@@ -48,6 +53,7 @@ HEADERS += \
     person.h \
     requests.h \
     settings.h \
+    timestamp.h \
     timetracker.h \
     zeiteintrag.h
 
@@ -57,6 +63,8 @@ FORMS += \
     auth/account_adminview.ui \
     auth/login.ui \
     auth/signup.ui \
+    editzeiteintrag.ui \
+    editzeiteintragitem.ui \
     mainloading.ui \
     dashboard.ui \
     mainwindow.ui \

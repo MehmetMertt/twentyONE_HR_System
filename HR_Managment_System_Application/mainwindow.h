@@ -16,6 +16,7 @@
 #include <timetracker.h>
 #include <requests.h>
 #include <settings.h>
+#include <editzeiteintrag.h>
 //---------------------------
 #pragma once
 #include <dbaccess.h>
@@ -63,6 +64,7 @@ private:
     Timetracker* timetracker_page;
     Requests* request_page;
     Settings* settings_page;
+    EditZeiteintrag* editZeiteintrag_page;
 
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;
@@ -79,5 +81,6 @@ private:
     void showAdminDashboard();
     void showSignup();
     void openEditEmployeeView(int id);
+    void openEditZeiteintragView(QList<Timestamp*> timestamps);
 };
 #endif // MAINWINDOW_H

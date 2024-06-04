@@ -5,6 +5,7 @@
 #include <QList>
 #include <QPair>
 #include <QDateTime>
+#include "timestamp.h"
 #pragma once
 
 namespace Ui {
@@ -19,6 +20,11 @@ public:
     explicit Timetracker(QWidget *parent = nullptr);
     ~Timetracker();
 
+    void loadData();
+
+signals:
+    void openEditZeiteintrag(QList<Timestamp*> timestamps);
+
 private slots:
     void on_button_start_clicked();
 
@@ -31,7 +37,7 @@ private slots:
 private:
     Ui::Timetracker *ui;
 
-    QList<QPair<QDateTime, QDateTime>> timestamps;
+    QList<Timestamp*> timestamps;
     void updateTimer();
     bool timer_running = false;
     int elapsedTime = 0;

@@ -15,7 +15,7 @@ class Zeiteintrag : public QWidget
 
 public:
     Zeiteintrag(QWidget *parent = nullptr);
-    Zeiteintrag(int id = 0, QDateTime date = QDateTime::currentDateTime(), QDateTime startzeit = QDateTime::currentDateTime(), QDateTime endzeit = QDateTime::currentDateTime(), int dauer = 0, QString notiz = "", QWidget *parent = nullptr);
+    Zeiteintrag(int id = 0, QDateTime date = QDateTime::currentDateTime(), QDateTime startzeit = QDateTime::currentDateTime(), QDateTime endzeit = QDateTime::currentDateTime(), double dauer = 0, QString notiz = "", QWidget *parent = nullptr);
 
 
 
@@ -39,7 +39,7 @@ private:
     QDateTime date;
     QDateTime startzeit;
     QDateTime endzeit;
-    int dauer;
+    double dauer;
     QString notiz;
     int timeentryId;
 

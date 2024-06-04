@@ -15,6 +15,7 @@
 #include <QSqlError>
 #include "zeiteintrag.h"
 #include "person.h"
+#include "QList"
 #pragma once
 
 //TEST
@@ -32,7 +33,7 @@ public:
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString gender, QString title);
     Person* login(QString mail, QString password);
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
-    Zeiteintrag ** getArbeitszeiten(int employeeID, Zeiteintrag **array );
+    QList<Zeiteintrag*> getArbeitszeiten(int employeeID);
     Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
     bool changePassword(int employeeID, QString newPassword);
     int getArbeitsstunden(int employeeID);
