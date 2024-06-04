@@ -34,6 +34,8 @@ private slots:
 
     void on_button_weiter_clicked();
 
+    void on_button_neu_clicked();
+
 private:
     Ui::Timetracker *ui;
 

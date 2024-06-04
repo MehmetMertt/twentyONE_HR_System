@@ -43,7 +43,7 @@ QDateTime EditZeiteintragItem::getEndzeit() {
 }
 
 QString EditZeiteintragItem::getNotiz() {
-    return ui->notiz->text();
+    return ui->notiz->toPlainText();
 }
 
 int EditZeiteintragItem::getID() {

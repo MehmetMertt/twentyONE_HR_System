@@ -8,7 +8,6 @@ class Timestamp : public QObject
 {
     Q_OBJECT
 public:
-    explicit Timestamp(QObject *parent = nullptr);
     Timestamp(QObject *parent = nullptr, QDateTime start = QDateTime::currentDateTime(), QDateTime ende = QDateTime::currentDateTime());
 
     QPair<QDateTime, QDateTime> data;

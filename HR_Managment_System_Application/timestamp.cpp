@@ -1,8 +1,5 @@
 #include "timestamp.h"
 
-Timestamp::Timestamp(QObject *parent)
-    : QObject{parent}
-{}
 
 Timestamp::Timestamp(QObject *parent, QDateTime start, QDateTime ende)
     :QObject{parent}

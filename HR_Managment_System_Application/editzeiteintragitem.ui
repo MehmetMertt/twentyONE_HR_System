@@ -110,7 +110,20 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="notiz"/>
+      <widget class="QTextEdit" name="notiz">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

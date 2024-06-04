@@ -31,6 +31,7 @@ EditZeiteintrag::~EditZeiteintrag()
 
 void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
+    ui->listWidget->clear();
 
     QListWidgetItem* listitem;
     EditZeiteintragItem* zeiteintrag;
@@ -61,8 +62,22 @@ void EditZeiteintrag::on_save_clicked()
         if(!success) {
             qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
         } else {
-
+            emit zeiteintrag_saved();
         }
     }
+}
+
+
+void EditZeiteintrag::on_new_eintrag_clicked()
+{
+    QListWidgetItem* listitem = new QListWidgetItem();
+    EditZeiteintragItem* zeiteintrag = new EditZeiteintragItem(this, this->timestampItems.count(), new Timestamp());
+    this->timestampItems.push_back(zeiteintrag);
+
+    listitem->setSizeHint(zeiteintrag->sizeHint());
+
+    ui->listWidget->addItem(listitem);
+    ui->listWidget->setItemWidget(listitem, zeiteintrag);
+
 }
 

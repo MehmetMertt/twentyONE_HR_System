@@ -19,8 +19,13 @@ public:
 
     void initPage(QList<Timestamp*> timestamps);
 
+signals:
+    void zeiteintrag_saved();
+
 private slots:
     void on_save_clicked();
+
+    void on_new_eintrag_clicked();
 
 private:
     Ui::EditZeiteintrag *ui;

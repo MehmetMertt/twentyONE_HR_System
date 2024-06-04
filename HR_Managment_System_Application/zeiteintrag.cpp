@@ -25,13 +25,13 @@ Zeiteintrag::Zeiteintrag(int employeeId, QDateTime date, QDateTime startzeit, QD
 
     ui->label_date->setText(this->date.toLocalTime().toString("dd.MM.yyyy"));
     ui->label_time->setText(this->startzeit.toLocalTime().toString("hh:mm") + " - " + this->endzeit.toLocalTime().toString("hh:mm"));
-    ui->label_duration->setText(QString::number(dauer) + " h");
+    ui->label_duration->setText(QString::number(dauer, 'f', 2) + " h");
 
-    ui->label_comment->hide();
+    ui->notiz->hide();
 
     if(notiz != "") {
-        ui->label_comment->setText(notiz);
-        ui->label_comment->show();
+        ui->notiz->setText(notiz);
+        ui->notiz->show();
     }
 }
 

@@ -36,7 +36,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="new_2">
+        <widget class="QPushButton" name="new_eintrag">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>

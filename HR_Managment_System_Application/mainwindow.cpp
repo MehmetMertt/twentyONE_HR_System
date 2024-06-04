@@ -106,6 +106,7 @@ void MainWindow::login_finished()
     connect(settings_page, &Settings::logout_success, this, &MainWindow::processLogout);
 
     connect(timetracker_page, &Timetracker::openEditZeiteintrag, this, &MainWindow::openEditZeiteintragView);
+    connect(editZeiteintrag_page, &EditZeiteintrag::zeiteintrag_saved, this, &MainWindow::showTimetracker);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);

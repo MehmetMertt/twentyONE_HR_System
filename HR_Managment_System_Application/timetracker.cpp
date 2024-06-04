@@ -129,3 +129,9 @@ void Timetracker::updateTimer() {
     time = time.addSecs(elapsedTime);
     ui->timer_label->setText(time.toString("hh:mm:ss"));
 }
+
+void Timetracker::on_button_neu_clicked()
+{
+    emit openEditZeiteintrag({new Timestamp()});
+}
+
