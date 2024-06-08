@@ -15,6 +15,13 @@ Account::Account(QWidget *parent)
     QString plz = currentEmployee->getPLZ();
     QString city = currentEmployee->getCity();
     ui->account_adresse->setText(street + " " + housenumber + " " + plz + " " + city);
+
+    validator = new InputValidator(this);
+    ui->passwort_input->setValidator(validator->Passwort_validator);
+    ui->passwort2_input->setValidator(validator->Passwort_validator);
+    connect(ui->passwort_input, &QLineEdit::textChanged, this, &Account::onPasswortInputChanged);
+    connect(ui->passwort2_input, &QLineEdit::textChanged, this, &Account::onPasswort2InputChanged);
+
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
@@ -26,12 +33,6 @@ Account::Account(QWidget *parent)
         // Handle error: stylesheet file not found
         qWarning() << "Failed to load stylesheet from " << stylesheetPath;
     }
-
-    validator = new InputValidator(this);
-    ui->passwort_input->setValidator(validator->Passwort_validator);
-    ui->passwort2_input->setValidator(validator->Passwort_validator);
-    connect(ui->passwort_input, &QLineEdit::textChanged, this, &Account::onPasswortInputChanged);
-    connect(ui->passwort2_input, &QLineEdit::textChanged, this, &Account::onPasswort2InputChanged);
 }
 
 Account::~Account()

@@ -150,6 +150,8 @@ MainWindow::~MainWindow()
         delete login_page;
     if(main_loading_page != nullptr)
         delete main_loading_page;
+    if(editZeiteintrag_page != nullptr)
+        delete editZeiteintrag_page;
 
     delete ui;
 }

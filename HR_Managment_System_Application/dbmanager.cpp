@@ -226,12 +226,11 @@ QList<Zeiteintrag*> dbmanager::getArbeitszeiten(int employeeID){
 
             QDateTime startzeit = QDateTime::fromString(query.value(0).toString(), Qt::ISODate);
             QDateTime endzeit = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
-            QDateTime date = QDateTime::fromString(query.value(0).toString(), Qt::ISODate);
             QString notiz = query.value(2).toString();
             int id = query.value(3).toInt();
             double dauer = startzeit.secsTo(endzeit) / 3600.0;
 
-            zeiteintrag = new Zeiteintrag(employeeID, date, startzeit, endzeit, dauer, notiz, nullptr);
+            zeiteintrag = new Zeiteintrag(employeeID, startzeit, endzeit, dauer, notiz, nullptr);
             zeiteintrag->setTimentryId(id);
 
             zeiteintrag_list.push_back(zeiteintrag);
@@ -310,7 +309,7 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
         int i = 0;
         while (query.next()) {
 
-            Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
+            Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
 
             zeiteintrag1->setStartzeit(QDateTime::fromString(query.value(0).toString(), "yyyy-MM-dd hh:mm:ss"));
             zeiteintrag1->setEndzeit(QDateTime::fromString(query.value(1).toString(), "yyyy-MM-dd hh:mm:ss"));
@@ -381,7 +380,7 @@ bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString
 
 }
 
-bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note){
+bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note){
 
     bool success = false;
     QSqlQuery query;

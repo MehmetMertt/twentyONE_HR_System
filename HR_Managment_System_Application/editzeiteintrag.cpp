@@ -26,6 +26,11 @@ EditZeiteintrag::EditZeiteintrag(QWidget *parent)
 
 EditZeiteintrag::~EditZeiteintrag()
 {
+
+    for(auto& timestamp: this->timestampItems) {
+        delete timestamp;
+    }
+
     delete ui;
 }
 

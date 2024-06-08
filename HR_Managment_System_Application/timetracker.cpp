@@ -37,6 +37,12 @@ Timetracker::Timetracker(QWidget *parent)
 void Timetracker::loadData() {
     ui->listWidget->clear();
 
+    this->loadTimeentries();
+    this->loadDashboardData();
+
+}
+
+void Timetracker::loadTimeentries() {
     QList<Zeiteintrag*> zeiteintrag_list = dbZugriff->getArbeitszeiten(currentEmployee->getID());
 
     QListWidgetItem* listitem;
@@ -47,11 +53,34 @@ void Timetracker::loadData() {
 
         ui->listWidget->addItem(listitem);
         ui->listWidget->setItemWidget(listitem, zeiteintrag);
+
+        this->listitems.insert(zeiteintrag, listitem);
+        connect(zeiteintrag, &Zeiteintrag::editZeiteintrag, this, &Timetracker::resizeListItem);
     }
+}
+
+void Timetracker::loadDashboardData() {
+
+
+
 }
 
 Timetracker::~Timetracker()
 {
+    for(auto& timestamp: this->timestamps) {
+        delete timestamp;
+    }
+
+    QMapIterator<Zeiteintrag*, QListWidgetItem*> i(listitems);
+    while (i.hasNext()) {
+        i.next();
+        delete i.key();
+        delete i.value();
+    }
+    listitems.clear();
+
+    delete this->timer;
+
     delete ui;
 }
 
@@ -133,5 +162,9 @@ void Timetracker::updateTimer() {
 void Timetracker::on_button_neu_clicked()
 {
     emit openEditZeiteintrag({new Timestamp()});
+}
+
+void Timetracker::resizeListItem(Zeiteintrag* zeiteintrag) {
+    this->listitems.find(zeiteintrag).value()->setSizeHint(zeiteintrag->sizeHint());
 }
 

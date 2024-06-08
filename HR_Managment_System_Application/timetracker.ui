@@ -276,7 +276,7 @@
           <item>
            <widget class="QLabel" name="label_ueberstunden">
             <property name="text">
-             <string>Überstunden</string>
+             <string>Überstunden gesamt</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -347,7 +347,7 @@
           <item>
            <widget class="QLabel" name="label_urlaub">
             <property name="text">
-             <string>⌀ Arbeitszeit pro Tag</string>
+             <string>⌀ Arbeitszeit pro Tag (h)</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -417,6 +417,9 @@
       <widget class="QListWidget" name="listWidget">
        <property name="lineWidth">
         <number>2</number>
+       </property>
+       <property name="resizeMode">
+        <enum>QListView::Adjust</enum>
        </property>
       </widget>
      </item>

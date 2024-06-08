@@ -6,6 +6,8 @@
 #include <QPair>
 #include <QDateTime>
 #include "timestamp.h"
+#include "QListWidgetItem"
+#include "zeiteintrag.h"
 #pragma once
 
 namespace Ui {
@@ -44,7 +46,18 @@ private:
     bool timer_running = false;
     int elapsedTime = 0;
 
+    QMap<Zeiteintrag*, QListWidgetItem*> listitems;
+
     QTimer *timer;
+
+    void resizeListItem(Zeiteintrag* zeiteintrag);
+
+    void loadTimeentries();
+    void loadDashboardData();
+
+    int wochenstunden;
+    int ueberstunden;
+
 };
 
 #endif // TIMETRACKER_H
