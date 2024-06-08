@@ -22,12 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     //currentEmployee = new person(1,"mehmet","m","we","m","we","m","we","d");
 
-     main_loading_page = new MainLoading(this);
-     connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
+    main_loading_page = new MainLoading(this);
+    connect(main_loading_page, &MainLoading::loadingFinished, this, &MainWindow::onLoadingFinished);
 
-     main_loading_page->setGeometry(this->geometry());
-     main_loading_page->show();
-     main_loading_page->loadDB();
+    main_loading_page->setGeometry(this->geometry());
+    main_loading_page->show();
+    main_loading_page->loadDB();
 
 
     ui->close_nav_button->hide();
@@ -118,7 +118,7 @@ void MainWindow::login_finished()
         connect(navbar, &Navbar::admin_clicked, this, &MainWindow::showAdminDashboard);
         connect(navbar_comp, &Navbar_compact::admin_clicked, this, &MainWindow::showAdminDashboard);
         connect(admin_dashboard, &AdminDashboard::new_employee_clicked, this, &MainWindow::showSignup);
-        connect(signup_page, &Signup::signup_success, this, &MainWindow::showAdminDashboard);
+        connect(signup_page, &Signup::signup_success, this, &MainWindow::loadEmployeesThenShowAdminDashboard);
         connect(admin_dashboard, &AdminDashboard::edit_employee, this, &MainWindow::openEditEmployeeView);
     }
 }
@@ -271,6 +271,13 @@ void MainWindow::showSettings() {
 
 void MainWindow::showAdminDashboard() {
     ui->main->setCurrentWidget(admin_dashboard);
+}
+
+void MainWindow::loadEmployeesThenShowAdminDashboard() {
+
+    dbZugriff->getAllEmployees();
+    this->showAdminDashboard();
+
 }
 
 void MainWindow::showSignup() {

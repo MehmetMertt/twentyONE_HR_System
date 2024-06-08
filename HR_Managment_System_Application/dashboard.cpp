@@ -20,7 +20,7 @@ Dashboard::Dashboard(QWidget *parent)
         qWarning() << "Failed to load stylesheet from" << stylesheetPath;
     }*/
 
-    dbZugriff->getAllEmployees(); //nur hier und nicht im admindashboard sonst wird vecotr zwei mal befüllt
+
     int anzahlEmployees = dbZugriff->persons.size();
     QString anzahl = QString::number(anzahlEmployees);
     ui->Anzahl->setText("Anzahl: " + anzahl);

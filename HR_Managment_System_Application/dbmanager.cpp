@@ -270,25 +270,41 @@ void dbmanager::getAllEmployees(QVector<Person*> &persons){
 }
 //*/
 void dbmanager::getAllEmployees(){
-    QSqlQuery query("SELECT * FROM EMPLOYEE");
+
+    this->removeAllEmployeesLocal();
+
+    //Kein SELECT * weil dadurch würden wir das passwort mitholen was man nicht darf
+    //Und mit Joins kann man auch die Adresse und Gender holen
+    QSqlQuery query("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
     if(query.exec()){
         while (query.next()){
             int id = query.value(0).toInt();
-            QString name = query.value(2).toString();
-            QString surname = query.value(3).toString();
-            QString mail = query.value(4).toString();
-            QString phone = query.value(5).toString();
-            QString street = ""; //sind im Ergebnis der query nicht enthalten + aber nötig um ein neues Objekt zu erstellen (Konstruktor), weil
-            QString city = "";   //im admindashboard ein Personobjekt benötigt wird
-            QString plz = "";
-            QString housenumber = "";
-            bool admin = query.value(1).toBool();
-            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, "", "");
+            QString name = query.value(1).toString();
+            QString surname = query.value(2).toString();
+            QString mail = query.value(3).toString();
+            QString phone = query.value(4).toString();
+            QString street = query.value(5).toString();
+            QString city = query.value(6).toString();
+            QString plz = query.value(7).toString();
+            QString housenumber = query.value(8).toString();
+            bool admin = query.value(9).toBool();
+            QString gender = query.value(10).toString();
+            QString title = query.value(11).toString();
+
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, gender, title);
             //Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin,QString anrede);
 
             this->persons.push_back(person);
         }
     }
+}
+
+void dbmanager::removeAllEmployeesLocal() {
+    for(auto& person: this->persons) {
+        delete person;
+    }
+
+    this->persons.clear();
 }
 
 Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime shiftstart,QDateTime shiftend){

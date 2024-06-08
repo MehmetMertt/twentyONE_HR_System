@@ -82,5 +82,6 @@ private:
     void showSignup();
     void openEditEmployeeView(int id);
     void openEditZeiteintragView(QList<Timestamp*> timestamps);
+    void loadEmployeesThenShowAdminDashboard();
 };
 #endif // MAINWINDOW_H

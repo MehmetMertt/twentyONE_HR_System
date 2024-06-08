@@ -28,6 +28,7 @@ private:
     Ui::AdminDashboard *ui;
 
     void processEditMitarbeiter(int id);
+    void updateView();
 };
 
 #endif // ADMINDASHBOARD_H

@@ -41,10 +41,11 @@ public:
     bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note);
 
     //TEST
-    QVector<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
+    QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
     QVector<Person*> activepersons; //hier auch
     QVector<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
     void getAllEmployees();
+    void removeAllEmployeesLocal();
     //void getActiveEmployees();
 
 private:

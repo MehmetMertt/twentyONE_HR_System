@@ -153,12 +153,12 @@ void Account_adminview::initPage(int mitarbeiterID) {
 void Account_adminview::loadMitarbeiter(int mitarbeiterID) {
 
     //TODO:
-    //this->mitarbeiter = dbZugriff->getMitarbeiter(mitarbeiterID)
+    this->mitarbeiter = dbZugriff->persons.at(mitarbeiterID);
 
     //check errors
 
     //FOR TESTING:
-    this->mitarbeiter = currentEmployee;
+    //this->mitarbeiter = currentEmployee;
 
 }
 
