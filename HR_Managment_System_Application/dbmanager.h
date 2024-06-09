@@ -42,11 +42,16 @@ public:
 
     //TEST
     QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
-    QVector<Person*> activepersons; //hier auch
+    QList<Person*> activepersons; //hier auch
+    int active_persons_count;
     QVector<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
     void getAllEmployees();
     void removeAllEmployeesLocal();
-    //void getActiveEmployees();
+    void removeAllActiveEmployeesLocal();
+    bool addActiveEmployee(int employeeID);
+    bool removeActiveEmployee(int employeeID);
+    void loadActiveEmployees();
+    bool loadActiveEmployeeCount();
 
 private:
     QSqlDatabase m_db;

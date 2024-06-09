@@ -6,6 +6,7 @@
 AdminDashboard::AdminDashboard(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AdminDashboard)
+    , timer(new QTimer(this))
 {
 
     if(currentEmployee->getAdmin() == false){ // double check if current Employeee is Admin
@@ -17,6 +18,8 @@ AdminDashboard::AdminDashboard(QWidget *parent)
 
     ui->setupUi(this);
 
+    connect(timer, &QTimer::timeout, this, &AdminDashboard::updateGeneralData);
+    timer->start(5000);  // Set the timer to trigger every 5 seconds
 
 /*
     QListWidgetItem* listitem;
@@ -37,6 +40,18 @@ AdminDashboard::AdminDashboard(QWidget *parent)
 //*/
 
     updateView();
+
+    // Load the stylesheet from a file (recommended)
+    QString stylesheetPath = ":/resourcen/styles/timetracker.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QFile stylesheetFile(stylesheetPath);
+    if (stylesheetFile.open(QIODevice::ReadOnly)) {
+        QString stylesheet = stylesheetFile.readAll();
+        setStyleSheet(stylesheet);
+        stylesheetFile.close();
+    } else {
+        // Handle error: stylesheet file not found
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath;
+    }
 
 //*/
 }
@@ -59,6 +74,12 @@ void AdminDashboard::processEditMitarbeiter(int id) {
 
 void AdminDashboard::updateView() {
 
+    this->updateEmployeeList();
+    this->updateGeneralData();
+
+}
+
+void AdminDashboard::updateEmployeeList() {
     ui->employee_list->clear();
 
     for(int i = 0; i < dbZugriff->persons.size(); i++){
@@ -69,6 +90,15 @@ void AdminDashboard::updateView() {
         ui->employee_list->addItem(listitem);
         ui->employee_list->setItemWidget(listitem, dbZugriff->mitarbeiter.back());
     }
+}
+
+void AdminDashboard::updateGeneralData() {
+
+    ui->employee_count_label->setText(QString::number(dbZugriff->persons.size()));
+
+    dbZugriff->loadActiveEmployeeCount();
+    ui->active_employee_count_label->setText(QString::number(dbZugriff->active_persons_count));
+
 
 }
 

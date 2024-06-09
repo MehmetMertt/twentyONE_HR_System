@@ -1,6 +1,8 @@
 #include "mitarbeiterview.h"
 #include "ui_mitarbeiterview.h"
 
+#include <QFile>
+
 using namespace std;
 
 MitarbeiterView::MitarbeiterView(QWidget *parent, Person* mitarbeiter)
@@ -12,6 +14,18 @@ MitarbeiterView::MitarbeiterView(QWidget *parent, Person* mitarbeiter)
     this->mitarbeiter = mitarbeiter;
 
     initData();
+
+    // Load the stylesheet from a file (recommended)
+    QString stylesheetPath = ":/resourcen/styles/timetracker.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QFile stylesheetFile(stylesheetPath);
+    if (stylesheetFile.open(QIODevice::ReadOnly)) {
+        QString stylesheet = stylesheetFile.readAll();
+        setStyleSheet(stylesheet);
+        stylesheetFile.close();
+    } else {
+        // Handle error: stylesheet file not found
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath;
+    }
 }
 
 MitarbeiterView::~MitarbeiterView()

@@ -100,6 +100,8 @@ void Timetracker::on_button_start_clicked()
     timer->start(1000);
     timer_running = true;
 
+    dbZugriff->addActiveEmployee(currentEmployee->getID());
+
 }
 
 
@@ -131,9 +133,11 @@ void Timetracker::on_button_stop_clicked()
     timer_running = false;
     elapsedTime = 0;
 
-    foreach(const auto &timestamp, timestamps) {
+    dbZugriff->removeActiveEmployee(currentEmployee->getID());
+
+    /*foreach(const auto &timestamp, timestamps) {
         qDebug() << "Startzeit: " << timestamp->data.first.toString() << ", Endzeit: " << timestamp->data.second.toString();
-    }
+    }*/
 
     emit openEditZeiteintrag(timestamps);
 }

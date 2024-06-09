@@ -26,9 +26,12 @@ private slots:
 
 private:
     Ui::AdminDashboard *ui;
+    QTimer *timer;
 
     void processEditMitarbeiter(int id);
     void updateView();
+    void updateEmployeeList();
+    void updateGeneralData();
 };
 
 #endif // ADMINDASHBOARD_H

@@ -149,6 +149,18 @@ CREATE TABLE `WORKINGHOURS` (
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ACTIVE_EMPLOYEE`
+--
+
+CREATE TABLE `ACTIVE_EMPLOYEE` (
+  `id` int NOT NULL,
+  `employeeid` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 --
 -- Indizes der exportierten Tabellen
 --
@@ -203,6 +215,13 @@ ALTER TABLE `WORKINGHOURS`
   ADD KEY `MitarbeitderID` (`employeeid`);
 
 --
+-- Indizes für die Tabelle `ACTIVE_EMPLOYEE`
+--
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `MitarbeiterID` (`employeeid`);
+
+--
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
@@ -248,6 +267,9 @@ ALTER TABLE `GENDERS`
 ALTER TABLE `WORKINGHOURS`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints der exportierten Tabellen
 --
@@ -272,6 +294,13 @@ ALTER TABLE `EMPLOYEE`
 --
 ALTER TABLE `WORKINGHOURS`
   ADD CONSTRAINT `WORKINGHOURS_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
+COMMIT;
+
+--
+-- Constraints der Tabelle `ACTIVE_EMPLOYEE`
+--
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  ADD CONSTRAINT `MitarbeiterID` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

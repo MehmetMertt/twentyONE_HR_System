@@ -307,6 +307,14 @@ void dbmanager::removeAllEmployeesLocal() {
     this->persons.clear();
 }
 
+void dbmanager::removeAllActiveEmployeesLocal() {
+    for(auto& person: this->activepersons) {
+        delete person;
+    }
+
+    this->activepersons.clear();
+}
+
 Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime shiftstart,QDateTime shiftend){
 
     bool success = false;
@@ -422,26 +430,81 @@ bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end,
 
 }
 
-/*
-void dbmanager::getActiveEmployees(){
-    QSqlQuery query("SELECT * FROM EMPLOYEE where active = 1");
+
+void dbmanager::loadActiveEmployees(){
+
+    removeAllActiveEmployeesLocal();
+
+    QSqlQuery query("SELECT e.id, e.name, e.surname, e.mail, e.phone, street, city, plz, housenumber,admin, g.gender, e.title from ACTIVE_EMPLOYEE as ae JOIN EMPLOYEE as e on ae.employeeid = e.id JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
     if(query.exec()){
         while (query.next()){
             int id = query.value(0).toInt();
-            QString name = query.value(2).toString();
-            QString surname = query.value(3).toString();
-            QString mail = query.value(4).toString();
-            QString phone = query.value(5).toString();
-            QString street = ""; //sind im Ergebnis der query nicht enthalten + aber nötig um ein neues Objekt zu erstellen (Konstruktor), weil
-            QString city = "";   //im admindashboard ein Personobjekt benötigt wird
-            QString plz = "";
-            QString housenumber = "";
-            int admin = query.value(1).toInt();
-            Person *activeperson = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin);
+            QString name = query.value(1).toString();
+            QString surname = query.value(2).toString();
+            QString mail = query.value(3).toString();
+            QString phone = query.value(4).toString();
+            QString street = query.value(5).toString();
+            QString city = query.value(6).toString();
+            QString plz = query.value(7).toString();
+            QString housenumber = query.value(8).toString();
+            bool admin = query.value(9).toBool();
+            QString gender = query.value(10).toString();
+            QString title = query.value(11).toString();
+
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, gender, title);
 
             this->activepersons.push_back(person);
+
+            qDebug() << this->activepersons.size() << " fetched";
         }
     }else
         qDebug() << "could not fetch employees from database.";
 }
-*/
+
+bool dbmanager::loadActiveEmployeeCount() {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM ACTIVE_EMPLOYEE");
+    if (!query.exec()) {
+        qDebug() << "Failed to execute query:" << query.lastError().text();
+        return -1;
+    }
+
+    if (query.next()) {
+        this->active_persons_count = query.value(0).toInt();
+        return query.value(0).toInt();
+    } else {
+        qDebug() << "Failed to retrieve the result from query";
+        return -1;
+    }
+}
+
+
+bool dbmanager::addActiveEmployee(int employeeID) {
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO `ACTIVE_EMPLOYEE` (`employeeid`) VALUES (:employeeID)");
+    query.bindValue(":employeeID", QString("%1").arg(employeeID));
+
+    if(query.exec()) {
+        qDebug() << "Add active success";
+        return true;
+    } else {
+        qDebug() << "Add active fail: " << query.lastError();
+        return false;
+    }
+}
+
+bool dbmanager::removeActiveEmployee(int employeeID) {
+    QSqlQuery query;
+
+    query.prepare("DELETE FROM `ACTIVE_EMPLOYEE` WHERE employeeid = :employeeID");
+    query.bindValue(":employeeID", QString("%1").arg(employeeID));
+
+    if(query.exec()) {
+        qDebug() << "Remove active success";
+        return true;
+    } else {
+        qDebug() << "Remove active fail: " << query.lastError();
+        return false;
+    }
+}
