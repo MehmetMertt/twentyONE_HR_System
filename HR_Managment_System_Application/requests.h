@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <Helpers.h>
+#include "antrag_listitem.h"
 #pragma once
 
 namespace Ui {
@@ -32,6 +33,8 @@ private:
     void processAntragDetailClicked();
 
     void insertRequests();
+
+    QList<AntragListItem*> antrag_list_items;
 
 };
 
