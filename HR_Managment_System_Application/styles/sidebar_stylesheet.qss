@@ -1,5 +1,29 @@
+#navbar_container {
+    background-color: #ececec;
+    border-top-left-radius: 0;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 12px;
+    border: 1px solid rgba(11, 11, 11, 0.27);
+    border-left: none;
+}
+
+
 
 QPushButton {
     font-size: 16px;
+}
+
+QPushButton[active_item = true] {
+    padding: 5px;
+    border: 2px solid #11698E;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    background-color: rgba(25, 69, 107, 0.15);
 }
 

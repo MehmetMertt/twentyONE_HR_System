@@ -13,13 +13,49 @@
 #include <QtSql/QSqlQuery>
 #include <QDebug>
 #include <QSqlError>
+#include "zeiteintrag.h"
+#include "person.h"
+#include "QList"
+#include "antrag.h"
+#pragma once
+
+//TEST
+#include "mitarbeiterview.h"
 
 class dbmanager
 {
 public:
     //QString ist eine bessere Variante von std::string supported UniCode und ist schneller
-    dbmanager(const QString path);
-    bool addMitarbeiter(QString vorname, QString nachname, QString email, QString telenr);
+    dbmanager();
+    ~dbmanager();
+
+    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
+    bool addMitarbeiterAdresse(QString plz, QString city, QString street);
+    bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString gender, QString title);
+    Person* login(QString mail, QString password);
+    bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
+    QList<Zeiteintrag*> getArbeitszeiten(int employeeID);
+    Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
+    bool changePassword(int employeeID, QString newPassword);
+    int getArbeitsstunden(int employeeID);
+    bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note);
+    bool submitAbsence(int employeeID, QDateTime start, QDateTime end,QString reason,QString note);
+    void loadAllRequests();
+    void loadRequestsByEmployee(int employeeID);
+    //TEST
+    QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
+    QList<Person*> activepersons; //hier auch
+    int active_persons_count;
+    QList<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
+    QList<Antrag*> requests;
+    QList<Antrag*> currentEmployee_requests;
+    void getAllEmployees();
+    void removeAllEmployeesLocal();
+    void removeAllActiveEmployeesLocal();
+    bool addActiveEmployee(int employeeID);
+    bool removeActiveEmployee(int employeeID);
+    void loadActiveEmployees();
+    bool loadActiveEmployeeCount();
 
 private:
     QSqlDatabase m_db;

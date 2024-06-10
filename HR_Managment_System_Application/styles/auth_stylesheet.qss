@@ -8,19 +8,20 @@
 
 
 QLineEdit[input_type = "text"] {
+  background-color: #f0f0f0;
   border: 1px solid rgba(248, 241, 241, 0.5);
-  border-radius: 6px;
+  border-bottom: 1px solid #D3D3D3;
   padding: 8px;
   font-size: 14px;
   margin-top: 5%;
 }
 
 QLineEdit[input_type = "text"]:focus {
-    border: 1px solid #11698E;
+    border-bottom: 1px solid #11698E;
 }
 
 
-#login_button, #signup_button {
+QPushButton[button_type = "primary"] {
   color: #11698E;
   border: 1px solid #11698E;
   padding: 10px 20px;
@@ -29,9 +30,49 @@ QLineEdit[input_type = "text"]:focus {
   margin-top: 10%;
 }
 
-#login_button:hover, #signup_button:hover {
+QPushButton[button_type = "primary"]:hover {
     background-color: #11698E;
     color: #F8F1F1;
+}
+
+QComboBox{
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5%;
+    background-color: #f0f0f0;
+}
+
+QComboBox:on {
+    border-color: #11698E;
+}
+
+QComboBox::down-arrow{
+    image:url(://resourcen/icons/arrow_down.svg);
+
+
+}
+
+QComboBox::drop-down:button {
+    background-color: #f0f0f0;
+    width: 18px;
+    border-radius: 8px;
+}
+
+QComboBox:drop-down {
+    padding-right: 2px;
+}
+
+QLabel[text_type = "heading"] {
+    font-size: 16px;
+
+}
+
+QLabel[text_type = "subheading"] {
+    font-size: 16px;
+    color: grey;
+
 }
 
 #error_text {
@@ -39,27 +80,7 @@ QLineEdit[input_type = "text"]:focus {
     font-size: 12px;
 }
 
-QComboBox{
-
-    border: 1px solid rgba(248, 241, 241, 0.5);
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 14px;
-    margin-top: 5%;
-
-
-}
-QComboBox::down-arrow{
-    image:url(://resourcen/icons/arrow_down.svg);
-
-}
-
-QComboBox::drop-down:button {
-    background-color: white;
-    width: 18px;
-
-}
-
-QComboBox:drop-down {
-    padding-right: 2px;
+#success_text {
+    color: green;
+    font-size: 12px;
 }

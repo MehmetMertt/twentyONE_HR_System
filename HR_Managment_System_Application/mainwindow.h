@@ -7,7 +7,25 @@
 #include <nav/navbar_compact.h>
 #include <auth/login.h>
 #include <auth/signup.h>
-
+#include <auth/account.h>
+#include <auth/account_adminview.h>
+#include <mainloading.h>
+#include <dashboard.h>
+#include <admindashboard.h>
+#include <dbmanager.h>
+#include <timetracker.h>
+#include <requests.h>
+#include <settings.h>
+#include <editzeiteintrag.h>
+#include <Helpers.h>
+//---------------------------
+#pragma once
+#include <dbaccess.h>
+#include <QFile>
+#include <QPropertyAnimation>
+#include <QtSql/QSqlDatabase>
+#include <QDebug>
+//---------------------------
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -21,21 +39,50 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void login_finished();
 
 private slots:
     void on_close_nav_button_clicked();
 
     void on_open_nav_button_clicked();
 
+
+
+
+
 private:
     Ui::MainWindow *ui;
+    MainLoading* main_loading_page;
     Navbar* navbar;
     Navbar_compact* navbar_comp;
+
     Login* login_page;
     Signup* signup_page;
+    Account* account_page;
+    Account_adminview* account_adminview_page;
+    AdminDashboard* admin_dashboard;
+    Dashboard* dashboard;
+    Timetracker* timetracker_page;
+    Requests* request_page;
+    Settings* settings_page;
+    EditZeiteintrag* editZeiteintrag_page;
+
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;
     QRect navbar_geometry;
     QRect navbar_closed_geometry;
+
+    void onLoadingFinished();
+    void showAccount();
+    void showDashboard();
+    void showTimetracker(Mode mode);
+    void showRequests();
+    void showSettings();
+    void processLogout();
+    void showAdminDashboard();
+    void showSignup();
+    void openEditEmployeeView(int id);
+    void openEditZeiteintragView(QList<Timestamp*> timestamps);
+    void loadEmployeesThenShowAdminDashboard();
 };
 #endif // MAINWINDOW_H
