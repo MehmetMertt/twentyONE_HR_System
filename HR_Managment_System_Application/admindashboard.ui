@@ -61,12 +61,24 @@
           <property name="text">
            <string/>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Mitarbeiter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>current_value</string>
           </property>
          </widget>
         </item>
@@ -87,12 +99,21 @@
           <property name="text">
            <string>TextLabel</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>aktive Mitarbeiter (Zeitaufzeichnung läuft)</string>
+           <string>aktive Mitarbeiter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -113,12 +134,24 @@
           <property name="text">
            <string>TextLabel</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
            <string>unbeantwortete Anträge</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>current_value</string>
           </property>
          </widget>
         </item>
