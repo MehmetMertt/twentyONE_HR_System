@@ -21,9 +21,7 @@ Dashboard::Dashboard(QWidget *parent)
     }*/
 
 
-    int anzahlEmployees = dbZugriff->persons.size();
-    QString anzahl = QString::number(anzahlEmployees);
-    ui->Anzahl->setText("Anzahl: " + anzahl);
+
 /*
     dbZugriff->getActiveEmployees(); //nur hier und nicht im admindashboard sonst wird vecotr zwei mal befüllt
     int anzahlActives = dbZugriff->activepersons.size();
