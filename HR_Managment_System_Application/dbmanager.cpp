@@ -412,6 +412,9 @@ void dbmanager::loadAllRequests() {
 
 void dbmanager::loadRequestsByEmployee(int employeeID) {
 
+    qDeleteAll(this->currentEmployee_requests);
+    this->currentEmployee_requests.clear();
+
     QSqlQuery query;
 
     query.prepare("SELECT * FROM ABSENCE WHERE employeeid = :employeeID");

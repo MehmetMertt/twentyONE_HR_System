@@ -10,3 +10,4 @@ enum Mode {
 };
 
 #endif // HELPERS_H
+

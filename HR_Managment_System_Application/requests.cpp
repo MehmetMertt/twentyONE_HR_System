@@ -48,7 +48,8 @@ void Requests::processAntragDetailClicked() {
 void Requests::updateView() {
     dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
 
-
+    ui->closed_requests->clear();
+    ui->new_requests->clear();
     this->insertRequests();
 }
 
