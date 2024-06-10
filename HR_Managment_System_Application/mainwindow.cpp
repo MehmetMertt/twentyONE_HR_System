@@ -107,6 +107,7 @@ void MainWindow::login_finished()
 
     connect(timetracker_page, &Timetracker::openEditZeiteintrag, this, &MainWindow::openEditZeiteintragView);
     connect(editZeiteintrag_page, &EditZeiteintrag::zeiteintrag_saved, this, &MainWindow::showTimetracker);
+    connect(editZeiteintrag_page, &EditZeiteintrag::edit_cancel, this, &MainWindow::showTimetracker);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -256,8 +257,9 @@ void MainWindow::showDashboard() {
     ui->main->setCurrentWidget(dashboard);
 }
 
-void MainWindow::showTimetracker() {
-    timetracker_page->loadData();
+void MainWindow::showTimetracker(Mode mode) {
+    if(mode == LOAD_DATA)
+        timetracker_page->loadData();
     ui->main->setCurrentWidget(timetracker_page);
 }
 
@@ -276,6 +278,7 @@ void MainWindow::showAdminDashboard() {
 void MainWindow::loadEmployeesThenShowAdminDashboard() {
 
     dbZugriff->getAllEmployees();
+    this->admin_dashboard->updateView();
     this->showAdminDashboard();
 
 }

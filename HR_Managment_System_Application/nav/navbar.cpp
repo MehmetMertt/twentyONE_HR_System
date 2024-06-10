@@ -74,7 +74,7 @@ void Navbar::on_timetracker_clicked()
     removeActiveItem();
     active_item = ui->timetracker;
     addActiveItem();
-    emit timetracker_clicked();
+    emit timetracker_clicked(LOAD_DATA);
 }
 
 void Navbar::on_request_clicked()

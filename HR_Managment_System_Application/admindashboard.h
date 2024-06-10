@@ -17,6 +17,8 @@ public:
     explicit AdminDashboard(QWidget *parent = nullptr);
     ~AdminDashboard();
 
+     void updateView();
+
 signals:
     void new_employee_clicked();
     void edit_employee(int id);
@@ -29,7 +31,6 @@ private:
     QTimer *timer;
 
     void processEditMitarbeiter(int id);
-    void updateView();
     void updateEmployeeList();
     void updateGeneralData();
 };

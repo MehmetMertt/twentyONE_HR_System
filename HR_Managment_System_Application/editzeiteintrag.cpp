@@ -67,7 +67,7 @@ void EditZeiteintrag::on_save_clicked()
         if(!success) {
             qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
         } else {
-            emit zeiteintrag_saved();
+            emit zeiteintrag_saved(LOAD_DATA);
         }
     }
 }
@@ -84,5 +84,17 @@ void EditZeiteintrag::on_new_eintrag_clicked()
     ui->listWidget->addItem(listitem);
     ui->listWidget->setItemWidget(listitem, zeiteintrag);
 
+}
+
+
+void EditZeiteintrag::on_cancel_clicked()
+{
+    for(auto& timestamp: this->timestampItems) {
+        delete timestamp;
+    }
+
+    this->timestampItems.clear();
+
+    emit edit_cancel(NOTHING);
 }
 

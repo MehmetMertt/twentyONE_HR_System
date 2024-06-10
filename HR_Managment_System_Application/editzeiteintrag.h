@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <editzeiteintragitem.h>
 #include <timestamp.h>
+#include <Helpers.h>
 
 namespace Ui {
 class EditZeiteintrag;
@@ -20,12 +21,15 @@ public:
     void initPage(QList<Timestamp*> timestamps);
 
 signals:
-    void zeiteintrag_saved();
+    void zeiteintrag_saved(Mode mode);
+    void edit_cancel(Mode mode);
 
 private slots:
     void on_save_clicked();
 
     void on_new_eintrag_clicked();
+
+    void on_cancel_clicked();
 
 private:
     Ui::EditZeiteintrag *ui;

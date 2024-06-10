@@ -5,12 +5,13 @@
 
 using namespace std;
 
-MitarbeiterView::MitarbeiterView(QWidget *parent, Person* mitarbeiter)
+MitarbeiterView::MitarbeiterView(QWidget *parent, int id, Person* mitarbeiter)
     : QWidget(parent)
     , ui(new Ui::MitarbeiterView)
 {
     ui->setupUi(this);
 
+    this->id = id;
     this->mitarbeiter = mitarbeiter;
 
     initData();
@@ -35,7 +36,7 @@ MitarbeiterView::~MitarbeiterView()
 
 void MitarbeiterView::initData() {
 
-    ui->id_label->setText(QString::number(this->mitarbeiter->getID()));
+    ui->id_label->setText(QString::number(this->id));
 
     QString name = this->mitarbeiter->getName() + " " + this->mitarbeiter->getSurname();
     ui->name_label->setText(name);
@@ -48,6 +49,6 @@ void MitarbeiterView::initData() {
 void MitarbeiterView::on_button_edit_clicked()
 {
     qDebug() << "emview edit";
-    emit editEmployee(this->mitarbeiter->getID());
+    emit editEmployee(this->id-1);
 }
 

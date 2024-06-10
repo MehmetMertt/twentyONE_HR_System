@@ -161,6 +161,13 @@
     </layout>
    </item>
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Alle Mitarbeiter</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QListWidget" name="employee_list"/>
    </item>
    <item>
@@ -175,6 +182,16 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Alle Anträge</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listWidget"/>
    </item>
   </layout>
  </widget>

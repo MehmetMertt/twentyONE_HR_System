@@ -2,6 +2,7 @@
 #define NAVBAR_COMPACT_H
 
 #include <QWidget>
+#include <Helpers.h>
 #pragma once
 
 namespace Ui {
@@ -22,7 +23,7 @@ public:
 signals:
     void account_clicked();
     void dashboard_clicked();
-    void timetracker_clicked();
+    void timetracker_clicked(Mode mode);
     void request_clicked();
     void settings_clicked();
     void logout_clicked();

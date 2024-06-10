@@ -84,8 +84,10 @@ void AdminDashboard::updateEmployeeList() {
 
     for(int i = 0; i < dbZugriff->persons.size(); i++){
         QListWidgetItem *listitem = new QListWidgetItem();
-        dbZugriff->mitarbeiter.push_back(new MitarbeiterView(this, dbZugriff->persons[i]));
+
+        dbZugriff->mitarbeiter.push_back(new MitarbeiterView(this, i+1, dbZugriff->persons[i]));
         connect(dbZugriff->mitarbeiter.back(), &MitarbeiterView::editEmployee, this, &AdminDashboard::processEditMitarbeiter);
+
         listitem->setSizeHint(dbZugriff->mitarbeiter.back()->sizeHint());
         ui->employee_list->addItem(listitem);
         ui->employee_list->setItemWidget(listitem, dbZugriff->mitarbeiter.back());

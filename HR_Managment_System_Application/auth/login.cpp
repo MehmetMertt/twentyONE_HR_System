@@ -40,9 +40,7 @@ void Login::onEmailInputChanged(){ validator->ueberpruefeEmail(this); }
 void Login::onPasswordInputChanged(){ validator->ueberpruefePasswort(this); }
 
 void Login::on_button_clicked(){
-    //DELETE AFTER DEVELOPMENT
-    currentEmployee = dbZugriff->login("fmimmler@gmail.com", "Test123!");
-    emit login_success();
+
 
     if(validator->getEmail_erlaubt() == false){
         ui->error_text->setText("Überprüfen Sie die Eingabe für die Email-Adresse.");

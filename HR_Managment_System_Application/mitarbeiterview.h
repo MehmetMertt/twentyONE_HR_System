@@ -15,7 +15,7 @@ class MitarbeiterView : public QWidget
     Q_OBJECT
 
 public:
-    MitarbeiterView(QWidget *parent = nullptr, Person* mitarbeiter = nullptr);
+    MitarbeiterView(QWidget *parent = nullptr, int id = -1, Person* mitarbeiter = nullptr);
     ~MitarbeiterView();
 
 signals:
@@ -26,6 +26,8 @@ private slots:
 
 private:
     Ui::MitarbeiterView *ui;
+
+    int id;
 
     Person* mitarbeiter;
 

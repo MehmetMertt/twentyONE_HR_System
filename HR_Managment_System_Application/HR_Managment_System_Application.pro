@@ -11,6 +11,9 @@ CONFIG += c++17
 
 SOURCES += \
     admindashboard.cpp \
+    antrag.cpp \
+    antrag_detailpage.cpp \
+    antrag_listitem.cpp \
     auth/account.cpp \
     auth/account_adminview.cpp \
     dashboard.cpp \
@@ -34,7 +37,11 @@ SOURCES += \
     zeiteintrag.cpp
 
 HEADERS += \
+    Helpers.h \
     admindashboard.h \
+    antrag.h \
+    antrag_detailpage.h \
+    antrag_listitem.h \
     auth/account.h \
     auth/account_adminview.h \
     dashboard.h \
@@ -59,6 +66,8 @@ HEADERS += \
 
 FORMS += \
     admindashboard.ui \
+    antrag_detailpage.ui \
+    antrag_listitem.ui \
     auth/account.ui \
     auth/account_adminview.ui \
     auth/login.ui \

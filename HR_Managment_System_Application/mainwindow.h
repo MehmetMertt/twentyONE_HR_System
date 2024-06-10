@@ -17,6 +17,7 @@
 #include <requests.h>
 #include <settings.h>
 #include <editzeiteintrag.h>
+#include <Helpers.h>
 //---------------------------
 #pragma once
 #include <dbaccess.h>
@@ -74,7 +75,7 @@ private:
     void onLoadingFinished();
     void showAccount();
     void showDashboard();
-    void showTimetracker();
+    void showTimetracker(Mode mode);
     void showRequests();
     void showSettings();
     void processLogout();

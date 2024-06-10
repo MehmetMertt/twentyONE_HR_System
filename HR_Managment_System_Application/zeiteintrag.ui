@@ -273,6 +273,9 @@
               <property name="text">
                <string>Speichern</string>
               </property>
+              <property name="type" stdset="0">
+               <string>zeiteintrag</string>
+              </property>
              </widget>
             </item>
             <item>
@@ -294,6 +297,9 @@
               </property>
               <property name="text">
                <string>Löschen</string>
+              </property>
+              <property name="type" stdset="0">
+               <string>zeiteintrag</string>
               </property>
              </widget>
             </item>
@@ -327,6 +333,9 @@
               </property>
               <property name="text">
                <string>Abbrechen</string>
+              </property>
+              <property name="type" stdset="0">
+               <string>zeiteintrag</string>
               </property>
              </widget>
             </item>
