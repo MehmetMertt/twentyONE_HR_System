@@ -17,6 +17,8 @@ public:
     explicit Requests(QWidget *parent = nullptr);
     ~Requests();
 
+    void updateView();
+
 signals:
     void showAntragDetailPage(Mode mode);
 
@@ -28,6 +30,9 @@ private:
     Ui::Requests *ui;
 
     void processAntragDetailClicked();
+
+    void insertRequests();
+
 };
 
 #endif // REQUESTS_H

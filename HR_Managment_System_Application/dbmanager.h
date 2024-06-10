@@ -16,6 +16,7 @@
 #include "zeiteintrag.h"
 #include "person.h"
 #include "QList"
+#include "antrag.h"
 #pragma once
 
 //TEST
@@ -38,13 +39,16 @@ public:
     bool changePassword(int employeeID, QString newPassword);
     int getArbeitsstunden(int employeeID);
     bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note);
-    bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note);
-
+    bool submitAbsence(int employeeID, QDateTime start, QDateTime end,QString reason,QString note);
+    void loadAllRequests();
+    void loadRequestsByEmployee(int employeeID);
     //TEST
     QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
     QList<Person*> activepersons; //hier auch
     int active_persons_count;
-    QVector<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
+    QList<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
+    QList<Antrag*> requests;
+    QList<Antrag*> currentEmployee_requests;
     void getAllEmployees();
     void removeAllEmployeesLocal();
     void removeAllActiveEmployeesLocal();

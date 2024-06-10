@@ -264,6 +264,7 @@ void MainWindow::showTimetracker(Mode mode) {
 }
 
 void MainWindow::showRequests() {
+    request_page->updateView();
     ui->main->setCurrentWidget(request_page);
 }
 

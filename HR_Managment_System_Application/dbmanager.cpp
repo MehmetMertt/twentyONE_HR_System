@@ -372,15 +372,15 @@ int getArbeitsstunden(int employeeID){
 
 }
 
-bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString note){
+bool submitAbsence(int employeeID, QDateTime start, QDateTime end,QString reason,QString note){
 
 
     bool success = false;
     QSqlQuery query;
 
-    query.prepare("INSERT  INTO ABSENCE (employeeid, absencestart,absenceend,absencereason,note) VALUES(:id, :start, :end, :reason, :note) ");
+    query.prepare("INSERT  INTO ABSENCE (employeeid, absencestart,absenceend,absencereason,note) VALUES(:employeeID, :start, :end, :reason, :note) ");
 
-    query.bindValue(":id",QString("%1").arg(id));
+    query.bindValue(":id",QString("%1").arg(employeeID));
     query.bindValue(":start",QString("%1").arg(start.toString("yyyy-MM-dd hh:mm:ss")));
     query.bindValue(":end",QString("%1").arg(end.toString("yyyy-MM-dd hh:mm:ss")));
     query.bindValue(":reason",QString("%1").arg(reason));
@@ -400,8 +400,40 @@ bool submitAbsence(int id, QDateTime start, QDateTime end,QString reason,QString
                  << query.lastError();
         return success;
     }
+}
 
+void dbmanager::loadAllRequests() {
 
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM ABSENCE");
+
+}
+
+void dbmanager::loadRequestsByEmployee(int employeeID) {
+
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM ABSENCE WHERE employeeid = :employeeID");
+
+    query.bindValue(":employeeID",QString("%1").arg(employeeID));
+
+    if(query.exec()) {
+        while(query.next()) {
+            int id = query.value(0).toInt();
+            QDateTime start = query.value(2).toDateTime();
+            QDateTime ende = query.value(3).toDateTime();
+            QString type = query.value(4).toString();
+            QString notiz = query.value(5).toString();
+            QString status = query.value(6).toString();
+
+            Antrag* antrag = new Antrag(nullptr, id, employeeID, start, ende, type, notiz, status);
+            this->currentEmployee_requests.push_back(antrag);
+        }
+        qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
+    } else {
+        qDebug() << "Error loading requests: " << query.lastError();
+    }
 }
 
 bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note){
