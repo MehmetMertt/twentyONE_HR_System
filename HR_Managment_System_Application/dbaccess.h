@@ -6,5 +6,6 @@
 
 extern dbmanager* dbZugriff;
 extern Person* currentEmployee;
+extern double general_wochenstunden;
 
 #endif // DBACCESS_H

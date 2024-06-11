@@ -37,6 +37,8 @@ EditZeiteintrag::~EditZeiteintrag()
 void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
     ui->listWidget->clear();
+    qDeleteAll(this->timestampItems);
+    this->timestampItems.clear();
 
     QListWidgetItem* listitem;
     EditZeiteintragItem* zeiteintrag;
@@ -59,19 +61,30 @@ void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
 void EditZeiteintrag::on_save_clicked()
 {
+    qDebug() << "SAVE";
+
+    bool success;
+
     for (auto& timestamp : this->timestampItems) {
         qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
 
-        bool success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
+        success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
 
         if(!success) {
             qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
-        } else {
-            qDeleteAll(this->timestampItems);
-            this->timestampItems.clear();
-            emit zeiteintrag_saved(LOAD_DATA);
+            break;
         }
     }
+
+    if(!success) {
+        qDebug() << "Error saving Zeiteinträge";
+        //UI updaten
+        return;
+    }
+
+    qDeleteAll(this->timestampItems);
+    this->timestampItems.clear();
+    emit zeiteintrag_saved(LOAD_DATA);
 }
 
 

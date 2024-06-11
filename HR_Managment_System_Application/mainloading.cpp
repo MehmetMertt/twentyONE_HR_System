@@ -36,6 +36,7 @@ MainLoading::~MainLoading()
 
 void MainLoading::loadDB() {
     dbZugriff = new dbmanager();
+    general_wochenstunden = 38.5;
     //dbZugriff->addMitarbeiter("Flo", "Mimmler", "fmimmler@gmail.com", "+43 67006070522", "Test123!","Ringstraße 0",1230,"Wien","Herr");
     QThread::sleep(1);
     hideWhenReady();

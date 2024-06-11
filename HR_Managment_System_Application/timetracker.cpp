@@ -61,8 +61,23 @@ void Timetracker::loadTimeentries() {
 
 void Timetracker::loadDashboardData() {
 
+    double wochenstunden = dbZugriff->getArbeitsstundenSpecific(currentEmployee->getID());
+    ui->wochenstunden_aktuell->setText(QString::number(wochenstunden));
 
+    double wochenstunden_percent = (wochenstunden/general_wochenstunden)*100;
+    if(wochenstunden_percent > 100.0) {
+        wochenstunden_percent = 100;
+    }
 
+    ui->progress_wochenstunden->setValue(wochenstunden_percent);
+
+    qDebug() << wochenstunden_percent;
+
+    double ueberstunden = wochenstunden - general_wochenstunden;
+    if(ueberstunden <= 0) {
+        ueberstunden = 0;
+    }
+    ui->ueberstunden_aktuell->setText(QString::number(ueberstunden));
 }
 
 Timetracker::~Timetracker()

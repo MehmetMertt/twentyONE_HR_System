@@ -244,6 +244,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>ArrowCursor</cursorShape>
+            </property>
             <property name="maximum">
              <number>100</number>
             </property>
@@ -282,10 +285,10 @@
           <item>
            <widget class="QLabel" name="label_ueberstunden">
             <property name="text">
-             <string>Überstunden gesamt</string>
+             <string>Überstunden (diese Woche)</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignCenter</set>
+             <set>Qt::AlignHCenter|Qt::AlignTop</set>
             </property>
             <property name="labeltype" stdset="0">
              <string>data_header</string>
@@ -293,48 +296,17 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="ueberstunden_aktuell">
-              <property name="text">
-               <string>2</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="labeltype" stdset="0">
-               <string>current_value</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="ueberstunden_max">
-              <property name="text">
-               <string>/ 21,5</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-              <property name="labeltype" stdset="0">
-               <string>max_value</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QProgressBar" name="progress_ueberstunden">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <widget class="QLabel" name="ueberstunden_aktuell">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
-            <property name="value">
-             <number>9</number>
+            <property name="text">
+             <string>2</string>
             </property>
-            <property name="textVisible">
-             <bool>false</bool>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
