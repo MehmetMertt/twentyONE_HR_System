@@ -158,3 +158,8 @@ void Zeiteintrag::on_notiz_edit_textChanged(){
     validator->ueberpruefeNotiz(this);
 }
 
+/*
+void Zeiteintrag::on_remove_clicked(){
+    dbZugriff->deleteTimeentries();
+}
+*/

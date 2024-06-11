@@ -107,8 +107,8 @@ void AntragDetails::setupPage(Mode mode) {
 void AntragDetails::setInputsEnabled(bool value) {
     ui->titel_field->setEnabled(value);
     ui->antrag_type->setEnabled(value);
-    ui->start->setEnabled(value);
-    ui->ende->setEnabled(value);
+    ui->startzeit_edit->setEnabled(value);
+    ui->endzeit_edit->setEnabled(value);
     ui->notiz->setEnabled(value);
 }
 
@@ -128,8 +128,8 @@ void AntragDetails::updateView() {
     ui->antrag_type->setCurrentText(this->antrag->getReason());
     ui->label_status->setText("Status: " + this->antrag->getStatus());
     ui->notiz->insertPlainText(this->antrag->getNotiz());
-    ui->start->setDateTime(this->antrag->getStart());
-    ui->ende->setDateTime(this->antrag->getEnde());
+    ui->startzeit_edit->setDateTime(this->antrag->getStart());
+    ui->endzeit_edit->setDateTime(this->antrag->getEnde());
 
 }
 
@@ -143,8 +143,8 @@ void AntragDetails::clearInputs() {
     ui->antrag_type->setCurrentIndex(0);
     ui->label_status->setText("Status: Neu");
     ui->notiz->clear();;
-    ui->start->setDateTime(QDateTime::currentDateTime());
-    ui->ende->setDateTime(QDateTime::currentDateTime());
+    ui->startzeit_edit->setDateTime(QDateTime::currentDateTime());
+    ui->endzeit_edit->setDateTime(QDateTime::currentDateTime());
 }
 
 void AntragDetails::on_button_senden_clicked()
@@ -160,7 +160,7 @@ void AntragDetails::on_button_senden_clicked()
     }else{
         ui->error_text->setText("");
 
-        Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->start->dateTime(), ui->ende->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
+        Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->startzeit_edit->dateTime(), ui->endzeit_edit->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
 
         bool send_success = dbZugriff->submitAbsence(new_antrag);
 

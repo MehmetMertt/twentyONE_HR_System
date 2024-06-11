@@ -137,7 +137,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QDateTimeEdit" name="start">
+        <widget class="QDateTimeEdit" name="startzeit_edit">
          <property name="minimumSize">
           <size>
            <width>170</width>
@@ -188,7 +188,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QDateTimeEdit" name="ende">
+        <widget class="QDateTimeEdit" name="endzeit_edit">
          <property name="minimumSize">
           <size>
            <width>170</width>
