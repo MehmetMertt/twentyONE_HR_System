@@ -5,6 +5,7 @@
 #include <QLineSeries>
 #pragma once
 #include "dbaccess.h"
+#include <QDateTime>
 
 namespace Ui {
 class Dashboard;
@@ -20,6 +21,8 @@ public:
 
 private:
     Ui::Dashboard *ui;
+    void updateGreeting();
+     QFrame *myFrame;
 };
 
 #endif // DASHBOARD_H

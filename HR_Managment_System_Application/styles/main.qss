@@ -13,6 +13,17 @@ QLabel[labeltype = "data_header"] {
     margin-bottom: 2px;
 }
 
+QLabel[labeltype = "wieso"] {
+    font-size: 50px;
+
+}
+
+QLabel[labeltype = "timeTabel"]{
+
+    font-size: 30px;
+}
+
+
 QLabel[labeltype = "current_value"] {
     font-weight: 500;
 }

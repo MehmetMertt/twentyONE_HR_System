@@ -21,24 +21,6 @@ AdminDashboard::AdminDashboard(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &AdminDashboard::updateGeneralData);
     timer->start(5000);  // Set the timer to trigger every 5 seconds
 
-/*
-    QListWidgetItem* listitem;
-    MitarbeiterView* mitarbeiter;
-    for(int i = 0; i < 1; i++) {
-        listitem = new QListWidgetItem();
-        mitarbeiter = new MitarbeiterView(this, currentEmployee);
-
-        connect(mitarbeiter, &MitarbeiterView::editEmployee, this, &AdminDashboard::processEditMitarbeiter);
-
-        listitem->setSizeHint(mitarbeiter->sizeHint());
-
-        ui->employee_list->addItem(listitem);
-        ui->employee_list->setItemWidget(listitem, mitarbeiter);
-
-
-    }
-//*/
-
     updateView();
 
     // Load the stylesheet from a file (recommended)
@@ -92,6 +74,12 @@ void AdminDashboard::updateEmployeeList() {
         ui->employee_list->addItem(listitem);
         ui->employee_list->setItemWidget(listitem, dbZugriff->mitarbeiter.back());
     }
+}
+
+void AdminDashboard::updateAntragList() {
+    ui->antrag_list->clear();
+
+
 }
 
 void AdminDashboard::updateGeneralData() {
