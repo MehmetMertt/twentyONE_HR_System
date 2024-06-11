@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Erstellungszeit: 27. Mai 2024 um 14:34
+-- Erstellungszeit: 11. Jun 2024 um 18:32
 -- Server-Version: 8.4.0
 -- PHP-Version: 8.2.8
 
@@ -20,11 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `hrmgt_database`
 --
-
-DROP DATABASE IF EXISTS hrmgt_database;
-CREATE DATABASE hrmgt_database;
-
-use hrmgt_database;
 
 -- --------------------------------------------------------
 
@@ -85,6 +80,17 @@ INSERT INTO `ABSENCE_STATUS` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `ACTIVE_EMPLOYEE`
+--
+
+CREATE TABLE `ACTIVE_EMPLOYEE` (
+  `id` int NOT NULL,
+  `employeeid` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `ADDRESS`
 --
 
@@ -92,16 +98,15 @@ CREATE TABLE `ADDRESS` (
   `id` int NOT NULL,
   `plz` int DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `housenumber` int DEFAULT NULL
+  `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Daten für Tabelle `ADDRESS`
 --
 
-INSERT INTO `ADDRESS` (`id`, `plz`, `city`, `street`, `housenumber`) VALUES
-(1, 1010, 'Wien', 'Musterstraße', 13);
+INSERT INTO `ADDRESS` (`id`, `plz`, `city`, `street`) VALUES
+(1, 1230, 'Wien', 'Ringstraße 02');
 
 -- --------------------------------------------------------
 
@@ -123,7 +128,7 @@ CREATE TABLE `DEPARTMENT` (
 CREATE TABLE `EMPLOYEE` (
   `id` int NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `surname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -141,19 +146,8 @@ CREATE TABLE `EMPLOYEE` (
 -- Daten für Tabelle `EMPLOYEE`
 --
 
-INSERT INTO `EMPLOYEE` (`password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `gender`, `title`) VALUES
-('d787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Flo', 'Mimmler', 'fmimmler@gmail.com', '+4367006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Boss');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `SALARY`
---
-
-CREATE TABLE `SALARY` (
-  `id` int NOT NULL,
-  `salary` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `EMPLOYEE` (`id`, `password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `gender`, `title`) VALUES
+(0, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Mehmet', 'Mert', 'fmimmler@gmail.com', '+4367006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Dr.');
 
 -- --------------------------------------------------------
 
@@ -178,6 +172,17 @@ INSERT INTO `GENDERS` (`id`, `gender`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `SALARY`
+--
+
+CREATE TABLE `SALARY` (
+  `id` int NOT NULL,
+  `salary` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `WORKINGHOURS`
 --
 
@@ -188,18 +193,6 @@ CREATE TABLE `WORKINGHOURS` (
   `employeeid` int DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `ACTIVE_EMPLOYEE`
---
-
-CREATE TABLE `ACTIVE_EMPLOYEE` (
-  `id` int NOT NULL,
-  `employeeid` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 --
 -- Indizes der exportierten Tabellen
@@ -227,6 +220,13 @@ ALTER TABLE `ABSENCE_STATUS`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `ACTIVE_EMPLOYEE`
+--
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `MitarbeiterID` (`employeeid`);
+
+--
 -- Indizes für die Tabelle `ADDRESS`
 --
 ALTER TABLE `ADDRESS`
@@ -250,15 +250,15 @@ ALTER TABLE `EMPLOYEE`
   ADD KEY `gender` (`gender`);
 
 --
--- Indizes für die Tabelle `SALARY`
---
-ALTER TABLE `SALARY`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indizes für die Tabelle `GENDERS`
 --
 ALTER TABLE `GENDERS`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `SALARY`
+--
+ALTER TABLE `SALARY`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -267,13 +267,6 @@ ALTER TABLE `GENDERS`
 ALTER TABLE `WORKINGHOURS`
   ADD PRIMARY KEY (`id`),
   ADD KEY `MitarbeitderID` (`employeeid`);
-
---
--- Indizes für die Tabelle `ACTIVE_EMPLOYEE`
---
-ALTER TABLE `ACTIVE_EMPLOYEE`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `MitarbeiterID` (`employeeid`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -298,6 +291,12 @@ ALTER TABLE `ABSENCE_STATUS`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT für Tabelle `ACTIVE_EMPLOYEE`
+--
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT für Tabelle `ADDRESS`
 --
 ALTER TABLE `ADDRESS`
@@ -313,12 +312,6 @@ ALTER TABLE `DEPARTMENT`
 -- AUTO_INCREMENT für Tabelle `EMPLOYEE`
 --
 ALTER TABLE `EMPLOYEE`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
---
--- AUTO_INCREMENT für Tabelle `SALARY`
---
-ALTER TABLE `SALARY`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -328,12 +321,15 @@ ALTER TABLE `GENDERS`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT für Tabelle `SALARY`
+--
+ALTER TABLE `SALARY`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT für Tabelle `WORKINGHOURS`
 --
 ALTER TABLE `WORKINGHOURS`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `ACTIVE_EMPLOYEE`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -349,6 +345,12 @@ ALTER TABLE `ABSENCE`
   ADD CONSTRAINT `ABSENCE_STATUS` FOREIGN KEY (`status`) REFERENCES `ABSENCE_STATUS` (`id`);
 
 --
+-- Constraints der Tabelle `ACTIVE_EMPLOYEE`
+--
+ALTER TABLE `ACTIVE_EMPLOYEE`
+  ADD CONSTRAINT `MitarbeiterID` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `EMPLOYEE`
 --
 ALTER TABLE `EMPLOYEE`
@@ -362,12 +364,6 @@ ALTER TABLE `EMPLOYEE`
 --
 ALTER TABLE `WORKINGHOURS`
   ADD CONSTRAINT `WORKINGHOURS_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
-
---
--- Constraints der Tabelle `ACTIVE_EMPLOYEE`
---
-ALTER TABLE `ACTIVE_EMPLOYEE`
-  ADD CONSTRAINT `MitarbeiterID` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

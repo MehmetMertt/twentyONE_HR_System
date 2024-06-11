@@ -29,6 +29,10 @@ public:
     dbmanager();
     ~dbmanager();
 
+    int getAddressID(int employeeID);
+    int getUserIDByMail(QString oldMail);
+
+    bool editMitarbeiter(int employeeID,QString name = "", QString surname = "", QString mail = "", QString phone = "", QString password = "", QString address = "", int plz = -1, QString city = "", QString gender = "", QString title  = "");
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
     bool addMitarbeiterAdresse(QString plz, QString city, QString street);
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString street, int plz, QString city, QString gender, QString title);

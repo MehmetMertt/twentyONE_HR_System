@@ -2,6 +2,8 @@
 #include <QCryptographicHash>
 #include "zeiteintrag.h"
 #include "person.h"
+#include <QVariant>
+
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
     /*
@@ -42,8 +44,8 @@ Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
     bool sucess;
     QString pw = sha512_hash(password);
-    qDebug() << pw;
-    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
+    qDebug() << "Das PW lautet: " << pw;
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
     query.bindValue(":password",QString("%1").arg(pw));
     query.bindValue(":mail",QString("%1").arg(mail));
 
@@ -57,11 +59,10 @@ Person* dbmanager::login(QString mail, QString password){
         QString street = query.value(5).toString();
         QString city = query.value(6).toString();
         QString plz = query.value(7).toString();
-        QString housenumber = query.value(8).toString();
-        int admin = query.value(9).toInt();
-        QString gender = query.value(10).toString();
-        QString title = query.value(11).toString();
-        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,housenumber,admin,gender, title);
+        int admin = query.value(8).toInt();
+        QString gender = query.value(9).toString();
+        QString title = query.value(10).toString();
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,admin,gender, title);
         qDebug() << admin;
         qDebug() << gender;
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
@@ -73,18 +74,170 @@ Person* dbmanager::login(QString mail, QString password){
     return nullptr;
 }
 
+
+int dbmanager::getAddressID(int employeeID){
+    QSqlQuery query;
+    bool sucess;
+    query.prepare("SELECT adressid from EMPLOYEE where id = :employeeID");
+    query.bindValue(":employeeID",employeeID);
+
+    if(query.exec() && query.size() > 0){
+        query.next();
+        int id = query.value(0).toInt();
+        return id;
+    } else {
+        sucess = false;
+        qDebug() << "getAddressID war NICHT erfolgreich";
+    }
+    return -1;
+}
+
+int dbmanager::getUserIDByMail(QString oldMail){
+    QSqlQuery query;
+    bool sucess;
+    query.prepare("SELECT id from EMPLOYEE where mail = :oldMail");
+    query.bindValue(":oldMail",oldMail);
+
+    if(query.exec() && query.size() > 0){
+        query.next();
+        int id = query.value(0).toInt();
+        return id;
+    } else {
+        sucess = false;
+        qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
+    }
+    return -1;
+}
+
+
+bool dbmanager::editMitarbeiter(int employeeID,QString name, QString surname, QString mail, QString phone, QString password, QString address, int plz, QString city, QString gender, QString title) {
+    bool success = false;
+    QSqlQuery queryEmployee;
+    QSqlQuery queryAddress;
+
+    int userId = employeeID; // Example user ID
+
+    // Start building the query
+    QString employeeQueryString("UPDATE EMPLOYEE SET ");
+    QStringList employeeSetters;
+    QVariantList employeeValues;
+    QString addressQueryString("UPDATE ADDRESS SET ");
+    QStringList addressSetters;
+    QVariantList addressValues;
+
+    // Check each parameter and add to the query if it's not the default value
+    if (!name.isEmpty()) {
+        employeeSetters.append("name =?");
+        employeeValues.append(name);
+    }
+    if (!surname.isEmpty()) {
+        employeeSetters.append("surname =?");
+        employeeValues.append(surname);
+    }
+    if (!mail.isEmpty()) {
+        employeeSetters.append("mail =?");
+        employeeValues.append(mail);
+    }
+    if (!phone.isEmpty()) {
+        employeeSetters.append("phone =?");
+        employeeValues.append(phone);
+    }
+    if (!password.isEmpty()) {
+        changePassword(userId,password);
+    }
+
+    if (!gender.isEmpty()) {
+        employeeSetters.append("gender =?");
+        int genderid = 1;
+        if(gender == "Herr"){
+            genderid = 1;
+        }
+        if(gender == "Frau"){
+            genderid = 2;
+        }
+        if(gender == "Divers"){
+            genderid = 3;
+        }
+        employeeValues.append(genderid);
+    }
+    if (!title.isEmpty()) {
+        employeeSetters.append("title =?");
+        employeeValues.append(title);
+    }
+    if (!address.isEmpty()) {
+        addressSetters.append("street =?");
+        addressValues.append(address);
+    }
+    if (plz != 0) {
+        addressSetters.append("plz =?");
+        addressValues.append(plz);
+    }
+    if (!city.isEmpty()) {
+        addressSetters.append("city =?");
+        addressValues.append(city);
+    }
+
+    // Combine all setters with commas
+    employeeQueryString += employeeSetters.join(", ") + " WHERE id =?"; // Assuming 'id' is the column name for the user's unique identifier
+    employeeValues.append(userId);
+
+    // Prepare and execute the query
+    queryEmployee.prepare(employeeQueryString);
+
+    // Bind values individually using addBindValue
+    foreach (const QVariant &value, employeeValues) {
+        queryEmployee.addBindValue(value);
+    }
+
+    if (queryEmployee.exec()) {
+        success = true;
+        qDebug() << "Employee Tabelle Edit erfolgreich";
+    } else {
+        qDebug() << "Employee Tabelle Edit fehlgeschlagen: " << queryEmployee.lastError();
+    }
+
+    if(success == false){
+        return success;
+    }
+
+    int addressid = getAddressID(userId);
+
+    qDebug() << "Address ID: " << addressid;
+
+    addressQueryString += addressSetters.join(", ") + " WHERE id =?"; // Assuming 'id' is the column name for the user's unique identifier
+    addressValues.append(addressid);
+
+    queryAddress.prepare(addressQueryString);
+
+    // Bind values individually using addBindValue
+    foreach (const QVariant &value, addressValues) {
+        queryAddress.addBindValue(value);
+    }
+
+    if (queryAddress.exec()) {
+        success = true;
+        qDebug() << "Address Tabelle Edit erfolgreich";
+    } else {
+        qDebug() << "Address Tabelle Edit fehlgeschlagen: " << queryAddress.lastError();
+    }
+
+
+    return success;
+}
+
+
+
+
 bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password,QString address, int plz, QString city, QString gender, QString title){
     bool success = false;
     QSqlQuery queryAddress;
     QString pw = sha512_hash(password);
     QStringList address_components = address.split(" ");
     QString street = address_components[0];
-    int housenumber = address_components[1].toInt();
-    queryAddress.prepare("INSERT into ADDRESS (plz, city, street, housenumber) VALUES(:plz,:city,:street,:housenumber);");
+    queryAddress.prepare("INSERT into ADDRESS (plz, city, street) VALUES(:plz,:city,:street);");
     queryAddress.bindValue(":city",QString("%1").arg(city));
     queryAddress.bindValue(":plz",QString("%1").arg(plz));
     queryAddress.bindValue(":street",QString("%1").arg(street));
-    queryAddress.bindValue(":housenumber",QString("%1").arg(housenumber));
     if(queryAddress.exec() == false){
         qDebug() << "inserting adress not working: "
                  << queryAddress.lastError();
@@ -275,7 +428,7 @@ void dbmanager::getAllEmployees(){
 
     //Kein SELECT * weil dadurch würden wir das passwort mitholen was man nicht darf
     //Und mit Joins kann man auch die Adresse und Gender holen
-    QSqlQuery query("SELECT e.id, name, surname, mail, phone, street, city, plz, housenumber,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
+    QSqlQuery query("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
     if(query.exec()){
         while (query.next()){
             int id = query.value(0).toInt();
@@ -286,12 +439,11 @@ void dbmanager::getAllEmployees(){
             QString street = query.value(5).toString();
             QString city = query.value(6).toString();
             QString plz = query.value(7).toString();
-            QString housenumber = query.value(8).toString();
-            bool admin = query.value(9).toBool();
-            QString gender = query.value(10).toString();
-            QString title = query.value(11).toString();
+            bool admin = query.value(8).toBool();
+            QString gender = query.value(9).toString();
+            QString title = query.value(10).toString();
 
-            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, gender, title);
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, admin, gender, title);
             //Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin,QString anrede);
 
             this->persons.push_back(person);
@@ -484,7 +636,7 @@ void dbmanager::loadActiveEmployees(){
 
     removeAllActiveEmployeesLocal();
 
-    QSqlQuery query("SELECT e.id, e.name, e.surname, e.mail, e.phone, street, city, plz, housenumber,admin, g.gender, e.title from ACTIVE_EMPLOYEE as ae JOIN EMPLOYEE as e on ae.employeeid = e.id JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
+    QSqlQuery query("SELECT e.id, e.name, e.surname, e.mail, e.phone, street, city, plz,admin, g.gender, e.title from ACTIVE_EMPLOYEE as ae JOIN EMPLOYEE as e on ae.employeeid = e.id JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id");
     if(query.exec()){
         while (query.next()){
             int id = query.value(0).toInt();
@@ -495,12 +647,11 @@ void dbmanager::loadActiveEmployees(){
             QString street = query.value(5).toString();
             QString city = query.value(6).toString();
             QString plz = query.value(7).toString();
-            QString housenumber = query.value(8).toString();
-            bool admin = query.value(9).toBool();
-            QString gender = query.value(10).toString();
-            QString title = query.value(11).toString();
+            bool admin = query.value(8).toBool();
+            QString gender = query.value(9).toString();
+            QString title = query.value(10).toString();
 
-            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, housenumber, admin, gender, title);
+            Person *person = new Person(id, name,surname, mail, phone, street, city, plz, admin, gender, title);
 
             this->activepersons.push_back(person);
 

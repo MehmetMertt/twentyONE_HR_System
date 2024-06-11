@@ -11,10 +11,9 @@ Account::Account(QWidget *parent)
     ui->account_name->setText(currentEmployee->getGender() + " " + currentEmployee->getTitle() + " " + currentEmployee->getName() + " " + currentEmployee->getSurname());
     ui->account_email->setText(currentEmployee->getMail());
     QString street = currentEmployee->getStreet();
-    QString housenumber = currentEmployee->getHousenumber();
     QString plz = currentEmployee->getPLZ();
     QString city = currentEmployee->getCity();
-    ui->account_adresse->setText(street + " " + housenumber + " " + plz + " " + city);
+    ui->account_adresse->setText(street  + " " + plz + " " + city);
 
     validator = new InputValidator(this);
     ui->passwort_input->setValidator(validator->Passwort_validator);

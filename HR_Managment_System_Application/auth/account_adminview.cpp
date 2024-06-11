@@ -4,6 +4,8 @@
 
 #include "dbaccess.h"
 
+QString oldEmail; //no other way currently
+
 Account_adminview::Account_adminview(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Account_adminview)
@@ -44,7 +46,10 @@ Account_adminview::Account_adminview(QWidget *parent)
     connect(ui->ort_input, &QLineEdit::textChanged, this, &Account_adminview::onOrtInputChanged);
     connect(ui->passwort_input, &QLineEdit::textChanged, this, &Account_adminview::onPasswortInputChanged);
     connect(ui->passwort2_input, &QLineEdit::textChanged, this, &Account_adminview::onPasswort2InputChanged);
+    //oldEmail = ui->email_input->text();
+
 }
+
 
 Account_adminview::~Account_adminview()
 {
@@ -105,8 +110,9 @@ void Account_adminview::on_speichern1_button_clicked(){
         QString title = ui->titel_input->text();
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
-        bool success = dbZugriff->addMitarbeiter(Vorname,Nachname,Email,Telefon,Password,Adresse,Plz,Ort,gender,title);
 
+        int id = this->mitarbeiter->getID();
+        bool success = dbZugriff->editMitarbeiter(id,Vorname,Nachname,Email,Telefon,"",Adresse,Plz,Ort,gender,title);
         if(success) {
             ui->success_text->setText("Daten erfolgreich bearbeitet");
         } else {
@@ -132,7 +138,9 @@ void Account_adminview::on_speichern2_button_clicked(){
         //QString passwort2 = ui->passwort2_input->text();
 
         //Passwort in der DB aktualisieren
-        bool password_success = dbZugriff->changePassword(this->mitarbeiter->getID(), passwort);
+
+        int id = this->mitarbeiter->getID();
+        bool password_success = dbZugriff->changePassword(id, passwort);
 
         if(password_success) {
             ui->success_text->setText("Passwort erfolgreich bearbeitet");
@@ -164,14 +172,19 @@ void Account_adminview::loadMitarbeiter(int mitarbeiterID) {
 
 void Account_adminview::setDataInView() {
 
-    ui->email_input->setText(this->mitarbeiter->getMail());
-    ui->tel_input->setText(this->mitarbeiter->getPhone());
-    ui->anrede_input->setCurrentText(this->mitarbeiter->getGender());
-    ui->titel_input->setText(this->mitarbeiter->getTitle());
-    ui->nachname_input->setText(this->mitarbeiter->getSurname());
-    ui->vorname_input->setText(this->mitarbeiter->getName());
-    ui->adresse_input->setText(this->mitarbeiter->getStreet() + " " + this->mitarbeiter->getHousenumber());
-    ui->ort_input->setText(this->mitarbeiter->getCity());
-    ui->plz_input->setText(this->mitarbeiter->getPLZ());
+        if (this->mitarbeiter!= nullptr) {
+            ui->email_input->setText(this->mitarbeiter->getMail());
+            ui->tel_input->setText(this->mitarbeiter->getPhone());
+            ui->anrede_input->setCurrentText(this->mitarbeiter->getGender());
+            ui->titel_input->setText(this->mitarbeiter->getTitle());
+            ui->nachname_input->setText(this->mitarbeiter->getSurname());
+            ui->vorname_input->setText(this->mitarbeiter->getName());
+            ui->adresse_input->setText(this->mitarbeiter->getStreet());
+            ui->ort_input->setText(this->mitarbeiter->getCity());
+            ui->plz_input->setText(this->mitarbeiter->getPLZ());
+        } else {
+            // Handle the case where mitarbeiter is not initialized
+            qDebug() << "Mitarbeiter object is not initialized.";
+        }
 
 }
