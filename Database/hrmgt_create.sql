@@ -35,12 +35,32 @@ use hrmgt_database;
 CREATE TABLE `ABSENCE` (
   `id` int NOT NULL,
   `employeeid` int DEFAULT NULL,
+  `titel` varchar(255) NOT NULL,
   `absencestart` date DEFAULT NULL,
   `absenceend` date DEFAULT NULL,
-  `absencereason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `absencereason` int NOT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ABSENCE_REASON`
+--
+
+CREATE TABLE `ABSENCE_REASON` (
+  `id` int NOT NULL,
+  `reason` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Daten für Tabelle `ABSENCE_REASON`
+--
+
+INSERT INTO `ABSENCE_REASON` (`id`, `reason`) VALUES
+(1, 'Urlaub'),
+(2, 'Zeitausgleich');
 
 -- --------------------------------------------------------
 
@@ -170,7 +190,14 @@ CREATE TABLE `ACTIVE_EMPLOYEE` (
 --
 ALTER TABLE `ABSENCE`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `MitarbeiterID` (`employeeid`);
+  ADD KEY `MitarbeiterID` (`employeeid`),
+  ADD KEY `ABSENCE_REASON` (`absencereason`);
+
+--
+-- Indizes für die Tabelle `ABSENCE_REASON`
+--
+ALTER TABLE `ABSENCE_REASON`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `ADDRESS`
@@ -232,6 +259,13 @@ ALTER TABLE `ABSENCE`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT für Tabelle `ABSENCE_REASON`
+--
+ALTER TABLE `ABSENCE_REASON`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+--
 -- AUTO_INCREMENT für Tabelle `ADDRESS`
 --
 ALTER TABLE `ADDRESS`
@@ -278,7 +312,9 @@ ALTER TABLE `ACTIVE_EMPLOYEE`
 -- Constraints der Tabelle `ABSENCE`
 --
 ALTER TABLE `ABSENCE`
-  ADD CONSTRAINT `ABSENCE_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
+  ADD CONSTRAINT `ABSENCE_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`),
+  ADD CONSTRAINT `ABSENCE_REASON` FOREIGN KEY (`absencereason`) REFERENCES `ABSENCE_REASON` (`id`);
+COMMIT;
 
 --
 -- Constraints der Tabelle `EMPLOYEE`

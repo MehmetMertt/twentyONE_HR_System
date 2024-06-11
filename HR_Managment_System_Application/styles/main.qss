@@ -68,3 +68,32 @@ QPushButton[type = "zeiteintrag"] {
 QDateTimeEdit {
     padding: 4px;
 }
+
+QComboBox{
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5%;
+    background-color: #f0f0f0;
+}
+
+QComboBox:on {
+    border-color: #11698E;
+}
+
+QComboBox::down-arrow{
+    image:url(://resourcen/icons/arrow_down.svg);
+
+
+}
+
+QComboBox::drop-down:button {
+    background-color: #f0f0f0;
+    width: 18px;
+    border-radius: 8px;
+}
+
+QComboBox:drop-down {
+    padding-right: 2px;
+}

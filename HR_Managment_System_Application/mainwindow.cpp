@@ -81,6 +81,7 @@ void MainWindow::login_finished()
     request_page = new Requests(this);
     settings_page = new Settings(this);
     editZeiteintrag_page = new EditZeiteintrag(this);
+    antrag_detail_page = new AntragDetails(this);
 
     ui->main->addWidget(dashboard);
     ui->main->addWidget(account_page);
@@ -88,6 +89,7 @@ void MainWindow::login_finished()
     ui->main->addWidget(request_page);
     ui->main->addWidget(settings_page);
     ui->main->addWidget(editZeiteintrag_page);
+    ui->main->addWidget(antrag_detail_page);
     ui->main->setCurrentWidget(dashboard);
 
 
@@ -108,6 +110,8 @@ void MainWindow::login_finished()
     connect(timetracker_page, &Timetracker::openEditZeiteintrag, this, &MainWindow::openEditZeiteintragView);
     connect(editZeiteintrag_page, &EditZeiteintrag::zeiteintrag_saved, this, &MainWindow::showTimetracker);
     connect(editZeiteintrag_page, &EditZeiteintrag::edit_cancel, this, &MainWindow::showTimetracker);
+
+    connect(request_page, &Requests::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -266,6 +270,12 @@ void MainWindow::showTimetracker(Mode mode) {
 void MainWindow::showRequests() {
     request_page->updateView();
     ui->main->setCurrentWidget(request_page);
+}
+
+void MainWindow::showAntragDetailPage(Mode mode, Antrag* antrag) {
+    antrag_detail_page->setupPage(mode);
+    antrag_detail_page->setAntrag(antrag);
+    ui->main->setCurrentWidget(antrag_detail_page);
 }
 
 void MainWindow::showSettings() {
