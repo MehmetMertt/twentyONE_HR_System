@@ -273,8 +273,14 @@ void MainWindow::showRequests() {
 }
 
 void MainWindow::showAntragDetailPage(Mode mode, Antrag* antrag) {
+    if(antrag != nullptr) {
+        antrag_detail_page->setAntrag(antrag);
+    } else {
+        antrag_detail_page->setAntrag(new Antrag());
+    }
     antrag_detail_page->setupPage(mode);
-    antrag_detail_page->setAntrag(antrag);
+    antrag_detail_page->updateView();
+    qDebug() << "set widget";
     ui->main->setCurrentWidget(antrag_detail_page);
 }
 

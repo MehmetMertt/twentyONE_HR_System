@@ -35,32 +35,32 @@ QPushButton[button_type = "primary"]:hover {
     color: #F8F1F1;
 }
 
-QComboBox{
+QComboBox, QDateTimeEdit {
     border: 1px solid #D3D3D3;
     border-radius: 6px;
-    padding: 8px;
+    padding: 6px;
     font-size: 14px;
     margin-top: 5%;
     background-color: #f0f0f0;
 }
 
-QComboBox:on {
+QComboBox:on, QDateTimeEdit:on {
     border-color: #11698E;
 }
 
-QComboBox::down-arrow{
+QComboBox::down-arrow, QDateTimeEdit::down-arrow {
     image:url(://resourcen/icons/arrow_down.svg);
 
 
 }
 
-QComboBox::drop-down:button {
+QComboBox::drop-down:button, QDateTimeEdit::drop-down:button {
     background-color: #f0f0f0;
     width: 18px;
     border-radius: 8px;
 }
 
-QComboBox:drop-down {
+QComboBox:drop-down, QDateTimeEdit:drop-down {
     padding-right: 2px;
 }
 

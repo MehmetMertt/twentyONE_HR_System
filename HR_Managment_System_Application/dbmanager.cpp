@@ -417,20 +417,21 @@ void dbmanager::loadRequestsByEmployee(int employeeID) {
 
     QSqlQuery query;
 
-    query.prepare("SELECT * FROM ABSENCE WHERE employeeid = :employeeID");
+    query.prepare("SELECT a.id, employeeid, titel, absencestart, absenceend, reason.reason, note, status.status FROM ABSENCE as a JOIN ABSENCE_STATUS as status on a.status = status.id JOIN ABSENCE_REASON as reason on a.absencereason = reason.id WHERE employeeid = :employeeID");
 
     query.bindValue(":employeeID",QString("%1").arg(employeeID));
 
     if(query.exec()) {
         while(query.next()) {
             int id = query.value(0).toInt();
-            QDateTime start = query.value(2).toDateTime();
-            QDateTime ende = query.value(3).toDateTime();
-            QString type = query.value(4).toString();
-            QString notiz = query.value(5).toString();
-            QString status = query.value(6).toString();
+            QString titel = query.value(2).toString();
+            QDateTime start = query.value(3).toDateTime();
+            QDateTime ende = query.value(4).toDateTime();
+            QString type = query.value(5).toString();
+            QString notiz = query.value(6).toString();
+            QString status = query.value(7).toString();
 
-            Antrag* antrag = new Antrag(nullptr, id, employeeID, start, ende, type, notiz, status);
+            Antrag* antrag = new Antrag(nullptr, id, employeeID, titel, start, ende, type, notiz, status);
             this->currentEmployee_requests.push_back(antrag);
         }
         qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();

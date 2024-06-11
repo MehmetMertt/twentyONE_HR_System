@@ -25,6 +25,11 @@ private:
     Ui::AntragDetails *ui;
 
     Antrag* antrag;
+
+    void setInputsEnabled(bool value);
+    void disableInputs();
+    void enableInputs();
+    void clearInputs();
 };
 
 #endif // ANTRAG_DETAILPAGE_H

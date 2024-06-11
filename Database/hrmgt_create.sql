@@ -36,8 +36,8 @@ CREATE TABLE `ABSENCE` (
   `id` int NOT NULL,
   `employeeid` int DEFAULT NULL,
   `titel` varchar(255) NOT NULL,
-  `absencestart` date DEFAULT NULL,
-  `absenceend` date DEFAULT NULL,
+  `absencestart` datetime DEFAULT NULL,
+  `absenceend` datetime DEFAULT NULL,
   `absencereason` int NOT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL

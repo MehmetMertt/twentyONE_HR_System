@@ -46,47 +46,92 @@ AntragDetails::~AntragDetails()
 
 void AntragDetails::setupPage(Mode mode) {
 
+    qDebug() << "Setup details";
+
     switch (mode) {
     case CREATE_ANTRAG:
+        clearInputs();
         ui->button_ablehnen->hide();
         ui->button_akzeptieren->hide();
         ui->button_speichern->hide();
         ui->button_senden->show();
         ui->header->setText("Neuen Antrag erstellen");
+        enableInputs();
         break;
     case ANTRAG_ADMIN:
-        ui->button_ablehnen->show();
-        ui->button_akzeptieren->show();
-        ui->button_speichern->hide();
         ui->button_senden->hide();
+        ui->button_ablehnen->hide();
+        ui->button_akzeptieren->hide();
+        ui->button_speichern->hide();
 
         ui->header->setText("Antrag details");
 
+        enableInputs();
         if(this->antrag->getStatus() == "Neu") {
+            ui->button_speichern->show();
+            ui->button_ablehnen->show();
+            ui->button_akzeptieren->show();
             ui->header->setText("Antrag beantworten");
+        } else {
+            disableInputs();
         }
 
         break;
     default:
         ui->button_ablehnen->hide();
         ui->button_akzeptieren->hide();
-        ui->button_speichern->show();
+        ui->button_speichern->hide();
         ui->button_senden->hide();
         ui->header->setText("Antrag details");
+        disableInputs();
+        if(this->antrag->getStatus() == "Neu") {
+            ui->button_speichern->show();
+            enableInputs();
+        }
         break;
     }
 
 }
 
+void AntragDetails::setInputsEnabled(bool value) {
+    ui->titel_field->setEnabled(value);
+    ui->antrag_type->setEnabled(value);
+    ui->start->setEnabled(value);
+    ui->ende->setEnabled(value);
+    ui->notiz->setEnabled(value);
+}
+
+void AntragDetails::disableInputs() {
+    setInputsEnabled(false);
+}
+
+void AntragDetails::enableInputs() {
+    setInputsEnabled(true);
+}
+
 void AntragDetails::updateView() {
 
-    ui->titel_field->setText(this->antrag->getType());
-    ui->antrag_type->setCurrentText(this->antrag->getType());
+    qDebug() << "update view";
+
+    ui->titel_field->setText(this->antrag->getTitel());
+    ui->antrag_type->setCurrentText(this->antrag->getReason());
     ui->label_status->setText("Status: " + this->antrag->getStatus());
     ui->notiz->insertPlainText(this->antrag->getNotiz());
+    ui->start->setDateTime(this->antrag->getStart());
+    ui->ende->setDateTime(this->antrag->getEnde());
 
 }
 
 void AntragDetails::setAntrag(Antrag* antrag) {
     this->antrag = antrag;
+    clearInputs();
+}
+
+void AntragDetails::clearInputs() {
+    ui->titel_field->clear();
+    ui->antrag_type->clear();;
+    ui->label_status->setText("Status: Neu");
+    ui->notiz->clear();;
+    ui->start->setDateTime(QDateTime::currentDateTime());
+    ui->ende->setDateTime(QDateTime::currentDateTime());
 }

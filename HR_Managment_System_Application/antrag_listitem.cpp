@@ -22,7 +22,8 @@ void AntragListItem::on_details_button_clicked()
 
 void AntragListItem::updateView() {
     ui->label_id->setText(QString::number(this->antrag->getId()));
-    ui->label_titel->setText(this->antrag->getType());
+    ui->label_titel->setText(this->antrag->getTitel());
     ui->label_status->setText(this->antrag->getStatus());
     ui->label_datum->setText(this->antrag->getStart().toString("dd.MM.yyyy hh:mm") + " - " + this->antrag->getEnde().toString("dd.MM.yyyy hh:mm"));
+    ui->label_reason->setText(this->antrag->getReason());
 }
