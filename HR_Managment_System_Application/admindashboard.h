@@ -32,6 +32,7 @@ private:
 
     void processEditMitarbeiter(int id);
     void updateEmployeeList();
+    void updateAntragList();
     void updateGeneralData();
 };
 

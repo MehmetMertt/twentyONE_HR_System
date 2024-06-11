@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "Helpers.h"
 #include "antrag.h"
+#include "inputvalidator.h"
 
 namespace Ui {
 class AntragDetails;
@@ -32,7 +33,7 @@ private slots:
 
 private:
     Ui::AntragDetails *ui;
-
+    InputValidator *validator;
     Antrag* antrag;
 
     void setInputsEnabled(bool value);

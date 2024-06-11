@@ -18,6 +18,9 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
 
     ui->antrag_type->setCurrentIndex(0);
 
+    validator = new InputValidator(this);
+    ui->titel_field->setValidator(validator->Titel_validator);
+
     // Load the first stylesheet from a file
     QString stylesheetPath1 = ":/resourcen/styles/main.qss";
     QFile stylesheetFile1(stylesheetPath1);
@@ -147,19 +150,27 @@ void AntragDetails::clearInputs() {
 void AntragDetails::on_button_senden_clicked()
 {
     //VALIDATION EINBAUEN
+    validator->ueberpruefeTitel(this);
+    validator->ueberpruefeDatum(this);
 
+    if(validator->getTitel_erlaubt() == false){
+        ui->error_text->setText("Titel darf nicht leer sein.");
+    }else if(validator->getDatum_erlaubt() == false){
+        ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+    }else{
+        ui->error_text->setText("");
 
-    Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->start->dateTime(), ui->ende->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
+        Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->start->dateTime(), ui->ende->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
 
-    bool send_success = dbZugriff->submitAbsence(new_antrag);
+        bool send_success = dbZugriff->submitAbsence(new_antrag);
 
-    if(send_success) {
+        if(send_success) {
 
-        dbZugriff->currentEmployee_requests.push_back(new_antrag);
+            dbZugriff->currentEmployee_requests.push_back(new_antrag);
 
-        emit antrag_submit_success(NOTHING);
+            emit antrag_submit_success(NOTHING);
+        }
     }
-
 }
 
 

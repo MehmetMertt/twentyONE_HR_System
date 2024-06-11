@@ -27,6 +27,11 @@ Zeiteintrag::Zeiteintrag(int employeeId, QDateTime startzeit, QDateTime endzeit,
     ui->edit_widget->hide();
 
     updateView();
+
+    validator = new InputValidator(this);
+    connect(ui->startzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &Zeiteintrag::on_startzeit_edit_dateTimeChanged);
+    connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &Zeiteintrag::on_endzeit_edit_dateTimeChanged);
+    connect(ui->notiz_edit, &QTextEdit::textChanged, this, &Zeiteintrag::on_notiz_edit_textChanged);
 }
 
 
@@ -72,7 +77,6 @@ int Zeiteintrag::getTimeentryId(){
 
 void Zeiteintrag::on_button_edit_clicked()
 {
-
     ui->startzeit_edit->setDateTime(this->getStartzeit());
     ui->endzeit_edit->setDateTime(this->getEndzeit());
     ui->notiz_edit->setText(this->getNotiz());
@@ -94,23 +98,29 @@ void Zeiteintrag::on_cancel_clicked()
 void Zeiteintrag::on_save_clicked()
 {
     //Validation
-    bool edit_success = dbZugriff->editTimeentries(this->timeentryId, ui->startzeit_edit->dateTime(), ui->endzeit_edit->dateTime(), ui->notiz_edit->toPlainText());
+    if(validator->getTitel_erlaubt() == false){
+        //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
+    }else if(validator->getDatum_erlaubt() == false){
+        //ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+    }else{
+        //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
+        bool edit_success = dbZugriff->editTimeentries(this->timeentryId, ui->startzeit_edit->dateTime(), ui->endzeit_edit->dateTime(), ui->notiz_edit->toPlainText());
 
-    if(edit_success) {
-        this->setStartzeit(ui->startzeit_edit->dateTime());
-        this->setEndzeit(ui->endzeit_edit->dateTime());
-        this->setNotiz(ui->notiz_edit->toPlainText());
-        this->dauer = this->startzeit.secsTo(this->endzeit) / 3600.0;
+        if(edit_success) {
+            this->setStartzeit(ui->startzeit_edit->dateTime());
+            this->setEndzeit(ui->endzeit_edit->dateTime());
+            this->setNotiz(ui->notiz_edit->toPlainText());
+            this->dauer = this->startzeit.secsTo(this->endzeit) / 3600.0;
 
-        updateView();
+            updateView();
 
-        ui->edit_widget->hide();
-        ui->view_widget->show();
-        emit editZeiteintrag(this);
-    } else {
+            ui->edit_widget->hide();
+            ui->view_widget->show();
+            emit editZeiteintrag(this);
+        } else {
 
+        }
     }
-
 }
 
 void Zeiteintrag::updateView() {
@@ -124,5 +134,27 @@ void Zeiteintrag::updateView() {
         ui->notiz->setText(notiz);
         ui->notiz->show();
     }
+}
+
+void Zeiteintrag::compareDatum(){
+    validator->ueberpruefeDatum(this);
+    /*
+    if(validator->getDatum_erlaubt() == false){
+        ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+    }else
+        ui->error_text->setText("");
+    */
+}
+
+void Zeiteintrag::on_startzeit_edit_dateTimeChanged(){
+    this->compareDatum();
+}
+
+void Zeiteintrag::on_endzeit_edit_dateTimeChanged(){
+    this->compareDatum();
+}
+
+void Zeiteintrag::on_notiz_edit_textChanged(){
+    validator->ueberpruefeNotiz(this);
 }
 
