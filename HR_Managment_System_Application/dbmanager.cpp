@@ -583,17 +583,33 @@ void dbmanager::loadAbsenceReasons(){
 }
 
 
-int getArbeitsstundenSpecific( int employeeID){
+double dbmanager::getArbeitsstundenSpecific( int employeeID){
     QSqlQuery query;
         //Subdate um 1 erstentag dieser Woche zu finden
-    query.prepare("SELECT SUM(TIMESTAMPDIFF(HOUR,shiftstart,shiftend)) FROM WORKINGHOURS WHERE  employeeid = :employeeid AND shiftstart >= SUBDATE(shiftstart, weekday(shiftstart)); ") ;
+    query.prepare("SELECT ROUND(SUM(TIMESTAMPDIFF(MINUTE, shiftstart, shiftend) / 60.0), 2) "
+                  "FROM WORKINGHOURS "
+                  "WHERE employeeid = :employeeid "
+                  "AND shiftstart >= SUBDATE(CURDATE(), WEEKDAY(CURDATE()));");
     query.bindValue(":employeeid",QString("%1").arg(employeeID));
 
-    if(query.exec()){
-
-        return query.value(0).toInt();
+    if (query.exec()) {
+        if (query.next()) {
+            QVariant result = query.value(0);
+            if (result.isNull()) {
+                qDebug() << "No working hours recorded for this week.";
+            } else {
+                double totalHours = result.toDouble();
+                qDebug() << "Total hours worked this week:" << totalHours;
+                return totalHours;
+            }
+        } else {
+            qDebug() << "No records found.";
+            return 0;
+        }
+    } else {
+        qWarning() << "Query execution error:" << query.lastError();
+        return 0;
     }
-
     return 0;
 
 }

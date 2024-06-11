@@ -17,6 +17,7 @@ SOURCES += \
     auth/account.cpp \
     auth/account_adminview.cpp \
     dashboard.cpp \
+    dbaccess.cpp \
     dbmanager.cpp \
     auth/login.cpp \
     auth/signup.cpp \
