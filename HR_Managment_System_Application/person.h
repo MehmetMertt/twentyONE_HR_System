@@ -8,7 +8,7 @@
 class Person
 {
 public:
-    Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, QString housenumber, bool isAdmin, QString gender, QString title);
+    Person(int id, QString name, QString surname, QString mail, QString phone, QString street, QString city, QString plz, bool isAdmin, QString gender, QString title);
     ~Person();
 
     QString getName(){return this->name;}
@@ -18,7 +18,6 @@ public:
     QString getPhone(){return this->phone;}
     QString getStreet(){return this->street;}
     QString getCity(){return this->city;}
-    QString getHousenumber(){return this->housenumber;}
     QString getPLZ(){return this->plz;}
     bool getAdmin(){return this->isAdmin;}
     QString getGender(){return this->gender;}
@@ -32,7 +31,6 @@ public:
     void setPhone(QString phone){ this->phone = phone;}
     void setStreet(QString street){ this->street = street;}
     void setCity(QString city){ this->city = city;}
-    void setHousenumber(QString housenumber){ this->housenumber = housenumber;}
     void setPLZ(QString plz){ this->plz = plz;}
     void setAdmin(bool val){this->isAdmin = val;}
     void setGender(QString val){this->gender = val;}
@@ -46,12 +44,10 @@ private:
     QString street;
     QString city;
     QString plz;
-    QString housenumber;
     bool isAdmin;
     QString gender;
     QString title;
     int id;
-    int admin;
 };
 
 #endif // PERSON_H
