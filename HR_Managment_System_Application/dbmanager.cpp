@@ -464,6 +464,21 @@ bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end,
 
 }
 
+bool deleteTimeentries(int timeentryID){
+
+
+    QSqlQuery query;
+    query.prepare("DELETE FROM WORKINGHOURS where timeentryID = :timeentryid") ;
+    query.bindValue(":timeentryid",QString("%1").arg(timeentryID));
+
+    if(query.exec()){
+
+        return 1;
+    }
+
+    return 0;
+}
+
 
 void dbmanager::loadActiveEmployees(){
 
@@ -566,3 +581,23 @@ void dbmanager::loadAbsenceReasons(){
         }
     }
 }
+
+
+int getArbeitsstundenSpecific( int employeeID){
+    QSqlQuery query;
+        //Subdate um 1 erstentag dieser Woche zu finden
+    query.prepare("SELECT SUM(TIMESTAMPDIFF(HOUR,shiftstart,shiftend)) FROM WORKINGHOURS WHERE  employeeid = :employeeid AND shiftstart >= SUBDATE(shiftstart, weekday(shiftstart)); ") ;
+    query.bindValue(":employeeid",QString("%1").arg(employeeID));
+
+    if(query.exec()){
+
+        return query.value(0).toInt();
+    }
+
+    return 0;
+
+}
+
+
+
+
