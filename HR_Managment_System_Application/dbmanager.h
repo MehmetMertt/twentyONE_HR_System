@@ -44,7 +44,6 @@ public:
     void loadRequestsByEmployee(int employeeID);
     int getArbeitsstundenSpecific( int employeeID);
     bool deleteTimeentries(int timeentryID);
-    bool editUserData(int employeeID);
     //TEST
     QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
     QList<Person*> activepersons; //hier auch

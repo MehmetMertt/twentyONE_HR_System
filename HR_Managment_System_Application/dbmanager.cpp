@@ -604,5 +604,3 @@ int getArbeitsstundenSpecific( int employeeID){
 }
 
 
-
-
