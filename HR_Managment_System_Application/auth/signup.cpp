@@ -8,8 +8,21 @@ Signup::Signup(QWidget *parent)
     , ui(new Ui::Signup)
 {
     ui->setupUi(this);
-    ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
-    ui->anrede_input->setCurrentIndex(2);
+
+    QList<QString> genders;
+    QSqlQuery query;
+    query.prepare("SELECT gender from GENDERS");
+
+    if(query.exec() && query.size() > 0){
+        while(query.next()){
+            QString gender = query.value(0).toString();
+            genders.append(gender);
+            ui->anrede_input->addItem(gender);
+        }
+    }else
+        ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
+
+    ui->anrede_input->setCurrentIndex(0);
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
