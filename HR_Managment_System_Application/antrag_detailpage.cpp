@@ -144,7 +144,7 @@ void AntragDetails::setAntrag(Antrag* antrag) {
 
 void AntragDetails::clearInputs() {
     ui->titel_field->clear();
-    ui->antrag_type->clear();;
+    ui->antrag_type->setCurrentIndex(0);
     ui->label_status->setText("Status: Neu");
     ui->notiz->clear();;
     ui->start->setDateTime(QDateTime::currentDateTime());
