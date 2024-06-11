@@ -56,6 +56,10 @@ public:
     bool removeActiveEmployee(int employeeID);
     void loadActiveEmployees();
     bool loadActiveEmployeeCount();
+    QMap<int, QString> genders;
+    QMap<int, QString> absence_reasons;
+    void loadGenders();
+    void loadAbsenceReasons();
 
 private:
     QSqlDatabase m_db;

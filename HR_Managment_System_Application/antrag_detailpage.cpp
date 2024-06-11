@@ -10,18 +10,11 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
     ui->setupUi(this);
     this->antrag = antrag;
 
-    QList<QString> absence_reasons;
-    QSqlQuery query;
-    query.prepare("SELECT reason from ABSENCE_REASON");
-
-    if(query.exec() && query.size() > 0){
-        while(query.next()){
-            QString reason = query.value(0).toString();
-            absence_reasons.append(reason);
-            ui->antrag_type->addItem(reason);
-        }
-    }else
-        ui->antrag_type->addItems({"Urlaub", "Zeitausgleich"});
+    dbZugriff->loadAbsenceReasons();
+    for(int i = 0; i < dbZugriff->absence_reasons.size(); i++){
+        QString reason = dbZugriff->absence_reasons.value(i+1);
+        ui->antrag_type->addItem(reason);
+    }
 
     ui->antrag_type->setCurrentIndex(0);
 
