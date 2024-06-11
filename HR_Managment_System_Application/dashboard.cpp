@@ -9,7 +9,7 @@ Dashboard::Dashboard(QWidget *parent)
     , ui(new Ui::Dashboard)
 {
     ui->setupUi(this);
-    updateGreeting();
+   updateGreeting();
 
 
     // Load the stylesheet from a file (recommended)
