@@ -42,6 +42,9 @@ public:
     bool submitAbsence(Antrag* antrag);
     void loadAllRequests();
     void loadRequestsByEmployee(int employeeID);
+    int getArbeitsstundenSpecific( int employeeID);
+    bool deleteTimeentries(int timeentryID);
+    bool editUserData(int employeeID);
     //TEST
     QList<Person*> persons; //Mitarbeiter werden von SQL Abfrage gespeichert und dann für Mitarbeiterview verwendet
     QList<Person*> activepersons; //hier auch
@@ -60,6 +63,7 @@ public:
     QMap<int, QString> absence_reasons;
     void loadGenders();
     void loadAbsenceReasons();
+
 
 private:
     QSqlDatabase m_db;
