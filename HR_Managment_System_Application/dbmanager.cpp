@@ -541,3 +541,32 @@ bool dbmanager::removeActiveEmployee(int employeeID) {
         return false;
     }
 }
+
+void dbmanager::loadGenders(){
+    QSqlQuery query;
+    query.prepare("SELECT gender from GENDERS");
+
+    if(query.exec() && query.size() > 0){
+        int i = 1;
+        while(query.next()){
+            QString gender = query.value(0).toString();
+            this->genders.insert(i, gender);
+            i++;
+            //ui->anrede_input->addItem(gender);
+        }
+    }
+}
+
+void dbmanager::loadAbsenceReasons(){
+    QSqlQuery query;
+    query.prepare("SELECT reason from ABSENCE_REASON");
+
+    if(query.exec() && query.size() > 0){
+        int i = 1;
+        while(query.next()){
+            QString reason = query.value(0).toString();
+            this->absence_reasons.insert(i, reason);
+            i++;
+        }
+    }
+}

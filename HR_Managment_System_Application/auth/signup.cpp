@@ -9,18 +9,11 @@ Signup::Signup(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QList<QString> genders;
-    QSqlQuery query;
-    query.prepare("SELECT gender from GENDERS");
-
-    if(query.exec() && query.size() > 0){
-        while(query.next()){
-            QString gender = query.value(0).toString();
-            genders.append(gender);
-            ui->anrede_input->addItem(gender);
-        }
-    }else
-        ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
+    dbZugriff->loadGenders();
+    for(int i = 0; i < dbZugriff->genders.size(); i++){
+        QString gender = dbZugriff->genders.value(i+1);
+        ui->anrede_input->addItem(gender);
+    }
 
     ui->anrede_input->setCurrentIndex(0);
 
