@@ -7,6 +7,9 @@
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
+#include <QDateTimeEdit>
+#include <QDateTime>
+#include <QTextEdit>
 #pragma once
 
 class InputValidator : public QObject {
@@ -34,6 +37,7 @@ public:
     QValidator *Plz_validator;
     QValidator *Ort_validator;
     QValidator *Passwort_validator;
+    QValidator *Titel_validator;
 
     // Setter und Getter:
     void setVorname_erlaubt(bool true_false){ Vorname_erlaubt = true_false; }
@@ -54,6 +58,10 @@ public:
     bool getPasswort_erlaubt(){ return Passwort_erlaubt; }
     void setPasswort2_erlaubt(bool true_false){ Passwort_erlaubt = true_false; }
     bool getPasswort2_erlaubt(){ return Passwort_erlaubt; }
+    void setDatum_erlaubt(bool true_false){ Datum_erlaubt = true_false; }
+    bool getDatum_erlaubt(){ return Datum_erlaubt; }
+    void setTitel_erlaubt(bool true_false){ Titel_erlaubt = true_false; }
+    bool getTitel_erlaubt(){ return Titel_erlaubt; }
 
 public slots:
     void ueberpruefeVorname(QWidget *);
@@ -65,6 +73,9 @@ public slots:
     void ueberpruefeOrt(QWidget *);
     void ueberpruefePasswort(QWidget *);
     void ueberpruefe2Passwort(QWidget *);  //wenns noch ein Passwort gibt, dann heißt es anders als passwort_input deswegen die Funktions ansonsten absturz :/
+    void ueberpruefeDatum(QWidget *);
+    void ueberpruefeTitel(QWidget *);
+    void ueberpruefeNotiz(QWidget *);
 
 private:
     bool Vorname_erlaubt;
@@ -76,6 +87,8 @@ private:
     bool Ort_erlaubt;
     bool Passwort_erlaubt;
     bool Passwort2_erlaubt;
+    bool Datum_erlaubt;
+    bool Titel_erlaubt;
 };
 
 #endif // INPUTVALIDATOR_H

@@ -59,6 +59,8 @@ void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
 void EditZeiteintrag::on_save_clicked()
 {
+    //Validierung für jeden einzelnen Zeiteintrag I guess...
+
     for (auto& timestamp : this->timestampItems) {
         qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
 
