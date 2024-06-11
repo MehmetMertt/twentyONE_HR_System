@@ -1,6 +1,6 @@
 #include "antrag_detailpage.h"
 #include "ui_antrag_detailpage.h"
-
+#include "dbaccess.h"
 #include <QFile>
 
 AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
@@ -9,6 +9,21 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
 {
     ui->setupUi(this);
     this->antrag = antrag;
+
+    QList<QString> absence_reasons;
+    QSqlQuery query;
+    query.prepare("SELECT reason from ABSENCE_REASON");
+
+    if(query.exec() && query.size() > 0){
+        while(query.next()){
+            QString reason = query.value(0).toString();
+            absence_reasons.append(reason);
+            ui->antrag_type->addItem(reason);
+        }
+    }else
+        ui->antrag_type->addItems({"Urlaub", "Zeitausgleich"});
+
+    ui->antrag_type->setCurrentIndex(0);
 
     // Load the first stylesheet from a file
     QString stylesheetPath1 = ":/resourcen/styles/main.qss";
