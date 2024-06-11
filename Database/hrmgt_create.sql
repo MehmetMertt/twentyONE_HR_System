@@ -40,7 +40,7 @@ CREATE TABLE `ABSENCE` (
   `absenceend` datetime DEFAULT NULL,
   `absencereason` int NOT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+  `status` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -61,6 +61,26 @@ CREATE TABLE `ABSENCE_REASON` (
 INSERT INTO `ABSENCE_REASON` (`id`, `reason`) VALUES
 (1, 'Urlaub'),
 (2, 'Zeitausgleich');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ABSENCE_STATUS`
+--
+
+CREATE TABLE `ABSENCE_STATUS` (
+  `id` int NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Daten für Tabelle `ABSENCE_STATUS`
+--
+
+INSERT INTO `ABSENCE_STATUS` (`id`, `status`) VALUES
+(1, 'Neu'),
+(2, 'Akzeptiert'),
+(3, 'Abgelehnt');
 
 -- --------------------------------------------------------
 
@@ -191,12 +211,19 @@ CREATE TABLE `ACTIVE_EMPLOYEE` (
 ALTER TABLE `ABSENCE`
   ADD PRIMARY KEY (`id`),
   ADD KEY `MitarbeiterID` (`employeeid`),
-  ADD KEY `ABSENCE_REASON` (`absencereason`);
+  ADD KEY `ABSENCE_REASON` (`absencereason`),
+  ADD KEY `ABSENCE_STATUS` (`status`);
 
 --
 -- Indizes für die Tabelle `ABSENCE_REASON`
 --
 ALTER TABLE `ABSENCE_REASON`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `ABSENCE_STATUS`
+--
+ALTER TABLE `ABSENCE_STATUS`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -263,7 +290,12 @@ ALTER TABLE `ABSENCE`
 --
 ALTER TABLE `ABSENCE_REASON`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
+
+--
+-- AUTO_INCREMENT für Tabelle `ABSENCE_STATUS`
+--
+ALTER TABLE `ABSENCE_STATUS`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `ADDRESS`
@@ -313,8 +345,8 @@ ALTER TABLE `ACTIVE_EMPLOYEE`
 --
 ALTER TABLE `ABSENCE`
   ADD CONSTRAINT `ABSENCE_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`),
-  ADD CONSTRAINT `ABSENCE_REASON` FOREIGN KEY (`absencereason`) REFERENCES `ABSENCE_REASON` (`id`);
-COMMIT;
+  ADD CONSTRAINT `ABSENCE_REASON` FOREIGN KEY (`absencereason`) REFERENCES `ABSENCE_REASON` (`id`),
+  ADD CONSTRAINT `ABSENCE_STATUS` FOREIGN KEY (`status`) REFERENCES `ABSENCE_STATUS` (`id`);
 
 --
 -- Constraints der Tabelle `EMPLOYEE`
@@ -330,7 +362,6 @@ ALTER TABLE `EMPLOYEE`
 --
 ALTER TABLE `WORKINGHOURS`
   ADD CONSTRAINT `WORKINGHOURS_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `EMPLOYEE` (`id`);
-COMMIT;
 
 --
 -- Constraints der Tabelle `ACTIVE_EMPLOYEE`
