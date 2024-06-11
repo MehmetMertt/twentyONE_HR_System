@@ -545,29 +545,24 @@ bool dbmanager::removeActiveEmployee(int employeeID) {
 
 void dbmanager::loadGenders(){
     QSqlQuery query;
-    query.prepare("SELECT gender from GENDERS");
+    query.prepare("SELECT id, gender from GENDERS");
 
     if(query.exec() && query.size() > 0){
-        int i = 1;
         while(query.next()){
-            QString gender = query.value(0).toString();
-            this->genders.insert(i, gender);
-            i++;
-            //ui->anrede_input->addItem(gender);
+            QString gender = query.value(1).toString();
+            this->genders.insert(query.value(0).toInt(), gender);
         }
     }
 }
 
 void dbmanager::loadAbsenceReasons(){
     QSqlQuery query;
-    query.prepare("SELECT reason from ABSENCE_REASON");
+    query.prepare("SELECT id, reason from ABSENCE_REASON");
 
     if(query.exec() && query.size() > 0){
-        int i = 1;
         while(query.next()){
-            QString reason = query.value(0).toString();
-            this->absence_reasons.insert(i, reason);
-            i++;
+            QString reason = query.value(1).toString();
+            this->absence_reasons.insert(query.value(0).toInt(), reason);
         }
     }
 }
