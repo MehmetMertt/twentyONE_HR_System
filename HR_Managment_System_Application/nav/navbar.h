@@ -25,7 +25,7 @@ signals:
     void account_clicked();
     void dashboard_clicked();
     void timetracker_clicked(Mode mode);
-    void request_clicked();
+    void request_clicked(Mode mode);
     void settings_clicked();
     void logout_clicked();
     void admin_clicked();

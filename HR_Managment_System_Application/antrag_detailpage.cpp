@@ -150,3 +150,22 @@ void AntragDetails::clearInputs() {
     ui->start->setDateTime(QDateTime::currentDateTime());
     ui->ende->setDateTime(QDateTime::currentDateTime());
 }
+
+void AntragDetails::on_button_senden_clicked()
+{
+    //VALIDATION EINBAUEN
+
+
+    Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->start->dateTime(), ui->ende->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
+
+    bool send_success = dbZugriff->submitAbsence(new_antrag);
+
+    if(send_success) {
+
+        dbZugriff->currentEmployee_requests.push_back(new_antrag);
+
+        emit antrag_submit_success(NOTHING);
+    }
+
+}
+

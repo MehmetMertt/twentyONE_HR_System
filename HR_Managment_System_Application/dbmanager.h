@@ -39,7 +39,7 @@ public:
     bool changePassword(int employeeID, QString newPassword);
     int getArbeitsstunden(int employeeID);
     bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note);
-    bool submitAbsence(int employeeID, QDateTime start, QDateTime end,QString reason,QString note);
+    bool submitAbsence(Antrag* antrag);
     void loadAllRequests();
     void loadRequestsByEmployee(int employeeID);
     //TEST

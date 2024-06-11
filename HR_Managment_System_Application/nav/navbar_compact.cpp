@@ -77,7 +77,7 @@ void Navbar_compact::on_request_clicked()
     removeActiveItem();
     active_item = ui->request;
     addActiveItem();
-    emit request_clicked();
+    emit request_clicked(LOAD_DATA);
 }
 
 

@@ -21,6 +21,12 @@ public:
     void updateView();
     void setAntrag(Antrag* antrag);
 
+signals:
+    void antrag_submit_success(Mode mode);
+
+private slots:
+    void on_button_senden_clicked();
+
 private:
     Ui::AntragDetails *ui;
 

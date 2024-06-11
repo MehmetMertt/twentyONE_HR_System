@@ -112,6 +112,7 @@ void MainWindow::login_finished()
     connect(editZeiteintrag_page, &EditZeiteintrag::edit_cancel, this, &MainWindow::showTimetracker);
 
     connect(request_page, &Requests::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
+    connect(antrag_detail_page, &AntragDetails::antrag_submit_success, this, &MainWindow::showRequests);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -267,8 +268,8 @@ void MainWindow::showTimetracker(Mode mode) {
     ui->main->setCurrentWidget(timetracker_page);
 }
 
-void MainWindow::showRequests() {
-    request_page->updateView();
+void MainWindow::showRequests(Mode mode) {
+    request_page->updateView(mode);
     ui->main->setCurrentWidget(request_page);
 }
 

@@ -45,8 +45,9 @@ void Requests::processAntragDetailClicked(Antrag* antrag) {
     emit showAntragDetailPage(ANTRAG_DETAILS, antrag);
 }
 
-void Requests::updateView() {
-    dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
+void Requests::updateView(Mode mode) {
+    if(mode == LOAD_DATA)
+        dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
 
     ui->closed_requests->clear();
     ui->new_requests->clear();

@@ -19,7 +19,7 @@ public:
     explicit Requests(QWidget *parent = nullptr);
     ~Requests();
 
-    void updateView();
+    void updateView(Mode mode);
 
 signals:
     void showAntragDetailPage(Mode mode, Antrag* antrag);

@@ -372,33 +372,30 @@ int getArbeitsstunden(int employeeID){
 
 }
 
-bool submitAbsence(int employeeID, QDateTime start, QDateTime end,QString reason,QString note){
+bool dbmanager::submitAbsence(Antrag* antrag){
 
-
-    bool success = false;
     QSqlQuery query;
 
-    query.prepare("INSERT  INTO ABSENCE (employeeid, absencestart,absenceend,absencereason,note) VALUES(:employeeID, :start, :end, :reason, :note) ");
+    query.prepare("INSERT INTO ABSENCE (employeeid, absencestart, absenceend, absencereason, note) VALUES(:employeeID, :start, :end, :reason, :note) ");
 
-    query.bindValue(":id",QString("%1").arg(employeeID));
-    query.bindValue(":start",QString("%1").arg(start.toString("yyyy-MM-dd hh:mm:ss")));
-    query.bindValue(":end",QString("%1").arg(end.toString("yyyy-MM-dd hh:mm:ss")));
-    query.bindValue(":reason",QString("%1").arg(reason));
-    query.bindValue(":note",QString("%1").arg(note));
-
-
+    query.bindValue(":employeeID",QString("%1").arg(antrag->getEmployeeId()));
+    query.bindValue(":start",QString("%1").arg(antrag->getStart().toString("yyyy-MM-dd hh:mm")));
+    query.bindValue(":end",QString("%1").arg(antrag->getEnde().toString("yyyy-MM-dd hh:mm")));
+    query.bindValue(":reason",QString("%1").arg(antrag->getReason()));
+    query.bindValue(":note",QString("%1").arg(antrag->getNotiz()));
 
     if(query.exec())
     {
-        success = true;
+        int id = query.lastInsertId().toInt();
+        antrag->setId(id);
         qDebug() << "Absence submission success";
-        return success;
+        return true;
     }
     else
     {
         qDebug() << "Absence submission error:"
                  << query.lastError();
-        return success;
+        return false;
     }
 }
 
