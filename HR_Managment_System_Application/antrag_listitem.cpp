@@ -17,7 +17,7 @@ AntragListItem::~AntragListItem()
 
 void AntragListItem::on_details_button_clicked()
 {
-    emit detailsClicked();
+    emit detailsClicked(this->antrag);
 }
 
 void AntragListItem::updateView() {

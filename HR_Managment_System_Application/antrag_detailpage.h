@@ -2,21 +2,29 @@
 #define ANTRAG_DETAILPAGE_H
 
 #include <QWidget>
+#include "Helpers.h"
+#include "antrag.h"
 
 namespace Ui {
-class CreateAntrag;
+class AntragDetails;
 }
 
-class CreateAntrag : public QWidget
+class AntragDetails : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit CreateAntrag(QWidget *parent = nullptr);
-    ~CreateAntrag();
+    explicit AntragDetails(QWidget *parent = nullptr, Antrag* antrag = nullptr);
+    ~AntragDetails();
+
+    void setupPage(Mode mode);
+    void updateView();
+    void setAntrag(Antrag* antrag);
 
 private:
-    Ui::CreateAntrag *ui;
+    Ui::AntragDetails *ui;
+
+    Antrag* antrag;
 };
 
 #endif // ANTRAG_DETAILPAGE_H

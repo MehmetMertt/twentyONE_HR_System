@@ -18,6 +18,7 @@
 #include <settings.h>
 #include <editzeiteintrag.h>
 #include <Helpers.h>
+#include <antrag_detailpage.h>
 //---------------------------
 #pragma once
 #include <dbaccess.h>
@@ -66,6 +67,7 @@ private:
     Requests* request_page;
     Settings* settings_page;
     EditZeiteintrag* editZeiteintrag_page;
+    AntragDetails* antrag_detail_page;
 
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;
@@ -77,6 +79,7 @@ private:
     void showDashboard();
     void showTimetracker(Mode mode);
     void showRequests();
+    void showAntragDetailPage(Mode mode, Antrag* antrag = nullptr);
     void showSettings();
     void processLogout();
     void showAdminDashboard();

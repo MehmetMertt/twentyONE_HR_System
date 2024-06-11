@@ -19,7 +19,7 @@ public:
     void updateView();
 
 signals:
-    void detailsClicked();
+    void detailsClicked(Antrag* antrag);
 
 private slots:
     void on_details_button_clicked();

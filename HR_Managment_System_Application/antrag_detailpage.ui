@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CreateAntrag</class>
- <widget class="QWidget" name="CreateAntrag">
+ <class>AntragDetails</class>
+ <widget class="QWidget" name="AntragDetails">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,20 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -72,6 +85,9 @@
          <property name="placeholderText">
           <string>Titel</string>
          </property>
+         <property name="input_type" stdset="0">
+          <string>text</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -106,7 +122,14 @@
       </layout>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <widget class="QPlainTextEdit" name="notiz">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>350</height>
+        </size>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer_2">
@@ -128,6 +151,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="button_abbrechen">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Abbrechen</string>
          </property>
@@ -148,6 +174,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="button_senden">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Senden</string>
          </property>
@@ -155,6 +184,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="button_speichern">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Speichern</string>
          </property>
@@ -162,6 +194,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="button_ablehnen">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Ablehnen</string>
          </property>
@@ -169,6 +204,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="button_akzeptieren">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Akzeptieren</string>
          </property>
@@ -177,6 +215,19 @@
       </layout>
      </item>
     </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

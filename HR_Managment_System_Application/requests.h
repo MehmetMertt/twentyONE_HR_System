@@ -3,7 +3,11 @@
 
 #include <QWidget>
 #include <Helpers.h>
+<<<<<<< Updated upstream
 #include "antrag_listitem.h"
+=======
+#include <antrag.h>
+>>>>>>> Stashed changes
 #pragma once
 
 namespace Ui {
@@ -21,7 +25,7 @@ public:
     void updateView();
 
 signals:
-    void showAntragDetailPage(Mode mode);
+    void showAntragDetailPage(Mode mode, Antrag* antrag);
 
 private slots:
 
@@ -30,7 +34,7 @@ private slots:
 private:
     Ui::Requests *ui;
 
-    void processAntragDetailClicked();
+    void processAntragDetailClicked(Antrag* antrag);
 
     void insertRequests();
 
