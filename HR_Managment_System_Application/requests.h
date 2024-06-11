@@ -3,11 +3,8 @@
 
 #include <QWidget>
 #include <Helpers.h>
-<<<<<<< Updated upstream
 #include "antrag_listitem.h"
-=======
 #include <antrag.h>
->>>>>>> Stashed changes
 #pragma once
 
 namespace Ui {
