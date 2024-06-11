@@ -113,6 +113,7 @@ void MainWindow::login_finished()
 
     connect(request_page, &Requests::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
     connect(antrag_detail_page, &AntragDetails::antrag_submit_success, this, &MainWindow::showRequests);
+    connect(antrag_detail_page, &AntragDetails::antrag_cancel, this, &MainWindow::showRequests);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);

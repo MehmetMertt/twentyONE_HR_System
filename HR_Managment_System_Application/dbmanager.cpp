@@ -376,12 +376,13 @@ bool dbmanager::submitAbsence(Antrag* antrag){
 
     QSqlQuery query;
 
-    query.prepare("INSERT INTO ABSENCE (employeeid, absencestart, absenceend, absencereason, note) VALUES(:employeeID, :start, :end, :reason, :note) ");
+    query.prepare("INSERT INTO ABSENCE (employeeid, titel, absencestart, absenceend, absencereason, note) VALUES(:employeeID, :titel, :start, :end, :reason, :note) ");
 
     query.bindValue(":employeeID",QString("%1").arg(antrag->getEmployeeId()));
     query.bindValue(":start",QString("%1").arg(antrag->getStart().toString("yyyy-MM-dd hh:mm")));
     query.bindValue(":end",QString("%1").arg(antrag->getEnde().toString("yyyy-MM-dd hh:mm")));
-    query.bindValue(":reason",QString("%1").arg(antrag->getReason()));
+    query.bindValue(":reason",QString("%1").arg(this->absence_reasons.key(antrag->getReason())));
+    query.bindValue(":titel",QString("%1").arg(antrag->getTitel()));
     query.bindValue(":note",QString("%1").arg(antrag->getNotiz()));
 
     if(query.exec())

@@ -71,6 +71,12 @@
            <height>0</height>
           </size>
          </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string>Titel</string>
          </property>
@@ -80,7 +86,7 @@
         <widget class="QLabel" name="label_reason">
          <property name="minimumSize">
           <size>
-           <width>60</width>
+           <width>90</width>
            <height>0</height>
           </size>
          </property>
@@ -111,6 +117,9 @@
        </property>
        <property name="text">
         <string>Mehr</string>
+       </property>
+       <property name="type" stdset="0">
+        <string>zeiteintrag</string>
        </property>
       </widget>
      </item>

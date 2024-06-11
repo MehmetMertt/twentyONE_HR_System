@@ -23,9 +23,12 @@ public:
 
 signals:
     void antrag_submit_success(Mode mode);
+    void antrag_cancel(Mode mode);
 
 private slots:
     void on_button_senden_clicked();
+
+    void on_button_abbrechen_clicked();
 
 private:
     Ui::AntragDetails *ui;

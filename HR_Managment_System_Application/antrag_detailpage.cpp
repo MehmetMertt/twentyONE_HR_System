@@ -162,3 +162,10 @@ void AntragDetails::on_button_senden_clicked()
 
 }
 
+
+void AntragDetails::on_button_abbrechen_clicked()
+{
+    clearInputs();
+    emit antrag_cancel(NOTHING);
+}
+
