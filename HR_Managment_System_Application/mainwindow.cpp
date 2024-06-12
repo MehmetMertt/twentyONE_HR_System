@@ -127,6 +127,8 @@ void MainWindow::login_finished()
         connect(admin_dashboard, &AdminDashboard::new_employee_clicked, this, &MainWindow::showSignup);
         connect(signup_page, &Signup::signup_success, this, &MainWindow::loadEmployeesThenShowAdminDashboard);
         connect(admin_dashboard, &AdminDashboard::edit_employee, this, &MainWindow::openEditEmployeeView);
+        connect(admin_dashboard, &AdminDashboard::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
+
     }
 }
 

@@ -31,6 +31,10 @@ private slots:
 
     void on_button_abbrechen_clicked();
 
+    void on_button_ablehnen_clicked();
+
+    void on_button_akzeptieren_clicked();
+
 private:
     Ui::AntragDetails *ui;
     InputValidator *validator;

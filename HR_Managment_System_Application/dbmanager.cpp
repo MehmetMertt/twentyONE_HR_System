@@ -766,3 +766,56 @@ double dbmanager::getArbeitsstundenSpecific( int employeeID){
 }
 
 
+bool changeStatusOfRequest(int requestid,int statusId ){
+        //Neu -> statusId == 1
+        //Akzeptiert -> statusId == 2
+        //Abgelehnt -> statusId == 3
+    if(statusId > 3 || statusId < 1) {
+        qDebug() << "Error: Not valid statusId";
+        return false;
+    }
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("UPDATE ABSENCE SET status = :status WHERE id= :id ");
+    query.bindValue(":status",QString("%1").arg(statusId));
+    query.bindValue(":id",QString("%1").arg(requestid));
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "Edit Status of Absence success";
+        return success;
+    }
+    else
+    {
+        qDebug() << "edit status of absence error:"
+                 << query.lastError();
+        return success;
+    }
+
+}
+
+
+bool deleteRequest(int requestid){
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("DELETE FROM ABSENCE WHERE id= :id"); // das reicht, da in der db cascade on delete ist!
+    query.bindValue(":id",QString("%1").arg(requestid));
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "Delete of Absence success";
+        return success;
+    }
+    else
+    {
+        qDebug() << "delete of absence error:"
+                 << query.lastError();
+        return success;
+    }
+
+}
+

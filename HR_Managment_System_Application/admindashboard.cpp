@@ -22,6 +22,7 @@ AdminDashboard::AdminDashboard(QWidget *parent)
     timer->start(5000);  // Set the timer to trigger every 5 seconds
 
     updateView();
+    updateView(LOAD_DATA);
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/main.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -54,11 +55,18 @@ void AdminDashboard::processEditMitarbeiter(int id) {
     emit edit_employee(id);
 }
 
+void AdminDashboard::updateView(Mode mode) {
+    if(mode == LOAD_DATA)
+        dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
+
+    ui->antrag_list->clear();
+    this->insertRequests();
+}
+
 void AdminDashboard::updateView() {
 
     this->updateEmployeeList();
     this->updateGeneralData();
-
 }
 
 void AdminDashboard::updateEmployeeList() {
@@ -74,6 +82,38 @@ void AdminDashboard::updateEmployeeList() {
         ui->employee_list->addItem(listitem);
         ui->employee_list->setItemWidget(listitem, dbZugriff->mitarbeiter.back());
     }
+}
+
+
+void AdminDashboard::processAntragDetailClicked(Antrag* antrag) {
+    if(currentEmployee->getAdmin()) {
+        emit showAntragDetailPage(ANTRAG_ADMIN, antrag);
+        return;
+    }
+
+    emit showAntragDetailPage(ANTRAG_DETAILS, antrag);
+}
+
+void AdminDashboard::insertRequests() {
+
+    QListWidgetItem* listitem;
+    AntragListItem* antrag_item;
+
+    for(auto& antrag: dbZugriff->currentEmployee_requests) {
+        listitem = new QListWidgetItem();
+        antrag_item = new AntragListItem(this, antrag);
+
+        listitem->setSizeHint(antrag_item->sizeHint());
+
+        if(antrag->getStatus() == "Neu") {
+            ui->antrag_list->addItem(listitem);
+            ui->antrag_list->setItemWidget(listitem, antrag_item);
+        }
+
+        connect(antrag_item, &AntragListItem::detailsClicked, this, &AdminDashboard::processAntragDetailClicked);
+
+    }
+
 }
 
 void AdminDashboard::updateAntragList() {

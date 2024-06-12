@@ -180,3 +180,27 @@ void AntragDetails::on_button_abbrechen_clicked()
     emit antrag_cancel(NOTHING);
 }
 
+/*
+void AntragDetails::on_button_ablehnen_clicked()
+{
+    int antragId = this->antrag->getId();
+    bool success = dbZugriff->changeStatusOfRequest(antragId,3);
+    if(success){
+        qDebug() << "Status wurde geändert!";
+    } else {
+        qDebug() << "Status wurde nicht geändert!";
+    }
+}
+
+
+void AntragDetails::on_button_akzeptieren_clicked()
+{
+    int antragId = this->antrag->getId();
+    bool success = dbZugriff->changeStatusOfRequest(antragId,2);
+    if(success){
+        qDebug() << "Status wurde geändert!";
+    } else {
+        qDebug() << "Status wurde nicht geändert!";
+    }
+}
+*/
