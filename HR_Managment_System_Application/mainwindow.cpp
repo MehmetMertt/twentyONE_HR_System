@@ -113,7 +113,8 @@ void MainWindow::login_finished()
 
     connect(request_page, &Requests::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
     connect(antrag_detail_page, &AntragDetails::antrag_submit_success, this, &MainWindow::showRequests);
-    connect(antrag_detail_page, &AntragDetails::antrag_cancel, this, &MainWindow::showRequests);
+    connect(antrag_detail_page, &AntragDetails::antrag_cancel_show_admin, this, &MainWindow::showAdminDashboard);
+    connect(antrag_detail_page, &AntragDetails::antrag_cancel_show_requests, this, &MainWindow::showRequests);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -276,12 +277,13 @@ void MainWindow::showRequests(Mode mode) {
     ui->main->setCurrentWidget(request_page);
 }
 
-void MainWindow::showAntragDetailPage(Mode mode, Antrag* antrag) {
+void MainWindow::showAntragDetailPage(Mode mode, Mode page, Antrag* antrag) {
     if(antrag != nullptr) {
         antrag_detail_page->setAntrag(antrag);
     } else {
         antrag_detail_page->setAntrag(new Antrag());
     }
+    antrag_detail_page->setPreviousPage(page);
     antrag_detail_page->setupPage(mode);
     antrag_detail_page->updateView();
     qDebug() << "set widget";
@@ -293,6 +295,7 @@ void MainWindow::showSettings() {
 }
 
 void MainWindow::showAdminDashboard() {
+    admin_dashboard->updateView();
     ui->main->setCurrentWidget(admin_dashboard);
 }
 

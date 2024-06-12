@@ -29,6 +29,7 @@ public:
     dbmanager();
     ~dbmanager();
     bool changeStatusOfRequest(int requestid,int statusId );
+    bool deleteRequest(int requestid);
 
     int getAddressID(int employeeID);
     int getUserIDByMail(QString oldMail);

@@ -22,7 +22,7 @@ public:
     void updateView(Mode mode);
 
 signals:
-    void showAntragDetailPage(Mode mode, Antrag* antrag);
+    void showAntragDetailPage(Mode mode, Mode page, Antrag* antrag);
 
 private slots:
 

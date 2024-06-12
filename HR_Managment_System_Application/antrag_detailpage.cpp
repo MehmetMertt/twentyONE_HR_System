@@ -177,10 +177,15 @@ void AntragDetails::on_button_senden_clicked()
 void AntragDetails::on_button_abbrechen_clicked()
 {
     clearInputs();
-    emit antrag_cancel(NOTHING);
+    if(this->previousPage == ADMIN_DASHBOARD) {
+        emit antrag_cancel_show_admin();
+    } else {
+        emit antrag_cancel_show_requests(NOTHING);
+    }
+
 }
 
-/*
+
 void AntragDetails::on_button_ablehnen_clicked()
 {
     int antragId = this->antrag->getId();
@@ -203,4 +208,8 @@ void AntragDetails::on_button_akzeptieren_clicked()
         qDebug() << "Status wurde nicht geändert!";
     }
 }
-*/
+
+void AntragDetails::setPreviousPage(Mode mode) {
+    this->previousPage = mode;
+}
+

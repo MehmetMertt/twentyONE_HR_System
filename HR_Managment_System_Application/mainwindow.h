@@ -79,7 +79,7 @@ private:
     void showDashboard();
     void showTimetracker(Mode mode);
     void showRequests(Mode mode = LOAD_DATA);
-    void showAntragDetailPage(Mode mode, Antrag* antrag = nullptr);
+    void showAntragDetailPage(Mode mode, Mode page, Antrag* antrag = nullptr);
     void showSettings();
     void processLogout();
     void showAdminDashboard();

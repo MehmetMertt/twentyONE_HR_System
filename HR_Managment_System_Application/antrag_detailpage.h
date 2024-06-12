@@ -22,9 +22,12 @@ public:
     void updateView();
     void setAntrag(Antrag* antrag);
 
+    void setPreviousPage(Mode mode);
+
 signals:
     void antrag_submit_success(Mode mode);
-    void antrag_cancel(Mode mode);
+    void antrag_cancel_show_requests(Mode mode);
+    void antrag_cancel_show_admin();
 
 private slots:
     void on_button_senden_clicked();
@@ -44,6 +47,8 @@ private:
     void disableInputs();
     void enableInputs();
     void clearInputs();
+
+    Mode previousPage;
 };
 
 #endif // ANTRAG_DETAILPAGE_H

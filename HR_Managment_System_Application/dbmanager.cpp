@@ -554,9 +554,31 @@ bool dbmanager::submitAbsence(Antrag* antrag){
 
 void dbmanager::loadAllRequests() {
 
+    qDeleteAll(this->requests);
+    this->requests.clear();
+
     QSqlQuery query;
 
-    query.prepare("SELECT * FROM ABSENCE");
+    query.prepare("SELECT a.id, employeeid, titel, absencestart, absenceend, reason.reason, note, status.status FROM ABSENCE as a JOIN ABSENCE_STATUS as status on a.status = status.id JOIN ABSENCE_REASON as reason on a.absencereason = reason.id");
+
+    if(query.exec()) {
+        while(query.next()) {
+            int id = query.value(0).toInt();
+            int employee_id = query.value(1).toInt();
+            QString titel = query.value(2).toString();
+            QDateTime start = query.value(3).toDateTime();
+            QDateTime ende = query.value(4).toDateTime();
+            QString type = query.value(5).toString();
+            QString notiz = query.value(6).toString();
+            QString status = query.value(7).toString();
+
+            Antrag* antrag = new Antrag(nullptr, id, employee_id, titel, start, ende, type, notiz, status);
+            this->requests.push_back(antrag);
+        }
+        qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
+    } else {
+        qDebug() << "Error loading requests: " << query.lastError();
+    }
 
 }
 
@@ -766,7 +788,7 @@ double dbmanager::getArbeitsstundenSpecific( int employeeID){
 }
 
 
-bool changeStatusOfRequest(int requestid,int statusId ){
+bool dbmanager::changeStatusOfRequest(int requestid,int statusId ){
         //Neu -> statusId == 1
         //Akzeptiert -> statusId == 2
         //Abgelehnt -> statusId == 3
@@ -797,7 +819,7 @@ bool changeStatusOfRequest(int requestid,int statusId ){
 }
 
 
-bool deleteRequest(int requestid){
+bool dbmanager::deleteRequest(int requestid){
     bool success = false;
     QSqlQuery query;
 

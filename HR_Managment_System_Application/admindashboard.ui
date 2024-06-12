@@ -245,7 +245,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="antrag_list"/>
+    <widget class="QListWidget" name="antrag_list">
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustIgnored</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer_2">

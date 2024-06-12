@@ -29,7 +29,7 @@ public:
 signals:
     void new_employee_clicked();
     void edit_employee(int id);
-    void showAntragDetailPage(Mode mode, Antrag* antrag);
+    void showAntragDetailPage(Mode mode, Mode page, Antrag* antrag);
 
 
 private slots:
