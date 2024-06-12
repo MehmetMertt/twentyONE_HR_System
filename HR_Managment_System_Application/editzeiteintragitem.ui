@@ -50,6 +50,9 @@
            <property name="calendarPopup">
             <bool>false</bool>
            </property>
+           <property name="type" stdset="0">
+            <string>editable</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -79,6 +82,9 @@
            </property>
            <property name="calendarPopup">
             <bool>false</bool>
+           </property>
+           <property name="type" stdset="0">
+            <string>editable</string>
            </property>
           </widget>
          </item>
@@ -122,6 +128,9 @@
          <width>16777215</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="type" stdset="0">
+        <string>editable</string>
        </property>
       </widget>
      </item>

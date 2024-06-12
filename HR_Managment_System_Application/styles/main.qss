@@ -5,7 +5,7 @@ QLabel {
 }
 
 #header {
-    font-size: 18px;
+    font-size: 22px;
 }
 
 QLabel[labeltype = "data_header"] {
@@ -40,6 +40,21 @@ QLabel[labeltype = "max_value"] {
     border: 1px solid #D3D3D3;
     border-radius: 8px;
     background-color: #e6e6e6;
+}
+
+.QTextEdit {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #f6f5f5;
+}
+
+.QTextEdit[type="editable"] {
+    border: 1px solid #b5b5b5;
+    background-color: #fbfbfb;
+}
+
+.QTextEdit[type="editable"]:focus {
+    border: 1px solid #11698E;
 }
 
 

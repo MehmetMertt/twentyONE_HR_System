@@ -21,17 +21,33 @@ Timetracker::Timetracker(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &Timetracker::updateTimer);
 
 
-    // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":/resourcen/styles/main.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
-    QFile stylesheetFile(stylesheetPath);
-    if (stylesheetFile.open(QIODevice::ReadOnly)) {
-        QString stylesheet = stylesheetFile.readAll();
-        setStyleSheet(stylesheet);
-        stylesheetFile.close();
+    // Load the first stylesheet from a file
+    QString stylesheetPath1 = ":/resourcen/styles/main.qss";
+    QFile stylesheetFile1(stylesheetPath1);
+    QString stylesheet1;
+    if (stylesheetFile1.open(QIODevice::ReadOnly)) {
+        stylesheet1 = stylesheetFile1.readAll();
+        stylesheetFile1.close();
     } else {
-        // Handle error: stylesheet file not found
-        qWarning() << "Failed to load stylesheet from" << stylesheetPath;
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath1;
     }
+
+    // Load the second stylesheet from a file
+    QString stylesheetPath2 = ":/resourcen/styles/auth_stylesheet.qss";
+    QFile stylesheetFile2(stylesheetPath2);
+    QString stylesheet2;
+    if (stylesheetFile2.open(QIODevice::ReadOnly)) {
+        stylesheet2 = stylesheetFile2.readAll();
+        stylesheetFile2.close();
+    } else {
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath2;
+    }
+
+    // Combine the stylesheets
+    QString combinedStylesheet = stylesheet1 + "\n" + stylesheet2;
+
+    // Set the combined stylesheet
+    setStyleSheet(combinedStylesheet);
 }
 
 void Timetracker::loadData() {
