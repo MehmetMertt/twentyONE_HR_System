@@ -28,7 +28,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateTimeEdit" name="start">
+          <widget class="QDateTimeEdit" name="startzeit_edit">
            <property name="minimumSize">
             <size>
              <width>180</width>
@@ -67,7 +67,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateTimeEdit" name="ende">
+          <widget class="QDateTimeEdit" name="endzeit_edit">
            <property name="minimumSize">
             <size>
              <width>180</width>
@@ -116,7 +116,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="notiz">
+      <widget class="QTextEdit" name="notiz_edit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -135,13 +135,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="error_text">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

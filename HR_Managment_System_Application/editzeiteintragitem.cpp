@@ -21,14 +21,14 @@ EditZeiteintragItem::EditZeiteintragItem(QWidget *parent, int id, Timestamp* tim
 
     initPage();
 
-    connect(ui->start, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
-    connect(ui->ende, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
-/*
+    connect(ui->startzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
+    connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
+//
     validator = new InputValidator(this);
-    connect(ui->start, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onStartzeitChanged);
-    connect(ui->ende, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onEndzeitChanged);
-    connect(ui->notiz, &QTextEdit::textChanged, this, &EditZeiteintragItem::onNotizChanged);
-*/
+    connect(ui->startzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onStartzeitChanged);
+    connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onEndzeitChanged);
+    connect(ui->notiz_edit, &QTextEdit::textChanged, this, &EditZeiteintragItem::onNotizChanged);
+//
 
     // Load the first stylesheet from a file
     QString stylesheetPath1 = ":/resourcen/styles/main.qss";
@@ -66,8 +66,8 @@ EditZeiteintragItem::~EditZeiteintragItem()
 }
 
 void EditZeiteintragItem::initPage() {
-    ui->start->setDateTime(this->timestamp->data.first);
-    ui->ende->setDateTime(this->timestamp->data.second);
+    ui->startzeit_edit->setDateTime(this->timestamp->data.first);
+    ui->endzeit_edit->setDateTime(this->timestamp->data.second);
 }
 
 QDateTime EditZeiteintragItem::getStartzeit() {
@@ -79,7 +79,7 @@ QDateTime EditZeiteintragItem::getEndzeit() {
 }
 
 QString EditZeiteintragItem::getNotiz() {
-    return ui->notiz->toPlainText();
+    return ui->notiz_edit->toPlainText();
 }
 
 int EditZeiteintragItem::getID() {
@@ -87,16 +87,18 @@ int EditZeiteintragItem::getID() {
 }
 
 void EditZeiteintragItem::updateTimestamp() {
-    this->timestamp->data.first = ui->start->dateTime();
-    this->timestamp->data.second = ui->ende->dateTime();
+    this->timestamp->data.first = ui->startzeit_edit->dateTime();
+    this->timestamp->data.second = ui->endzeit_edit->dateTime();
 }
-/*
+//
 void EditZeiteintragItem::compareDatum(){
     validator->ueberpruefeDatum(this);
+    /*
     if(validator->getDatum_erlaubt() == false){
         ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
     }else
         ui->error_text->setText("");
+    */
 }
 
 void EditZeiteintragItem::onStartzeitChanged(){
@@ -107,14 +109,6 @@ void EditZeiteintragItem::onEndzeitChanged(){
 }
 
 void EditZeiteintragItem::onNotizChanged(){
-    QString text = ui->notiz->toPlainText();
-    int pos = 0; // Dummy-Position für die Validierung
-    QValidator::State state = validator->Titel_validator->validate(text, pos); //Regex von Titel wiederverwenden
-
-    if(state != QValidator::Acceptable){
-        ui->error_text->setText("Es wurden keine Notiz eingegeben.");
-    }else{
-        ui->error_text->setText("");
-    }
+    validator->ueberpruefeNotiz(this);
 }
-*/
+//

@@ -24,17 +24,17 @@ public:
     QString getNotiz();
     int getID();
     void compareDatum();
+    InputValidator *validator;
 
 public slots:
     void updateTimestamp();
-/*
+
     void onStartzeitChanged();
     void onEndzeitChanged();
     void onNotizChanged();
-*/
+
 private:
     Ui::EditZeiteintragItem *ui;
-    InputValidator *validator;
     int id;
     Timestamp* timestamp;
 
