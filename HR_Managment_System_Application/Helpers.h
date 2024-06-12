@@ -6,7 +6,9 @@ enum Mode {
     LOAD_DATA = 1,
     CREATE_ANTRAG = 2,
     ANTRAG_DETAILS = 3,
-    ANTRAG_ADMIN = 4
+    ANTRAG_ADMIN = 4,
+    ADMIN_DASHBOARD = 5,
+    ANTRAG_PAGE = 6
 };
 
 #endif // HELPERS_H
