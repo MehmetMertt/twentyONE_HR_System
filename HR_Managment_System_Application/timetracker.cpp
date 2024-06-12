@@ -205,6 +205,6 @@ void Timetracker::on_button_neu_clicked()
 }
 
 void Timetracker::resizeListItem(Zeiteintrag* zeiteintrag) {
-    this->listitems.find(zeiteintrag).value()->setSizeHint(zeiteintrag->sizeHint());
+    //this->listitems.find(zeiteintrag).value()->setSizeHint(zeiteintrag->sizeHint());
 }
 
