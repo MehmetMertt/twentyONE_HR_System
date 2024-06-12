@@ -55,9 +55,9 @@ void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
         ui->listWidget->setItemWidget(listitem, zeiteintrag);
         counter++;
     }
-
-
 }
+
+
 
 void EditZeiteintrag::on_save_clicked()
 {
