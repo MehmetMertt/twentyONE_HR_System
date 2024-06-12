@@ -3,7 +3,9 @@
 #include "zeiteintrag.h"
 #include "person.h"
 #include <QVariant>
-
+#include <iostream>
+#include <list>
+using namespace std;
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
     /*
@@ -467,7 +469,7 @@ void dbmanager::removeAllActiveEmployeesLocal() {
     this->activepersons.clear();
 }
 
-Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime shiftstart,QDateTime shiftend){
+QList <Zeiteintrag*> getSpecificArbeitszeiten(int employeeID,QList <Zeiteintrag*> liste,QDateTime shiftstart,QDateTime shiftend){
 
     bool success = false;
     QSqlQuery query;
@@ -492,8 +494,12 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
             zeiteintrag1->setNotiz(query.value(2).toString());
             zeiteintrag1->setTimentryId(query.value(3).toInt());
 
-            array[i] = zeiteintrag1;
-            ++i;
+            //array[i] = zeiteintrag1;
+            //++i;
+
+            liste.push_back(zeiteintrag1);
+
+
             qDebug();
         }
     }
@@ -501,10 +507,10 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
     {
         qDebug() << "getArbeitszeiten error:"
                  << query.lastError();
-        return 0;
+        return liste;// dont know what to return on fail
     }
 
-    return array;
+    return liste;
 
 }
 
