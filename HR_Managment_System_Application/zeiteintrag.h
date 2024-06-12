@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDateTime>
+#include "inputvalidator.h"
 #pragma once
 
 namespace Ui {
@@ -31,6 +32,7 @@ public:
     QString getNotiz();
     int getEmployeeId();
     int getTimeentryId();
+    void compareDatum();
 
 signals:
     void editZeiteintrag(Zeiteintrag* zeiteintrag);
@@ -42,9 +44,15 @@ private slots:
 
     void on_save_clicked();
 
+    void on_startzeit_edit_dateTimeChanged();
+    void on_endzeit_edit_dateTimeChanged();
+    void on_notiz_edit_textChanged();
+
+    //void on_remove_clicked();
+
 private:
     Ui::Zeiteintrag *ui;
-
+    InputValidator *validator;
     int employeeId;
     QDateTime startzeit;
     QDateTime endzeit;

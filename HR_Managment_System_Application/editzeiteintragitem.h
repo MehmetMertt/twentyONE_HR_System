@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDateTime>
 #include "timestamp.h"
+#include "inputvalidator.h"
 
 namespace Ui {
 class EditZeiteintragItem;
@@ -22,13 +23,18 @@ public:
     QDateTime getEndzeit();
     QString getNotiz();
     int getID();
+    void compareDatum();
 
 public slots:
     void updateTimestamp();
-
+/*
+    void onStartzeitChanged();
+    void onEndzeitChanged();
+    void onNotizChanged();
+*/
 private:
     Ui::EditZeiteintragItem *ui;
-
+    InputValidator *validator;
     int id;
     Timestamp* timestamp;
 

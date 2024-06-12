@@ -18,6 +18,9 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
 
     ui->antrag_type->setCurrentIndex(0);
 
+    validator = new InputValidator(this);
+    ui->titel_field->setValidator(validator->Titel_validator);
+
     // Load the first stylesheet from a file
     QString stylesheetPath1 = ":/resourcen/styles/main.qss";
     QFile stylesheetFile1(stylesheetPath1);
@@ -104,8 +107,8 @@ void AntragDetails::setupPage(Mode mode) {
 void AntragDetails::setInputsEnabled(bool value) {
     ui->titel_field->setEnabled(value);
     ui->antrag_type->setEnabled(value);
-    ui->start->setEnabled(value);
-    ui->ende->setEnabled(value);
+    ui->startzeit_edit->setEnabled(value);
+    ui->endzeit_edit->setEnabled(value);
     ui->notiz->setEnabled(value);
 }
 
@@ -125,8 +128,8 @@ void AntragDetails::updateView() {
     ui->antrag_type->setCurrentText(this->antrag->getReason());
     ui->label_status->setText("Status: " + this->antrag->getStatus());
     ui->notiz->insertPlainText(this->antrag->getNotiz());
-    ui->start->setDateTime(this->antrag->getStart());
-    ui->ende->setDateTime(this->antrag->getEnde());
+    ui->startzeit_edit->setDateTime(this->antrag->getStart());
+    ui->endzeit_edit->setDateTime(this->antrag->getEnde());
 
 }
 
@@ -140,26 +143,34 @@ void AntragDetails::clearInputs() {
     ui->antrag_type->setCurrentIndex(0);
     ui->label_status->setText("Status: Neu");
     ui->notiz->clear();;
-    ui->start->setDateTime(QDateTime::currentDateTime());
-    ui->ende->setDateTime(QDateTime::currentDateTime());
+    ui->startzeit_edit->setDateTime(QDateTime::currentDateTime());
+    ui->endzeit_edit->setDateTime(QDateTime::currentDateTime());
 }
 
 void AntragDetails::on_button_senden_clicked()
 {
     //VALIDATION EINBAUEN
+    validator->ueberpruefeTitel(this);
+    validator->ueberpruefeDatum(this);
 
+    if(validator->getTitel_erlaubt() == false){
+        ui->error_text->setText("Titel darf nicht leer sein.");
+    }else if(validator->getDatum_erlaubt() == false){
+        ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+    }else{
+        ui->error_text->setText("");
 
-    Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->start->dateTime(), ui->ende->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
+        Antrag* new_antrag = new Antrag(nullptr, -1, currentEmployee->getID(), ui->titel_field->text(), ui->startzeit_edit->dateTime(), ui->endzeit_edit->dateTime(), ui->antrag_type->currentText(), ui->notiz->toPlainText(), "Neu");
 
-    bool send_success = dbZugriff->submitAbsence(new_antrag);
+        bool send_success = dbZugriff->submitAbsence(new_antrag);
 
-    if(send_success) {
+        if(send_success) {
 
-        dbZugriff->currentEmployee_requests.push_back(new_antrag);
+            dbZugriff->currentEmployee_requests.push_back(new_antrag);
 
-        emit antrag_submit_success(NOTHING);
+            emit antrag_submit_success(NOTHING);
+        }
     }
-
 }
 
 

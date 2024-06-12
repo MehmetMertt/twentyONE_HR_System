@@ -616,7 +616,7 @@ bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end,
 
 }
 
-bool deleteTimeentries(int timeentryID){
+bool dbmanager::deleteTimeentries(int timeentryID){
 
 
     QSqlQuery query;
@@ -764,7 +764,5 @@ double dbmanager::getArbeitsstundenSpecific( int employeeID){
     return 0;
 
 }
-
-
 
 
