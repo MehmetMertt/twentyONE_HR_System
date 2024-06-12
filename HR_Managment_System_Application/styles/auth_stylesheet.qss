@@ -44,7 +44,7 @@ QComboBox, QDateTimeEdit {
     background-color: #f0f0f0;
 }
 
-QComboBox:on, QDateTimeEdit:on {
+QComboBox:on {
     border-color: #11698E;
 }
 
@@ -62,6 +62,16 @@ QComboBox::drop-down:button, QDateTimeEdit::drop-down:button {
 
 QComboBox:drop-down, QDateTimeEdit:drop-down {
     padding-right: 2px;
+}
+
+
+.QDateTimeEdit[type="editable"] {
+    border: 1px solid #b5b5b5;
+    background-color: #fbfbfb;
+}
+
+.QDateTimeEdit[type="editable"]:focus {
+    border: 1px solid #11698E;
 }
 
 QLabel[text_type = "heading"] {

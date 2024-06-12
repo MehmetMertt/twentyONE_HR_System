@@ -156,6 +156,9 @@
          <property name="calendarPopup">
           <bool>true</bool>
          </property>
+         <property name="type" stdset="0">
+          <string>editable</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -206,6 +209,9 @@
          </property>
          <property name="calendarPopup">
           <bool>true</bool>
+         </property>
+         <property name="type" stdset="0">
+          <string>editable</string>
          </property>
         </widget>
        </item>

@@ -99,8 +99,10 @@ void Zeiteintrag::on_save_clicked()
 {
     //Validation
     if(validator->getTitel_erlaubt() == false){
+        qDebug() << "Titel nicht erlaubt";
         //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
     }else if(validator->getDatum_erlaubt() == false){
+        qDebug() << "Datum nicht erlaubt";
         //ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
     }else{
         //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
