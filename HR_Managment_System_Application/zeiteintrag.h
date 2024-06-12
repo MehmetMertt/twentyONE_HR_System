@@ -48,7 +48,7 @@ private slots:
     void on_endzeit_edit_dateTimeChanged();
     void on_notiz_edit_textChanged();
 
-    //void on_remove_clicked();
+    void on_remove_clicked();
 
 private:
     Ui::Zeiteintrag *ui;

@@ -94,6 +94,11 @@ void Timetracker::loadDashboardData() {
         ueberstunden = 0;
     }
     ui->ueberstunden_aktuell->setText(QString::number(ueberstunden));
+
+    QDate today = QDate::currentDate();
+    float avg_arbeit = wochenstunden / today.dayOfWeek(); //gibt den Wochentag als int aus (wenn Mittwoch ist, ist die Zahl 3)
+    QString avg_arbeit_str = QString::number(avg_arbeit, 'f', 1);
+    ui->durchschnitt_stunden->setText(avg_arbeit_str);
 }
 
 Timetracker::~Timetracker()

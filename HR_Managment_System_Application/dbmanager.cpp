@@ -508,7 +508,7 @@ Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDate
 
 }
 
-int getArbeitsstunden(int employeeID){
+int dbmanager::getArbeitsstunden(int employeeID){
 
     QSqlQuery query;
                                                                                                                                           //Makedate function to get first day of current year
@@ -620,9 +620,8 @@ bool dbmanager::deleteTimeentries(int timeentryID){
 
 
     QSqlQuery query;
-    query.prepare("DELETE FROM WORKINGHOURS where timeentryID = :timeentryid") ;
+    query.prepare("DELETE FROM WORKINGHOURS where id = :timeentryid") ;
     query.bindValue(":timeentryid",QString("%1").arg(timeentryID));
-
     if(query.exec()){
 
         return 1;
