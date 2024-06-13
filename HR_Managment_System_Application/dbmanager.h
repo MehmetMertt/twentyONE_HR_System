@@ -39,7 +39,7 @@ public:
     Person* login(QString mail, QString password);
     bool createZeiteintrag(QDateTime shiftstart,QDateTime shiftend,QString note, int employeeID);
     QList<Zeiteintrag*> getArbeitszeiten(int employeeID);
-    Zeiteintrag** getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
+    QList<Zeiteintrag*> getSpecificArbeitszeiten(int employeeID, Zeiteintrag **array,QDateTime startzeit,QDateTime endzeit);//middleware muss prüfen das startzeit kleiner endzeit
     bool changePassword(int employeeID, QString newPassword);
     int getArbeitsstunden(int employeeID);
     bool editTimeentries(int timeentryId, QDateTime start, QDateTime end, QString note);

@@ -234,12 +234,11 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
     bool success = false;
     QSqlQuery queryAddress;
     QString pw = sha512_hash(password);
-    QStringList address_components = address.split(" ");
-    QString street = address_components[0];
+
     queryAddress.prepare("INSERT into ADDRESS (plz, city, street) VALUES(:plz,:city,:street);");
     queryAddress.bindValue(":city",QString("%1").arg(city));
     queryAddress.bindValue(":plz",QString("%1").arg(plz));
-    queryAddress.bindValue(":street",QString("%1").arg(street));
+    queryAddress.bindValue(":street",QString("%1").arg(address));
     if(queryAddress.exec() == false){
         qDebug() << "inserting adress not working: "
                  << queryAddress.lastError();
