@@ -28,6 +28,8 @@ public:
     //QString ist eine bessere Variante von std::string supported UniCode und ist schneller
     dbmanager();
     ~dbmanager();
+    bool changeStatusOfRequest(int requestid,int statusId );
+    bool deleteRequest(int requestid);
 
     int getAddressID(int employeeID);
     int getUserIDByMail(QString oldMail);
@@ -66,7 +68,6 @@ public:
     QMap<int, QString> absence_reasons;
     void loadGenders();
     void loadAbsenceReasons();
-
 
 private:
     QSqlDatabase m_db;

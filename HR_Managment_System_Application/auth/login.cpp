@@ -6,7 +6,6 @@
 #include <QRegularExpressionValidator>
 #include <QLineEdit>
 #include <dbaccess.h>
-#include "person.h"
 
 Login::Login(QWidget *parent)
     : QWidget(parent)
@@ -45,9 +44,9 @@ void Login::onPasswordInputChanged(){ validator->ueberpruefePasswort(this); }
 
 void Login::on_button_clicked(){
     //DELETE AFTER DEVELOPMENT
-    currentEmployee = dbZugriff->login("fmimmler@gmail.com", "Test123!");
+    /*currentEmployee = dbZugriff->login("fmimmler@gmail.com", "Test123!");
     emit login_success();
-    return;
+    return;*/
 
     if(validator->getEmail_erlaubt() == false){
         ui->error_text->setText("Überprüfen Sie die Eingabe für die Email-Adresse.");
@@ -73,7 +72,7 @@ void Login::on_button_clicked(){
         } else {
             ui->email_input->clear();
             ui->passwort_input->clear();
-            ui->error_text->hide();
+            ui->error_text->clear();
             emit login_success();
         }
     }

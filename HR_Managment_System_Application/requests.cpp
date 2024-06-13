@@ -33,16 +33,16 @@ Requests::~Requests()
 
 void Requests::on_new_antrag_button_clicked()
 {
-    emit showAntragDetailPage(CREATE_ANTRAG, nullptr);
+    emit showAntragDetailPage(CREATE_ANTRAG, ANTRAG_PAGE, nullptr);
 }
 
 void Requests::processAntragDetailClicked(Antrag* antrag) {
     if(currentEmployee->getAdmin()) {
-        emit showAntragDetailPage(ANTRAG_ADMIN, antrag);
+        emit showAntragDetailPage(ANTRAG_ADMIN, ANTRAG_PAGE, antrag);
         return;
     }
 
-    emit showAntragDetailPage(ANTRAG_DETAILS, antrag);
+    emit showAntragDetailPage(ANTRAG_DETAILS, ANTRAG_PAGE, antrag);
 }
 
 void Requests::updateView(Mode mode) {
