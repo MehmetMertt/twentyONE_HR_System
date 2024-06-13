@@ -213,3 +213,20 @@ void AntragDetails::setPreviousPage(Mode mode) {
     this->previousPage = mode;
 }
 
+
+void AntragDetails::on_button_speichern_clicked()
+{
+    int antragId = this->antrag->getId();
+    QString titel = ui->titel_field->text();
+    QDateTime start = ui->startzeit_edit->dateTime();
+    QDateTime ende = ui->endzeit_edit->dateTime();
+    int reason = ui->antrag_type->currentIndex() + 1;
+    QString note = ui->notiz->toPlainText();
+    bool success = dbZugriff->editRequest(antragId,titel,start,ende,reason,note);
+    if(success){
+        qDebug() << "Status wurde geändert!";
+    } else {
+        qDebug() << "Status wurde nicht geändert!";
+    }
+}
+
