@@ -20,7 +20,7 @@ Navbar::Navbar(QWidget *parent)
     items.insert("dashboard", ui->dashboard);
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
-    items.insert("settings", ui->settings);
+    //items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
     if(currentEmployee->getAdmin() == 1){
         items.insert("admin_page", ui->admin_button); //kA, wie das mit items funktioniert und ob die nicht vllt iwie removed werden sollen, wenn currentUser nicht admin ist
@@ -86,13 +86,13 @@ void Navbar::on_request_clicked()
 }
 
 
-void Navbar::on_settings_clicked()
+/*void Navbar::on_settings_clicked()
 {
     removeActiveItem();
     active_item = ui->settings;
     addActiveItem();
     emit settings_clicked();
-}
+}*/
 
 
 void Navbar::on_logout_button_clicked()

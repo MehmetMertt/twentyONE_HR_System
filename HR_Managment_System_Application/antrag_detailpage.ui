@@ -302,6 +302,19 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="button_loeschen">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Löschen</string>
+         </property>
+         <property name="color" stdset="0">
+          <string>delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

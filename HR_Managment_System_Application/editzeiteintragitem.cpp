@@ -25,9 +25,8 @@ EditZeiteintragItem::EditZeiteintragItem(QWidget *parent, int id, Timestamp* tim
     connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
 //
     validator = new InputValidator(this);
-    connect(ui->startzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onStartzeitChanged);
-    connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::onEndzeitChanged);
-    connect(ui->notiz_edit, &QTextEdit::textChanged, this, &EditZeiteintragItem::onNotizChanged);
+
+
 //
 
     // Load the first stylesheet from a file
@@ -93,22 +92,11 @@ void EditZeiteintragItem::updateTimestamp() {
 //
 void EditZeiteintragItem::compareDatum(){
     validator->ueberpruefeDatum(this);
-    /*
+
     if(validator->getDatum_erlaubt() == false){
         ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
     }else
         ui->error_text->setText("");
-    */
-}
 
-void EditZeiteintragItem::onStartzeitChanged(){
-    this->compareDatum();
-}
-void EditZeiteintragItem::onEndzeitChanged(){
-    this->compareDatum();
-}
-
-void EditZeiteintragItem::onNotizChanged(){
-    validator->ueberpruefeNotiz(this);
 }
 //

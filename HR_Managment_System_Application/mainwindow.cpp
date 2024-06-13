@@ -113,8 +113,8 @@ void MainWindow::login_finished()
 
     connect(request_page, &Requests::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
     connect(antrag_detail_page, &AntragDetails::antrag_submit_success, this, &MainWindow::showRequests);
-    connect(antrag_detail_page, &AntragDetails::antrag_cancel_show_admin, this, &MainWindow::showAdminDashboard);
-    connect(antrag_detail_page, &AntragDetails::antrag_cancel_show_requests, this, &MainWindow::showRequests);
+    connect(antrag_detail_page, &AntragDetails::antrag_finish_show_admin, this, &MainWindow::showAdminDashboard);
+    connect(antrag_detail_page, &AntragDetails::antrag_finish_show_requests, this, &MainWindow::showRequests);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -136,32 +136,59 @@ void MainWindow::login_finished()
 
 MainWindow::~MainWindow()
 {
-    if(settings_page != nullptr)
+    if (settings_page != nullptr) {
+        qDebug() << "1";
         delete settings_page;
-    if(request_page != nullptr)
+    }
+    if (request_page != nullptr) {
+        qDebug() << "2";
         delete request_page;
-    if(timetracker_page != nullptr)
+    }
+    if (timetracker_page != nullptr) {
+        qDebug() << "3";
         delete timetracker_page;
-    if(account_page != nullptr)
+    }
+    if (account_page != nullptr) {
+        qDebug() << "4";
         delete account_page;
-    if(dashboard != nullptr)
+    }
+    if (dashboard != nullptr) {
+        qDebug() << "5";
         delete dashboard;
-    if(admin_dashboard != nullptr)
+    }
+    if (admin_dashboard != nullptr) {
+        qDebug() << "6";
         delete admin_dashboard;
-    if(account_adminview_page != nullptr)
+    }
+    if (account_adminview_page != nullptr) {
+        qDebug() << "7";
         delete account_adminview_page;
-    if(signup_page != nullptr)
+    }
+    if (signup_page != nullptr) {
+        qDebug() << "8";
         delete signup_page;
-    if(navbar != nullptr)
+    }
+    if (navbar != nullptr) {
+        qDebug() << "9";
         delete navbar;
-    if(navbar_comp != nullptr)
+    }
+    if (navbar_comp != nullptr) {
+        qDebug() << "10";
         delete navbar_comp;
-    if(login_page != nullptr)
+    }
+    if (login_page != nullptr) {
+        qDebug() << "11";
         delete login_page;
-    if(main_loading_page != nullptr)
+    }
+    if (main_loading_page != nullptr) {
+        qDebug() << "12";
         delete main_loading_page;
-    if(editZeiteintrag_page != nullptr)
+    }
+    if (editZeiteintrag_page != nullptr) {
+        qDebug() << "13";
         delete editZeiteintrag_page;
+    }
+
 
     delete ui;
 }

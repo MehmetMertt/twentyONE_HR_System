@@ -57,6 +57,7 @@ public:
     QList<MitarbeiterView*> mitarbeiter; //und hier extra ein Vektor um dann den Speicher freigeben zu können
     QList<Antrag*> requests;
     QList<Antrag*> currentEmployee_requests;
+
     void getAllEmployees();
     void removeAllEmployeesLocal();
     void removeAllActiveEmployeesLocal();

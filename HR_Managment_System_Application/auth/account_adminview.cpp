@@ -53,9 +53,9 @@ Account_adminview::Account_adminview(QWidget *parent)
 
 Account_adminview::~Account_adminview()
 {
-    delete validator;
-
-    delete mitarbeiter;
+    if(validator != nullptr) {
+        delete validator;
+    }
 
     delete ui;
 }

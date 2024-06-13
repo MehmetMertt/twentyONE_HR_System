@@ -61,45 +61,42 @@ void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
 void EditZeiteintrag::on_save_clicked()
 {
-    bool datum_valid = false; bool notiz_valid = false;
+    bool datum_valid = false;
     for(int i = 0; i < this->timestampItems.size(); i++){
-        notiz_valid = this->timestampItems[i]->validator->getTitel_erlaubt();
+        this->timestampItems[i]->compareDatum();
         datum_valid = this->timestampItems[i]->validator->getDatum_erlaubt();
-        qDebug() << "valid: " << (notiz_valid == true && datum_valid == true) << " Zeiteintrag: " << i;
-        if(datum_valid == false || notiz_valid == false)
+        qDebug() << "valid: " << (datum_valid == true) << " Zeiteintrag: " << i;
+        if(datum_valid == false)
             break;
     }
 
-    if(notiz_valid == false){
-        qDebug() << "Notiz is wrong";
-        //ui->error_text->setText("Notiz darf nicht leer sein.");
-    }else if(datum_valid == false){
+    if(datum_valid == false){
         qDebug() << "Datum is wrong";
-        //ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
-    }else{
-        //ui->error_text->setText("");
-        bool success;
-        for (auto& timestamp : this->timestampItems) {
-            qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
+        return;
+    }
 
-            success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
+    bool success = false;
+    for (auto& timestamp : this->timestampItems) {
+        qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
 
-            if(!success) {
-                qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
-                break;
-            }
-        }
+        success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
 
         if(!success) {
-            qDebug() << "Error saving Zeiteinträge";
-            //UI updaten
-            return;
+            qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
+            break;
         }
-
-        qDeleteAll(this->timestampItems);
-        this->timestampItems.clear();
-        emit zeiteintrag_saved(LOAD_DATA);
     }
+
+    if(!success) {
+        qDebug() << "Error saving Zeiteinträge";
+        //UI updaten
+        return;
+    }
+
+    qDeleteAll(this->timestampItems);
+    this->timestampItems.clear();
+    emit zeiteintrag_saved(LOAD_DATA);
+
 }
 
 

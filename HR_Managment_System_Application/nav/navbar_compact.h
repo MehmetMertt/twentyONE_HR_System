@@ -38,7 +38,7 @@ private slots:
 
     void on_request_clicked();
 
-    void on_settings_clicked();
+    //void on_settings_clicked();
 
     void on_logout_button_clicked();
 

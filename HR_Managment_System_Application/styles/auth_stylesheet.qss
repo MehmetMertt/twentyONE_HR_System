@@ -35,6 +35,16 @@ QPushButton[button_type = "primary"]:hover {
     color: #F8F1F1;
 }
 
+QPushButton[color = "delete"] {
+    color: #ff2700;
+    border: 1px solid #ff2700;
+}
+
+QPushButton[color = "delete"]:hover {
+    background-color: #ff2700;
+    color: #F8F1F1;
+}
+
 QComboBox, QDateTimeEdit {
     border: 1px solid #D3D3D3;
     border-radius: 6px;

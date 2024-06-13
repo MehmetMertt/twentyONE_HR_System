@@ -8,6 +8,7 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
     , ui(new Ui::AntragDetails)
 {
     ui->setupUi(this);
+
     this->antrag = antrag;
 
     dbZugriff->loadAbsenceReasons();
@@ -66,6 +67,7 @@ void AntragDetails::setupPage(Mode mode) {
         ui->button_akzeptieren->hide();
         ui->button_speichern->hide();
         ui->button_senden->show();
+        ui->button_loeschen->hide();
         ui->header->setText("Neuen Antrag erstellen");
         enableInputs();
         break;
@@ -74,7 +76,7 @@ void AntragDetails::setupPage(Mode mode) {
         ui->button_ablehnen->hide();
         ui->button_akzeptieren->hide();
         ui->button_speichern->hide();
-
+        ui->button_loeschen->show();
         ui->header->setText("Antrag details");
 
         enableInputs();
@@ -93,6 +95,7 @@ void AntragDetails::setupPage(Mode mode) {
         ui->button_akzeptieren->hide();
         ui->button_speichern->hide();
         ui->button_senden->hide();
+        ui->button_loeschen->hide();
         ui->header->setText("Antrag details");
         disableInputs();
         if(this->antrag->getStatus() == "Neu") {
@@ -177,12 +180,7 @@ void AntragDetails::on_button_senden_clicked()
 void AntragDetails::on_button_abbrechen_clicked()
 {
     clearInputs();
-    if(this->previousPage == ADMIN_DASHBOARD) {
-        emit antrag_cancel_show_admin();
-    } else {
-        emit antrag_cancel_show_requests(NOTHING);
-    }
-
+    this->emitFinishSignal(NOTHING);
 }
 
 
@@ -192,6 +190,7 @@ void AntragDetails::on_button_ablehnen_clicked()
     bool success = dbZugriff->changeStatusOfRequest(antragId,3);
     if(success){
         qDebug() << "Status wurde geändert!";
+        this->emitFinishSignal(LOAD_DATA);
     } else {
         qDebug() << "Status wurde nicht geändert!";
     }
@@ -204,6 +203,7 @@ void AntragDetails::on_button_akzeptieren_clicked()
     bool success = dbZugriff->changeStatusOfRequest(antragId,2);
     if(success){
         qDebug() << "Status wurde geändert!";
+        this->emitFinishSignal(LOAD_DATA);
     } else {
         qDebug() << "Status wurde nicht geändert!";
     }
@@ -211,5 +211,25 @@ void AntragDetails::on_button_akzeptieren_clicked()
 
 void AntragDetails::setPreviousPage(Mode mode) {
     this->previousPage = mode;
+}
+
+void AntragDetails::emitFinishSignal(Mode mode) {
+    if(this->previousPage == ADMIN_DASHBOARD) {
+        emit antrag_finish_show_admin();
+    } else {
+        emit antrag_finish_show_requests(mode);
+    }
+}
+
+
+void AntragDetails::on_button_loeschen_clicked()
+{
+    bool success = dbZugriff->deleteRequest(this->antrag->getId());
+    if(success){
+        qDebug() << "Request wurde gelöscht!";
+        this->emitFinishSignal(LOAD_DATA);
+    } else {
+        qDebug() << "Request wurde nicht gelöscht!";
+    }
 }
 

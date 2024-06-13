@@ -26,8 +26,8 @@ public:
 
 signals:
     void antrag_submit_success(Mode mode);
-    void antrag_cancel_show_requests(Mode mode);
-    void antrag_cancel_show_admin();
+    void antrag_finish_show_requests(Mode mode);
+    void antrag_finish_show_admin();
 
 private slots:
     void on_button_senden_clicked();
@@ -38,6 +38,8 @@ private slots:
 
     void on_button_akzeptieren_clicked();
 
+    void on_button_loeschen_clicked();
+
 private:
     Ui::AntragDetails *ui;
     InputValidator *validator;
@@ -47,6 +49,7 @@ private:
     void disableInputs();
     void enableInputs();
     void clearInputs();
+    void emitFinishSignal(Mode mode);
 
     Mode previousPage;
 };

@@ -54,6 +54,8 @@ private:
 
     void loadTimeentries();
     void loadDashboardData();
+    void removeZeiteintragLocal();
+    void deleteAllZeiteinträge();
 
     int wochenstunden;
     int ueberstunden;

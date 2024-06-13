@@ -53,21 +53,21 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MainLoading* main_loading_page;
-    Navbar* navbar;
-    Navbar_compact* navbar_comp;
+    MainLoading* main_loading_page = nullptr;
+    Navbar* navbar= nullptr;
+    Navbar_compact* navbar_comp= nullptr;
 
-    Login* login_page;
-    Signup* signup_page;
-    Account* account_page;
-    Account_adminview* account_adminview_page;
-    AdminDashboard* admin_dashboard;
-    Dashboard* dashboard;
-    Timetracker* timetracker_page;
-    Requests* request_page;
-    Settings* settings_page;
-    EditZeiteintrag* editZeiteintrag_page;
-    AntragDetails* antrag_detail_page;
+    Login* login_page= nullptr;
+    Signup* signup_page= nullptr;
+    Account* account_page= nullptr;
+    Account_adminview* account_adminview_page= nullptr;
+    AdminDashboard* admin_dashboard= nullptr;
+    Dashboard* dashboard= nullptr;
+    Timetracker* timetracker_page= nullptr;
+    Requests* request_page= nullptr;
+    Settings* settings_page= nullptr;
+    EditZeiteintrag* editZeiteintrag_page= nullptr;
+    AntragDetails* antrag_detail_page= nullptr;
 
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;

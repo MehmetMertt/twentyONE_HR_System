@@ -97,13 +97,9 @@ void Zeiteintrag::on_cancel_clicked()
 
 void Zeiteintrag::on_save_clicked()
 {
-    //Validation
-    if(validator->getTitel_erlaubt() == false){
-        qDebug() << "Titel nicht erlaubt";
-        //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
-    }else if(validator->getDatum_erlaubt() == false){
+    if(validator->getDatum_erlaubt() == false){
         qDebug() << "Datum nicht erlaubt";
-        //ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+        ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
     }else{
         //ui->error_text->setText("Es wurden keine Notiz eingegeben.");
         bool edit_success = dbZugriff->editTimeentries(this->timeentryId, ui->startzeit_edit->dateTime(), ui->endzeit_edit->dateTime(), ui->notiz_edit->toPlainText());
@@ -119,6 +115,7 @@ void Zeiteintrag::on_save_clicked()
             ui->edit_widget->hide();
             ui->view_widget->show();
             emit editZeiteintrag(this);
+            emit zeiteintragSaved();
         } else {
 
         }
@@ -163,5 +160,7 @@ void Zeiteintrag::on_notiz_edit_textChanged(){
 void Zeiteintrag::on_remove_clicked(){
     int id = this->getTimeentryId();
     dbZugriff->deleteTimeentries(id);
+
+    emit zeiteintrag_removed();
 }
 

@@ -29,10 +29,6 @@ public:
 public slots:
     void updateTimestamp();
 
-    void onStartzeitChanged();
-    void onEndzeitChanged();
-    void onNotizChanged();
-
 private:
     Ui::EditZeiteintragItem *ui;
     int id;

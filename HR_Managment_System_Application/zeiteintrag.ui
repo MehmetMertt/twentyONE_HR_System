@@ -322,6 +322,9 @@
               <property name="type" stdset="0">
                <string>zeiteintrag</string>
               </property>
+              <property name="color" stdset="0">
+               <string>delete</string>
+              </property>
              </widget>
             </item>
            </layout>
@@ -365,6 +368,13 @@
          </layout>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="error_text">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

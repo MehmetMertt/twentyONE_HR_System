@@ -51,7 +51,10 @@ Timetracker::Timetracker(QWidget *parent)
 }
 
 void Timetracker::loadData() {
+    this->deleteAllZeiteinträge();
+
     ui->listWidget->clear();
+
 
     this->loadTimeentries();
     this->loadDashboardData();
@@ -72,6 +75,12 @@ void Timetracker::loadTimeentries() {
 
         this->listitems.insert(zeiteintrag, listitem);
         connect(zeiteintrag, &Zeiteintrag::editZeiteintrag, this, &Timetracker::resizeListItem);
+        connect(zeiteintrag, &Zeiteintrag::zeiteintragSaved, this, &Timetracker::loadDashboardData);
+        connect(zeiteintrag, &Zeiteintrag::zeiteintrag_removed, this, &Timetracker::removeZeiteintragLocal);
+    }
+
+    for(auto& item: this->listitems) {
+        qDebug() << item;
     }
 }
 
@@ -86,6 +95,7 @@ void Timetracker::loadDashboardData() {
     }
 
     ui->progress_wochenstunden->setValue(wochenstunden_percent);
+    ui->progress_wochenstunden->update();
 
     qDebug() << wochenstunden_percent;
 
@@ -205,6 +215,28 @@ void Timetracker::on_button_neu_clicked()
 }
 
 void Timetracker::resizeListItem(Zeiteintrag* zeiteintrag) {
-    //this->listitems.find(zeiteintrag).value()->setSizeHint(zeiteintrag->sizeHint());
+
+    QSize current_size = this->listitems.find(zeiteintrag).value()->sizeHint();
+    QSize new_size(current_size.width(), zeiteintrag->sizeHint().height());
+    this->listitems.find(zeiteintrag).value()->setSizeHint(new_size);
+}
+
+void Timetracker::removeZeiteintragLocal() {
+
+    this->loadData();
+
+}
+
+void Timetracker::deleteAllZeiteinträge() {
+    QMapIterator<Zeiteintrag*, QListWidgetItem*> i(listitems);
+    while (i.hasNext()) {
+        i.next();
+        delete i.key();
+        delete i.value();
+    }
+    this->listitems.clear();
+
+    // At this point, the map should be empty
+    qDebug() << "All Zeiteinträge and list items have been deleted.";
 }
 

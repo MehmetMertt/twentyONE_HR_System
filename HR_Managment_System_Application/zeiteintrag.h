@@ -36,6 +36,8 @@ public:
 
 signals:
     void editZeiteintrag(Zeiteintrag* zeiteintrag);
+    void zeiteintragSaved();
+    void zeiteintrag_removed();
 
 private slots:
     void on_button_edit_clicked();

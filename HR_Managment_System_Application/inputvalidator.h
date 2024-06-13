@@ -27,6 +27,7 @@ public:
         delete Plz_validator;
         delete Ort_validator;
         delete Passwort_validator;
+        delete Titel_validator;
     }
 
     QValidator *Vorname_validator;
