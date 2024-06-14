@@ -843,9 +843,9 @@ bool dbmanager::editRequest(int requestid,QString titel, QDateTime start, QDateT
     bool success = false;
     QSqlQuery query;
     //toDateTime();
-    query.prepare("UPDATE ABSENCE SET titel = :titel, absencestart = :start, absenceend = :ende, absencereason = :absencereason, note = :note WHERE id= :id");
-    QString mysqlDateStart = start.toString("yyyy-MM-dd hh:mm:ss");
-    QString mysqlDateEnde = ende.toString("yyyy-MM-dd hh:mm:ss");
+    query.prepare("UPDATE ABSENCE SET titel = :titel, absencestart = :absencestart, absenceend = :absenceend, absencereason = :absencereason, note = :note WHERE id= :id");
+    QString mysqlDateStart = start.toString("yyyy-MM-dd hh:mm");
+    QString mysqlDateEnde = ende.toString("yyyy-MM-dd hh:mm");
     query.bindValue(":titel",QString("%1").arg(titel));
     query.bindValue(":absencestart",QString("%1").arg(mysqlDateStart));
     query.bindValue(":absenceend",QString("%1").arg(mysqlDateEnde));
