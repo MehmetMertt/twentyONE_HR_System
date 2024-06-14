@@ -39,6 +39,8 @@ private slots:
     void on_button_akzeptieren_clicked();
 
     void on_button_loeschen_clicked();
+    
+    void on_button_speichern_clicked();
 
 private:
     Ui::AntragDetails *ui;

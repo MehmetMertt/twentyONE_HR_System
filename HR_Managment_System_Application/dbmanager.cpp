@@ -44,7 +44,7 @@ QString sha512_hash(QString pw){
 
 Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
-    bool sucess;
+    bool success;
     QString pw = sha512_hash(password);
     qDebug() << "Das PW lautet: " << pw;
     query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
@@ -70,7 +70,7 @@ Person* dbmanager::login(QString mail, QString password){
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
-        sucess = false; //mit dieser local variable wird fett gar nichts gemacht
+        success = false; //mit dieser local variable wird fett gar nichts gemacht
         qDebug() << "Einloggen war NICHT erfolgreich";
     }
     return nullptr;
@@ -79,7 +79,7 @@ Person* dbmanager::login(QString mail, QString password){
 
 int dbmanager::getAddressID(int employeeID){
     QSqlQuery query;
-    bool sucess;
+    bool success;
     query.prepare("SELECT adressid from EMPLOYEE where id = :employeeID");
     query.bindValue(":employeeID",employeeID);
 
@@ -88,7 +88,7 @@ int dbmanager::getAddressID(int employeeID){
         int id = query.value(0).toInt();
         return id;
     } else {
-        sucess = false;
+        success = false;
         qDebug() << "getAddressID war NICHT erfolgreich";
     }
     return -1;
@@ -96,7 +96,7 @@ int dbmanager::getAddressID(int employeeID){
 
 int dbmanager::getUserIDByMail(QString oldMail){
     QSqlQuery query;
-    bool sucess;
+    bool success;
     query.prepare("SELECT id from EMPLOYEE where mail = :oldMail");
     query.bindValue(":oldMail",oldMail);
 
@@ -105,7 +105,7 @@ int dbmanager::getUserIDByMail(QString oldMail){
         int id = query.value(0).toInt();
         return id;
     } else {
-        sucess = false;
+        success = false;
         qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
     }
     return -1;
@@ -470,7 +470,6 @@ void dbmanager::removeAllActiveEmployeesLocal() {
 
 QList <Zeiteintrag*> getSpecificArbeitszeiten(int employeeID,QList <Zeiteintrag*> liste,QDateTime shiftstart,QDateTime shiftend){
 
-    bool success = false;
     QSqlQuery query;
 
     query.prepare("SELECT shiftstart,shiftend,note,id FROM WORKINGHOURS WHERE  employeeid = :employeeid AND (shiftstart BETWEEN :shiftstart AND :shiftend )");
@@ -822,8 +821,7 @@ bool dbmanager::changeStatusOfRequest(int requestid,int statusId ){
 
 }
 
-
-bool dbmanager::deleteRequest(int requestid){
+bool dbmanager::delteRequest(int requestid,QString titel){
     bool success = false;
     QSqlQuery query;
 
@@ -839,6 +837,36 @@ bool dbmanager::deleteRequest(int requestid){
     else
     {
         qDebug() << "delete of absence error:"
+                 << query.lastError();
+        return success;
+    }
+
+}
+
+bool dbmanager::editRequest(int requestid,QString titel, QDateTime start, QDateTime ende, int absenceReason, QString note){
+    bool success = false;
+    QSqlQuery query;
+    //toDateTime();
+    query.prepare("UPDATE ABSENCE SET titel = :titel, absencestart = :absencestart, absenceend = :absenceend, absencereason = :absencereason, note = :note WHERE id= :id");
+    QString mysqlDateStart = start.toString("yyyy-MM-dd hh:mm");
+    QString mysqlDateEnde = ende.toString("yyyy-MM-dd hh:mm");
+    query.bindValue(":titel",QString("%1").arg(titel));
+    query.bindValue(":absencestart",QString("%1").arg(mysqlDateStart));
+    query.bindValue(":absenceend",QString("%1").arg(mysqlDateEnde));
+    query.bindValue(":absencereason",absenceReason);
+    query.bindValue(":note",QString("%1").arg(note));
+    query.bindValue(":id",QString("%1").arg(requestid));
+
+
+    if(query.exec())
+    {
+        success = true;
+        qDebug() << "Edit of Absence success";
+        return success;
+    }
+    else
+    {
+        qDebug() << "Edit of Absenc error:"
                  << query.lastError();
         return success;
     }
