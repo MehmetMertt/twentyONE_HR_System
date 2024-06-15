@@ -243,9 +243,10 @@ void AntragDetails::on_button_speichern_clicked()
     QString note = ui->notiz->toPlainText();
     bool success = dbZugriff->editRequest(antragId,titel,start,ende,reason,note);
     if(success){
-        qDebug() << "Status wurde geändert!";
+        qDebug() << "Antrag gespeichert!";
+        this->emitFinishSignal(LOAD_DATA);
     } else {
-        qDebug() << "Status wurde nicht geändert!";
+        qDebug() << "Antrag wurde nicht gespeichert!";
     }
 }
 

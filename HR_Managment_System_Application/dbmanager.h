@@ -69,7 +69,6 @@ public:
     QMap<int, QString> absence_reasons;
     void loadGenders();
     void loadAbsenceReasons();
-    bool delteRequest(int requestid,QString titel);
     bool editRequest(int requestid,QString titel, QDateTime start, QDateTime ende, int absenceReason, QString note);
 private:
     QSqlDatabase m_db;

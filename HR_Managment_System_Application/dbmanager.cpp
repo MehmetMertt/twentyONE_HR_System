@@ -821,7 +821,7 @@ bool dbmanager::changeStatusOfRequest(int requestid,int statusId ){
 
 }
 
-bool dbmanager::delteRequest(int requestid,QString titel){
+bool dbmanager::deleteRequest(int requestid){
     bool success = false;
     QSqlQuery query;
 
