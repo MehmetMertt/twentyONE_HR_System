@@ -27,8 +27,11 @@ public:
 signals:
     void openEditZeiteintrag(QList<Timestamp*> timestamps);
 
-private slots:
+public slots:
     void on_button_start_clicked();
+
+private slots:
+    //void on_button_start_clicked();
 
     void on_button_pause_clicked();
 

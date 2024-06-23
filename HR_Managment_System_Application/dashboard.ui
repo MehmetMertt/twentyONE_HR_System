@@ -101,7 +101,7 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Zeitaufzeichnung starten</string>
           </property>
          </widget>
         </item>
@@ -128,12 +128,42 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>10/25</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="verbl_urlaub">
+            <property name="text">
+             <string>25</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>/ 25</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="urlaub_progressBar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="value">
+           <number>24</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -159,7 +189,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLabel" name="label_4">
+           <widget class="QLabel" name="wochenstunden_aktuell">
             <property name="text">
              <string>20</string>
             </property>
@@ -168,7 +198,7 @@
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>/38,5</string>
+             <string>/ 38,5</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -178,7 +208,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QProgressBar" name="progressBar">
+         <widget class="QProgressBar" name="progress_wochenstunden">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -208,43 +238,20 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>TextLabel</string>
+           <string>Überstunden</string>
           </property>
          </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="ueberstunden_label">
             <property name="text">
-             <string>2</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>/20</string>
+             <string>*irgendeine Zahl*</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QProgressBar" name="progressBar_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="value">
-           <number>24</number>
-          </property>
-          <property name="textVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>

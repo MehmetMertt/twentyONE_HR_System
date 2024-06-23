@@ -70,6 +70,9 @@ public:
     void loadGenders();
     void loadAbsenceReasons();
     bool editRequest(int requestid,QString titel, QDateTime start, QDateTime ende, int absenceReason, QString note);
+    int getAcceptedAbsences(int employeeid);
+    float getArbeitsstundenFromThisYear(int employeeid);
+
 private:
     QSqlDatabase m_db;
 };

@@ -116,6 +116,8 @@ void MainWindow::login_finished()
     connect(antrag_detail_page, &AntragDetails::antrag_finish_show_admin, this, &MainWindow::showAdminDashboard);
     connect(antrag_detail_page, &AntragDetails::antrag_finish_show_requests, this, &MainWindow::showRequests);
 
+    connect(dashboard, &Dashboard::goZeitaufzeichnung, this, &MainWindow::startZeitaufzeichnungFromDashboard);
+
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
         account_adminview_page = new Account_adminview(this);
@@ -290,6 +292,7 @@ void MainWindow::showAccount() {
 }
 
 void MainWindow::showDashboard() {
+    dashboard->loadData();
     ui->main->setCurrentWidget(dashboard);
 }
 
@@ -355,4 +358,9 @@ void MainWindow::openEditEmployeeView(int id) {
 void MainWindow::openEditZeiteintragView(QList<Timestamp*> timestamps) {
     editZeiteintrag_page->initPage(timestamps);
     ui->main->setCurrentWidget(editZeiteintrag_page);
+}
+
+void MainWindow::startZeitaufzeichnungFromDashboard(){
+    timetracker_page->on_button_start_clicked();
+    ui->main->setCurrentWidget(timetracker_page);
 }

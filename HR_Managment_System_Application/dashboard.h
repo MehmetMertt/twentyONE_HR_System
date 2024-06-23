@@ -6,6 +6,7 @@
 #pragma once
 #include "dbaccess.h"
 #include <QDateTime>
+#include "timetracker.h"
 
 namespace Ui {
 class Dashboard;
@@ -18,6 +19,14 @@ class Dashboard : public QWidget
 public:
     explicit Dashboard(QWidget *parent = nullptr);
     ~Dashboard();
+
+    void loadData();
+
+signals:
+    void goZeitaufzeichnung();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::Dashboard *ui;

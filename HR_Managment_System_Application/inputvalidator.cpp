@@ -11,7 +11,7 @@ InputValidator::InputValidator(QWidget *parent) : QObject(parent){
     QRegularExpression RegExp_email("^[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*@[a-zA-Z]+(-[a-zA-Z]+)?\\.[a-zA-Z]{2,}$");
     this->Email_validator = new QRegularExpressionValidator(RegExp_email, this);
 
-    QRegularExpression RegExp_telefon("\\+43[0-9]{1,3}[0-9]{1,8}");
+    QRegularExpression RegExp_telefon("\\+43[0-9]{1,3}[0-9]{6,8}");
     this->Telefon_validator = new QRegularExpressionValidator(RegExp_telefon, this);
 
     //QRegularExpression RegExp_adresse("^[A-Za-zäöüßÄÖÜ]+([-\\s][A-Za-zäöüßÄÖÜ]+)+\\s[0-9]+(/\\d+)?$"); //bitte nicht löschen :)

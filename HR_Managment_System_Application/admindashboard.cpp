@@ -155,6 +155,12 @@ void AdminDashboard::updateGeneralData() {
     dbZugriff->loadActiveEmployeeCount();
     ui->active_employee_count_label->setText(QString::number(dbZugriff->active_persons_count));
 
+    int counter = 0;
+    for(auto& antrag: dbZugriff->requests){
+        if(antrag->getStatus() == "Neu")
+            counter++;
+    }
 
+    ui->unread_requests_count_label->setText(QString::number(counter));
 }
 

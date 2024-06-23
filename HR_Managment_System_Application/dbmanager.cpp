@@ -873,3 +873,38 @@ bool dbmanager::editRequest(int requestid,QString titel, QDateTime start, QDateT
 
 }
 
+int dbmanager::getAcceptedAbsences(int employeeid){
+    QSqlQuery query;
+    query.prepare("SELECT ROUND(SUM(TIMESTAMPDIFF(HOUR, absencestart, absenceend)), 2) FROM ABSENCE "
+                  "WHERE employeeid = :employeeid AND status = :number AND YEAR(absencestart) = YEAR(CURDATE())"); //nur von diesem Jahr
+    query.bindValue(":employeeid", employeeid);
+    query.bindValue(":number", 2);
+
+    int hours = 0;
+    if(query.exec()){
+        while(query.next()){
+            QVariant result = query.value(0);
+            hours += result.toInt();
+        }
+    }else
+        return 0;
+
+    return hours;
+}
+
+float dbmanager::getArbeitsstundenFromThisYear(int employeeid){
+    QSqlQuery query;
+    query.prepare("SELECT SUM(TIMESTAMPDIFF(HOUR,shiftstart,shiftend)) FROM WORKINGHOURS WHERE employeeid = :employeeid AND YEAR(shiftstart) = YEAR(CURDATE())") ;
+    query.bindValue(":employeeid", employeeid);
+
+    int ueberstunden = 0;
+    if(query.exec()){
+        while(query.next()){
+            QVariant result = query.value(0);
+            ueberstunden += result.toInt();
+        }
+    }else
+        return 0;
+
+    return ueberstunden;
+}

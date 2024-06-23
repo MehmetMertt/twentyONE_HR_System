@@ -87,5 +87,7 @@ private:
     void openEditEmployeeView(int id);
     void openEditZeiteintragView(QList<Timestamp*> timestamps);
     void loadEmployeesThenShowAdminDashboard();
+
+    void startZeitaufzeichnungFromDashboard();
 };
 #endif // MAINWINDOW_H
