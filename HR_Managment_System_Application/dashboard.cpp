@@ -74,9 +74,9 @@ void Dashboard::loadData(){
     ui->progress_wochenstunden->setValue(wochenstunden_percent);
     ui->progress_wochenstunden->update();
 
-    int hours = dbZugriff->getAcceptedAbsences(currentEmployee->getID());
-    int days = hours / 24.0;
-    float days_left = 25.0 - days;
+    int absence_hours = dbZugriff->getAcceptedAbsences(currentEmployee->getID());
+    int absence_days = absence_hours / 24.0;
+    float days_left = 25.0 - absence_days;
     if(days_left < 0)
         days_left = 0;
 
@@ -84,14 +84,15 @@ void Dashboard::loadData(){
     ui->urlaub_progressBar->setValue(days_left_percent);
     ui->verbl_urlaub->setText(QString::number(static_cast<int>(days_left)));
 
-    float ueberstunden = dbZugriff->getArbeitsstundenFromThisYear(currentEmployee->getID());
-    ueberstunden -= days;
+    float working_hours = dbZugriff->getArbeitsstundenFromThisYear(currentEmployee->getID());
+    QDate date = QDate::currentDate();
+    float week = date.weekNumber();
+    working_hours = working_hours - (week * 38.5);
 
-    if(ueberstunden < 0)
-        ueberstunden = 0;
+    if(working_hours < 0)
+        working_hours = 0;
 
-    ueberstunden = ueberstunden - 38.5;
-    ui->ueberstunden_label->setText(QString::number(ueberstunden));
+    ui->ueberstunden_label->setText(QString::number(working_hours));
 }
 
 void Dashboard::on_pushButton_clicked(){
