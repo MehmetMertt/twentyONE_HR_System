@@ -29,13 +29,12 @@ signals:
 
 public slots:
     void on_button_start_clicked();
+    void on_button_stop_clicked();
 
 private slots:
     //void on_button_start_clicked();
 
     void on_button_pause_clicked();
-
-    void on_button_stop_clicked();
 
     void on_button_weiter_clicked();
 

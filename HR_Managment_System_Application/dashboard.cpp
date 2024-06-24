@@ -3,13 +3,15 @@
 
 #include <QFile>
 #include <QDateTime>
+#include <dbaccess.h>
 
 Dashboard::Dashboard(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Dashboard)
 {
     ui->setupUi(this);
-   updateGreeting();
+    ui->stopTracker->hide();
+    updateGreeting();
 
 
     // Load the stylesheet from a file (recommended)
@@ -95,8 +97,17 @@ void Dashboard::loadData(){
     ui->ueberstunden_label->setText(QString::number(working_hours));
 }
 
-void Dashboard::on_pushButton_clicked(){
+void Dashboard::on_startTracker_clicked(){
     //Zeitaufzeichnung starten und Zeitaufzeichnungsfenster als nächstes Widget setzen
+    ui->startTracker->hide();
+    ui->stopTracker->show();
     emit this->goZeitaufzeichnung();
+}
+
+void Dashboard::on_stopTracker_clicked(){
+    //Zeitaufzeichnung starten und Zeitaufzeichnungsfenster als nächstes Widget setzen
+    ui->stopTracker->hide();
+    ui->startTracker->show();
+    emit this->stopZeitaufzeichnung();
 }
 

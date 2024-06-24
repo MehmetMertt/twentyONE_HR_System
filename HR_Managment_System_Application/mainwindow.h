@@ -89,5 +89,6 @@ private:
     void loadEmployeesThenShowAdminDashboard();
 
     void startZeitaufzeichnungFromDashboard();
+    void stopZeitaufzeichnungFromDashboard();
 };
 #endif // MAINWINDOW_H

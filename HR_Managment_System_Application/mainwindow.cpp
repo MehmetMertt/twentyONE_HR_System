@@ -117,6 +117,7 @@ void MainWindow::login_finished()
     connect(antrag_detail_page, &AntragDetails::antrag_finish_show_requests, this, &MainWindow::showRequests);
 
     connect(dashboard, &Dashboard::goZeitaufzeichnung, this, &MainWindow::startZeitaufzeichnungFromDashboard);
+    connect(dashboard, &Dashboard::stopZeitaufzeichnung, this, &MainWindow::stopZeitaufzeichnungFromDashboard);
 
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
@@ -363,4 +364,8 @@ void MainWindow::openEditZeiteintragView(QList<Timestamp*> timestamps) {
 void MainWindow::startZeitaufzeichnungFromDashboard(){
     timetracker_page->on_button_start_clicked();
     ui->main->setCurrentWidget(timetracker_page);
+}
+
+void MainWindow::stopZeitaufzeichnungFromDashboard() {
+    timetracker_page->on_button_stop_clicked();
 }

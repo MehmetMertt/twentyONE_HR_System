@@ -4,9 +4,8 @@
 #include <QWidget>
 #include <QLineSeries>
 #pragma once
-#include "dbaccess.h"
 #include <QDateTime>
-#include "timetracker.h"
+#include <QFrame>
 
 namespace Ui {
 class Dashboard;
@@ -24,14 +23,16 @@ public:
 
 signals:
     void goZeitaufzeichnung();
+    void stopZeitaufzeichnung();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_startTracker_clicked();
+    void on_stopTracker_clicked();
 
 private:
     Ui::Dashboard *ui;
     void updateGreeting();
-     QFrame *myFrame;
+    QFrame *myFrame;
 };
 
 #endif // DASHBOARD_H
