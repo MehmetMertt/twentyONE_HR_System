@@ -115,6 +115,11 @@ void Timetracker::loadDashboardData() {
 
 Timetracker::~Timetracker()
 {
+    if(timer_running) {
+        dbZugriff->removeActiveEmployee(currentEmployee->getID());
+    }
+
+
     for(auto& timestamp: this->timestamps) {
         delete timestamp;
     }

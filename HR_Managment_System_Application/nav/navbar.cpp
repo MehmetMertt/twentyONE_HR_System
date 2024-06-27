@@ -28,7 +28,8 @@ Navbar::Navbar(QWidget *parent)
     }else{
         ui->admin_button->setHidden(true);
     }
-    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
+
+    this->setUserData();
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -49,7 +50,8 @@ Navbar::~Navbar()
 }
 
 void Navbar::setUserData() {
-    ui->user->setText("Max Mustermann");
+    qDebug() << currentEmployee->getName() << " " << currentEmployee->getSurname();
+    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 }
 
 void Navbar::on_user_clicked()

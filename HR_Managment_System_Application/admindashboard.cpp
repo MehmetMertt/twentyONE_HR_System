@@ -92,6 +92,7 @@ void AdminDashboard::updateView() {
 
 void AdminDashboard::updateEmployeeList() {
     ui->employee_list->clear();
+    dbZugriff->mitarbeiter.clear();
 
     for(int i = 0; i < dbZugriff->persons.size(); i++){
         QListWidgetItem *listitem = new QListWidgetItem();

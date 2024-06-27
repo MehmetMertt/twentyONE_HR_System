@@ -79,6 +79,12 @@
      </item>
      <item row="1" column="2">
       <widget class="QFrame" name="frame_4">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -89,14 +95,14 @@
         <item>
          <widget class="QPushButton" name="startTracker">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>100</horstretch>
             <verstretch>100</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>100</width>
             <height>100</height>
            </size>
           </property>
@@ -118,7 +124,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>100</width>
             <height>100</height>
            </size>
           </property>
@@ -135,6 +141,12 @@
      </item>
      <item row="1" column="1">
       <widget class="QFrame" name="frame_2">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -144,6 +156,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QLabel" name="label_7">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Verbleibender Urlaub</string>
           </property>
@@ -197,6 +215,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QFrame" name="frame">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -206,8 +230,17 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Wochenstunden</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -253,6 +286,12 @@
      </item>
      <item row="0" column="2">
       <widget class="QFrame" name="frame_3">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -262,11 +301,17 @@
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <widget class="QLabel" name="label">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Überstunden</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
           </property>
          </widget>
         </item>
@@ -276,6 +321,9 @@
            <widget class="QLabel" name="ueberstunden_label">
             <property name="text">
              <string>*irgendeine Zahl*</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>

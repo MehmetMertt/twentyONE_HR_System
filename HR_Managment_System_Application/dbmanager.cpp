@@ -41,6 +41,45 @@ QString sha512_hash(QString pw){
     return QString(hash.toHex());
 }
 
+Person* dbmanager::getMitarbeiterByID(int id) {
+    QSqlQuery query;
+    query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE e.id = :id");
+    query.bindValue(":id",QString("%1").arg(id));
+
+    if(query.exec() && query.size() > 0){
+        query.next();
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString surname = query.value(2).toString();
+        QString mail = query.value(3).toString();
+        QString phone = query.value(4).toString();
+        QString street = query.value(5).toString();
+        QString city = query.value(6).toString();
+        QString plz = query.value(7).toString();
+        int admin = query.value(8).toInt();
+        QString gender = query.value(9).toString();
+        QString title = query.value(10).toString();
+        Person * p = new Person(id,name,surname,mail,phone,street,city,plz,admin,gender, title);
+        qDebug() << "Get Mitarbeiter success " + QString::number(id);
+
+        this->saveMitarbeiterLocally(p);
+        return p;
+    }
+
+    qDebug() << "Get Mitarbeiter fail";
+    return nullptr;
+
+}
+
+void dbmanager::saveMitarbeiterLocally(Person* mitarbeiter) {
+    for(auto& person: this->persons) {
+        if(person->getID() == mitarbeiter->getID()) {
+            delete person;
+            person = mitarbeiter;
+        }
+    }
+}
+
 
 Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;

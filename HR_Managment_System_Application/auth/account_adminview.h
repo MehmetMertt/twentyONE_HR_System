@@ -19,6 +19,9 @@ public:
     ~Account_adminview();
     void initPage(int mitarbeiterID);
 
+signals:
+    void updateNavbarData();
+
 private:
     Ui::Account_adminview *ui;
     InputValidator *validator;

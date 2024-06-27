@@ -34,6 +34,8 @@ public:
     int getAddressID(int employeeID);
     int getUserIDByMail(QString oldMail);
 
+    Person* getMitarbeiterByID(int id);
+    void saveMitarbeiterLocally(Person* mitarbeiter);
     bool editMitarbeiter(int employeeID,QString name = "", QString surname = "", QString mail = "", QString phone = "", QString password = "", QString address = "", int plz = -1, QString city = "", QString gender = "", QString title  = "");
     bool addMitarbeiter(QString name, QString surname, QString mail, QString phone,QString password);
     bool addMitarbeiterAdresse(QString plz, QString city, QString street);

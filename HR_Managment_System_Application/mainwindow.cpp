@@ -119,6 +119,8 @@ void MainWindow::login_finished()
     connect(dashboard, &Dashboard::goZeitaufzeichnung, this, &MainWindow::startZeitaufzeichnungFromDashboard);
     connect(dashboard, &Dashboard::stopZeitaufzeichnung, this, &MainWindow::stopZeitaufzeichnungFromDashboard);
 
+
+
     if(currentEmployee->getAdmin() == 1){
         admin_dashboard = new AdminDashboard(this);
         account_adminview_page = new Account_adminview(this);
@@ -132,7 +134,7 @@ void MainWindow::login_finished()
         connect(signup_page, &Signup::signup_success, this, &MainWindow::loadEmployeesThenShowAdminDashboard);
         connect(admin_dashboard, &AdminDashboard::edit_employee, this, &MainWindow::openEditEmployeeView);
         connect(admin_dashboard, &AdminDashboard::showAntragDetailPage, this, &MainWindow::showAntragDetailPage);
-
+        connect(account_adminview_page, &Account_adminview::updateNavbarData, navbar, &Navbar::setUserData);
     }
 }
 

@@ -114,6 +114,15 @@ void Account_adminview::on_speichern1_button_clicked(){
         int id = this->mitarbeiter->getID();
         bool success = dbZugriff->editMitarbeiter(id,Vorname,Nachname,Email,Telefon,"",Adresse,Plz,Ort,gender,title);
         if(success) {
+
+            this->mitarbeiter = dbZugriff->getMitarbeiterByID(id);
+
+            qDebug() << id << " - " << currentEmployee->getID();
+            if(id == currentEmployee->getID()) {
+                currentEmployee = this->mitarbeiter;
+                qDebug() << "emit";
+                emit updateNavbarData();
+            }
             ui->success_text->setText("Daten erfolgreich bearbeitet");
         } else {
             ui->error_text->setText("Ein Fehler ist aufgetreten");
