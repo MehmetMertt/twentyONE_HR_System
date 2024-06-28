@@ -12,7 +12,7 @@ Requests::Requests(QWidget *parent)
     ui->setupUi(this);
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":/resourcen/styles/timetracker.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":/resourcen/styles/main.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();
@@ -33,22 +33,24 @@ Requests::~Requests()
 
 void Requests::on_new_antrag_button_clicked()
 {
-    emit showAntragDetailPage(CREATE_ANTRAG);
+    emit showAntragDetailPage(CREATE_ANTRAG, ANTRAG_PAGE, nullptr);
 }
 
-void Requests::processAntragDetailClicked() {
+void Requests::processAntragDetailClicked(Antrag* antrag) {
     if(currentEmployee->getAdmin()) {
-        emit showAntragDetailPage(ANTRAG_ADMIN);
+        emit showAntragDetailPage(ANTRAG_ADMIN, ANTRAG_PAGE, antrag);
         return;
     }
 
-    emit showAntragDetailPage(ANTRAG_DETAILS);
+    emit showAntragDetailPage(ANTRAG_DETAILS, ANTRAG_PAGE, antrag);
 }
 
-void Requests::updateView() {
-    dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
+void Requests::updateView(Mode mode) {
+    if(mode == LOAD_DATA)
+        dbZugriff->loadRequestsByEmployee(currentEmployee->getID());
 
-
+    ui->closed_requests->clear();
+    ui->new_requests->clear();
     this->insertRequests();
 }
 
@@ -70,6 +72,8 @@ void Requests::insertRequests() {
             ui->new_requests->addItem(listitem);
             ui->new_requests->setItemWidget(listitem, antrag_item);
         }
+
+        connect(antrag_item, &AntragListItem::detailsClicked, this, &Requests::processAntragDetailClicked);
 
     }
 

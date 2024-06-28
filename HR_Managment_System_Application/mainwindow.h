@@ -18,6 +18,7 @@
 #include <settings.h>
 #include <editzeiteintrag.h>
 #include <Helpers.h>
+#include <antrag_detailpage.h>
 //---------------------------
 #pragma once
 #include <dbaccess.h>
@@ -52,20 +53,21 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MainLoading* main_loading_page;
-    Navbar* navbar;
-    Navbar_compact* navbar_comp;
+    MainLoading* main_loading_page = nullptr;
+    Navbar* navbar= nullptr;
+    Navbar_compact* navbar_comp= nullptr;
 
-    Login* login_page;
-    Signup* signup_page;
-    Account* account_page;
-    Account_adminview* account_adminview_page;
-    AdminDashboard* admin_dashboard;
-    Dashboard* dashboard;
-    Timetracker* timetracker_page;
-    Requests* request_page;
-    Settings* settings_page;
-    EditZeiteintrag* editZeiteintrag_page;
+    Login* login_page= nullptr;
+    Signup* signup_page= nullptr;
+    Account* account_page= nullptr;
+    Account_adminview* account_adminview_page= nullptr;
+    AdminDashboard* admin_dashboard= nullptr;
+    Dashboard* dashboard= nullptr;
+    Timetracker* timetracker_page= nullptr;
+    Requests* request_page= nullptr;
+    Settings* settings_page= nullptr;
+    EditZeiteintrag* editZeiteintrag_page= nullptr;
+    AntragDetails* antrag_detail_page= nullptr;
 
     QRect navbar_comp_geometry;
     QRect navbar_comp_closed_geometry;
@@ -76,7 +78,8 @@ private:
     void showAccount();
     void showDashboard();
     void showTimetracker(Mode mode);
-    void showRequests();
+    void showRequests(Mode mode = LOAD_DATA);
+    void showAntragDetailPage(Mode mode, Mode page, Antrag* antrag = nullptr);
     void showSettings();
     void processLogout();
     void showAdminDashboard();
@@ -84,5 +87,8 @@ private:
     void openEditEmployeeView(int id);
     void openEditZeiteintragView(QList<Timestamp*> timestamps);
     void loadEmployeesThenShowAdminDashboard();
+
+    void startZeitaufzeichnungFromDashboard();
+    void stopZeitaufzeichnungFromDashboard();
 };
 #endif // MAINWINDOW_H

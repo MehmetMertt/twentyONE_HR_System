@@ -12,7 +12,7 @@ EditZeiteintrag::EditZeiteintrag(QWidget *parent)
     ui->setupUi(this);
 
     // Load the stylesheet from a file (recommended)
-    QString stylesheetPath = ":/resourcen/styles/timetracker.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
+    QString stylesheetPath = ":/resourcen/styles/main.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
     if (stylesheetFile.open(QIODevice::ReadOnly)) {
         QString stylesheet = stylesheetFile.readAll();
@@ -37,6 +37,8 @@ EditZeiteintrag::~EditZeiteintrag()
 void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
 
     ui->listWidget->clear();
+    qDeleteAll(this->timestampItems);
+    this->timestampItems.clear();
 
     QListWidgetItem* listitem;
     EditZeiteintragItem* zeiteintrag;
@@ -53,23 +55,48 @@ void EditZeiteintrag::initPage(QList<Timestamp*> timestamps) {
         ui->listWidget->setItemWidget(listitem, zeiteintrag);
         counter++;
     }
-
-
 }
+
+
 
 void EditZeiteintrag::on_save_clicked()
 {
+    bool datum_valid = false;
+    for(int i = 0; i < this->timestampItems.size(); i++){
+        this->timestampItems[i]->compareDatum();
+        datum_valid = this->timestampItems[i]->validator->getDatum_erlaubt();
+        qDebug() << "valid: " << (datum_valid == true) << " Zeiteintrag: " << i;
+        if(datum_valid == false)
+            break;
+    }
+
+    if(datum_valid == false){
+        qDebug() << "Datum is wrong";
+        return;
+    }
+
+    bool success = false;
     for (auto& timestamp : this->timestampItems) {
         qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
 
-        bool success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
+        success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
 
         if(!success) {
             qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
-        } else {
-            emit zeiteintrag_saved(LOAD_DATA);
+            break;
         }
     }
+
+    if(!success) {
+        qDebug() << "Error saving Zeiteinträge";
+        //UI updaten
+        return;
+    }
+
+    qDeleteAll(this->timestampItems);
+    this->timestampItems.clear();
+    emit zeiteintrag_saved(LOAD_DATA);
+
 }
 
 
@@ -89,10 +116,7 @@ void EditZeiteintrag::on_new_eintrag_clicked()
 
 void EditZeiteintrag::on_cancel_clicked()
 {
-    for(auto& timestamp: this->timestampItems) {
-        delete timestamp;
-    }
-
+    qDeleteAll(this->timestampItems);
     this->timestampItems.clear();
 
     emit edit_cancel(NOTHING);

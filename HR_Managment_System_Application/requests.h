@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <Helpers.h>
+#include "antrag_listitem.h"
+#include <antrag.h>
 #pragma once
 
 namespace Ui {
@@ -17,10 +19,10 @@ public:
     explicit Requests(QWidget *parent = nullptr);
     ~Requests();
 
-    void updateView();
+    void updateView(Mode mode);
 
 signals:
-    void showAntragDetailPage(Mode mode);
+    void showAntragDetailPage(Mode mode, Mode page, Antrag* antrag);
 
 private slots:
 
@@ -29,9 +31,11 @@ private slots:
 private:
     Ui::Requests *ui;
 
-    void processAntragDetailClicked();
+    void processAntragDetailClicked(Antrag* antrag);
 
     void insertRequests();
+
+    QList<AntragListItem*> antrag_list_items;
 
 };
 

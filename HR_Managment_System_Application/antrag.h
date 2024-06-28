@@ -8,7 +8,7 @@ class Antrag : public QObject
 {
     Q_OBJECT
 public:
-    explicit Antrag(QObject *parent = nullptr, int id = -1, int employeeId = -1, QDateTime start = QDateTime::currentDateTime(), QDateTime ende = QDateTime::currentDateTime(), QString type = "", QString notiz = "", QString status = "");
+    explicit Antrag(QObject *parent = nullptr, int id = -1, int employeeId = -1, QString titel = "", QDateTime start = QDateTime::currentDateTime(), QDateTime ende = QDateTime::currentDateTime(), QString reason = "", QString notiz = "", QString status = "");
 
     // Getter-Methoden
     int getId() const;
@@ -17,7 +17,8 @@ public:
     QDateTime getEnde() const;
     QString getNotiz() const;
     QString getStatus() const;
-    QString getType() const;
+    QString getReason() const;
+    QString getTitel() const;
 
     // Setter-Methoden
     void setId(int id);
@@ -26,7 +27,8 @@ public:
     void setEnde(const QDateTime &ende);
     void setNotiz(const QString &notiz);
     void setStatus(const QString &status);
-    void setType(const QString &type);
+    void setReason(const QString &reason);
+    void setTitel(const QString &titel);
 
 
 signals:
@@ -35,11 +37,12 @@ signals:
 private:
     int id;
     int employeeId;
+    QString titel;
     QDateTime start;
     QDateTime ende;
     QString notiz;
     QString status;
-    QString type;
+    QString reason;
 };
 
 #endif // ANTRAG_H

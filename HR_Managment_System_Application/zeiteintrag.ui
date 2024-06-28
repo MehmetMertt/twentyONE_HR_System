@@ -67,6 +67,12 @@
         </item>
         <item>
          <widget class="QLabel" name="label_duration">
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>2 h</string>
           </property>
@@ -106,7 +112,7 @@
            <bool>false</bool>
           </property>
           <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
+           <enum>QFrame::Sunken</enum>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -183,6 +189,12 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::NoButtons</enum>
+              </property>
+              <property name="type" stdset="0">
+               <string>editable</string>
+              </property>
              </widget>
             </item>
            </layout>
@@ -203,6 +215,12 @@
                 <width>150</width>
                 <height>0</height>
                </size>
+              </property>
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::NoButtons</enum>
+              </property>
+              <property name="type" stdset="0">
+               <string>editable</string>
               </property>
              </widget>
             </item>
@@ -239,6 +257,9 @@
           </property>
           <property name="placeholderText">
            <string>Notiz</string>
+          </property>
+          <property name="type" stdset="0">
+           <string>editable</string>
           </property>
          </widget>
         </item>
@@ -301,6 +322,9 @@
               <property name="type" stdset="0">
                <string>zeiteintrag</string>
               </property>
+              <property name="color" stdset="0">
+               <string>delete</string>
+              </property>
              </widget>
             </item>
            </layout>
@@ -344,6 +368,13 @@
          </layout>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="error_text">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

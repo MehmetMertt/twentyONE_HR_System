@@ -24,7 +24,7 @@ Navbar_compact::Navbar_compact(QWidget *parent)
         items.insert("admin_page", ui->admin_button);
     }else
         ui->admin_button->setHidden(true);
-    items.insert("settings", ui->settings);
+    //items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
     if(currentEmployee->getAdmin() == false){
         ui->admin_button->setVisible(false);
@@ -77,17 +77,17 @@ void Navbar_compact::on_request_clicked()
     removeActiveItem();
     active_item = ui->request;
     addActiveItem();
-    emit request_clicked();
+    emit request_clicked(LOAD_DATA);
 }
 
 
-void Navbar_compact::on_settings_clicked()
+/*void Navbar_compact::on_settings_clicked()
 {
     removeActiveItem();
-    active_item = ui->settings;
+    //active_item = ui->settings;
     addActiveItem();
     emit settings_clicked();
-}
+}*/
 
 
 void Navbar_compact::on_logout_button_clicked()
@@ -129,4 +129,10 @@ void Navbar_compact::on_admin_button_clicked()
     emit admin_clicked();
 }
 
+
+void Navbar_compact::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}
 

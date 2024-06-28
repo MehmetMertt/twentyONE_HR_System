@@ -20,11 +20,13 @@ public:
     QString getActiveItem();
     void setActiveItem(QString item);
 
+    void setTimetrackerActive();
+
 signals:
     void account_clicked();
     void dashboard_clicked();
     void timetracker_clicked(Mode mode);
-    void request_clicked();
+    void request_clicked(Mode mode);
     void settings_clicked();
     void logout_clicked();
     void admin_clicked();
@@ -38,7 +40,7 @@ private slots:
 
     void on_request_clicked();
 
-    void on_settings_clicked();
+    //void on_settings_clicked();
 
     void on_logout_button_clicked();
 

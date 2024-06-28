@@ -1,0 +1,125 @@
+QLabel {
+
+    font-size: 14px;
+
+}
+
+#header {
+    font-size: 22px;
+}
+
+QLabel[labeltype = "data_header"] {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+QLabel[labeltype = "wieso"] {
+    font-size: 45px;
+
+}
+
+QLabel[labeltype = "timeTabel"]{
+
+    font-size: 30px;
+}
+
+
+QLabel[labeltype = "current_value"] {
+    font-weight: 500;
+}
+
+QLabel[labeltype = "max_value"] {
+    color: rgba(0, 0, 0, 0.24);
+}
+
+#timer_label {
+    font-size: 16px;
+}
+
+.QFrame, .QListWidget {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #e6e6e6;
+}
+
+.QTextEdit {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #f6f5f5;
+}
+
+.QTextEdit[type="editable"] {
+    border: 1px solid #b5b5b5;
+    background-color: #fbfbfb;
+}
+
+.QTextEdit[type="editable"]:focus {
+    border: 1px solid #11698E;
+}
+
+
+.QProgressBar {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D3D3D3;
+    border-radius: 8px;
+    padding: 2px;
+    height: 10px;
+}
+.QProgressBar::chunk {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    border-color: #11698E;
+    background-color: #11698E;
+}
+
+QPushButton {
+  color: #11698E;
+  border: 1px solid #11698E;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #11698E;
+    color: #F8F1F1;
+}
+
+QPushButton[type = "zeiteintrag"] {
+    padding: 2px 10px;
+}
+
+QDateTimeEdit {
+    padding: 4px;
+}
+
+QComboBox{
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5%;
+    background-color: #f0f0f0;
+}
+
+QComboBox:on {
+    border-color: #11698E;
+}
+
+QComboBox::down-arrow{
+    image:url(://resourcen/icons/arrow_down.svg);
+
+
+}
+
+QComboBox::drop-down:button {
+    background-color: #f0f0f0;
+    width: 18px;
+    border-radius: 8px;
+}
+
+QComboBox:drop-down {
+    padding-right: 2px;
+}

@@ -1,4 +1,4 @@
-QT       += core gui sql charts
+QT       += core gui sql
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -17,6 +17,7 @@ SOURCES += \
     auth/account.cpp \
     auth/account_adminview.cpp \
     dashboard.cpp \
+    dbaccess.cpp \
     dbmanager.cpp \
     auth/login.cpp \
     auth/signup.cpp \
@@ -90,11 +91,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ../database.db
 
 RESOURCES +=
-assests.qrc
 addFiles.path = .
 DEPLOYMENT += addFiles
 DISTFILES +=

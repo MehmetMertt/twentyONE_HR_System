@@ -2,21 +2,60 @@
 #define ANTRAG_DETAILPAGE_H
 
 #include <QWidget>
+#include "Helpers.h"
+#include "antrag.h"
+#include "inputvalidator.h"
+#include "person.h"
 
 namespace Ui {
-class CreateAntrag;
+class AntragDetails;
 }
 
-class CreateAntrag : public QWidget
+class AntragDetails : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit CreateAntrag(QWidget *parent = nullptr);
-    ~CreateAntrag();
+    explicit AntragDetails(QWidget *parent = nullptr, Antrag* antrag = nullptr);
+    ~AntragDetails();
+
+    void setupPage(Mode mode);
+    void updateView();
+    void setAntrag(Antrag* antrag);
+
+    void setPreviousPage(Mode mode);
+
+signals:
+    void antrag_submit_success(Mode mode);
+    void antrag_finish_show_requests(Mode mode);
+    void antrag_finish_show_admin();
+
+private slots:
+    void on_button_senden_clicked();
+
+    void on_button_abbrechen_clicked();
+
+    void on_button_ablehnen_clicked();
+
+    void on_button_akzeptieren_clicked();
+
+    void on_button_loeschen_clicked();
+    
+    void on_button_speichern_clicked();
 
 private:
-    Ui::CreateAntrag *ui;
+    Ui::AntragDetails *ui;
+    InputValidator *validator;
+    Antrag* antrag;
+    Person* person;
+
+    void setInputsEnabled(bool value);
+    void disableInputs();
+    void enableInputs();
+    void clearInputs();
+    void emitFinishSignal(Mode mode);
+
+    Mode previousPage;
 };
 
 #endif // ANTRAG_DETAILPAGE_H

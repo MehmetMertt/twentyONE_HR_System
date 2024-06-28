@@ -25,14 +25,18 @@ public:
     void loadData();
 
 signals:
+    void startTimetracker();
+    void stopTimetracker();
     void openEditZeiteintrag(QList<Timestamp*> timestamps);
 
-private slots:
+public slots:
     void on_button_start_clicked();
+    void on_button_stop_clicked();
+
+private slots:
+    //void on_button_start_clicked();
 
     void on_button_pause_clicked();
-
-    void on_button_stop_clicked();
 
     void on_button_weiter_clicked();
 
@@ -54,6 +58,8 @@ private:
 
     void loadTimeentries();
     void loadDashboardData();
+    void removeZeiteintragLocal();
+    void deleteAllZeiteinträge();
 
     int wochenstunden;
     int ueberstunden;

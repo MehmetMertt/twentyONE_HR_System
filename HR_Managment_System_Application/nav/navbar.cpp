@@ -20,7 +20,7 @@ Navbar::Navbar(QWidget *parent)
     items.insert("dashboard", ui->dashboard);
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
-    items.insert("settings", ui->settings);
+    //items.insert("settings", ui->settings);
     items.insert("login_out", ui->logout_button);
     if(currentEmployee->getAdmin() == 1){
         items.insert("admin_page", ui->admin_button); //kA, wie das mit items funktioniert und ob die nicht vllt iwie removed werden sollen, wenn currentUser nicht admin ist
@@ -28,7 +28,8 @@ Navbar::Navbar(QWidget *parent)
     }else{
         ui->admin_button->setHidden(true);
     }
-    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
+
+    this->setUserData();
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -49,7 +50,8 @@ Navbar::~Navbar()
 }
 
 void Navbar::setUserData() {
-    ui->user->setText("Max Mustermann");
+    qDebug() << currentEmployee->getName() << " " << currentEmployee->getSurname();
+    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 }
 
 void Navbar::on_user_clicked()
@@ -82,17 +84,17 @@ void Navbar::on_request_clicked()
     removeActiveItem();
     active_item = ui->request;
     addActiveItem();
-    emit request_clicked();
+    emit request_clicked(LOAD_DATA);
 }
 
 
-void Navbar::on_settings_clicked()
+/*void Navbar::on_settings_clicked()
 {
     removeActiveItem();
     active_item = ui->settings;
     addActiveItem();
     emit settings_clicked();
-}
+}*/
 
 
 void Navbar::on_logout_button_clicked()
@@ -125,14 +127,6 @@ QString Navbar::getActiveItem() {
     return items.key(active_item);
 }
 
-
-
-
-
-
-
-
-
 void Navbar::on_admin_button_clicked()
 {
     removeActiveItem();
@@ -141,3 +135,8 @@ void Navbar::on_admin_button_clicked()
     emit admin_clicked();
 }
 
+void Navbar::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}

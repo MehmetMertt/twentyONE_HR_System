@@ -1,6 +1,8 @@
 #include "editzeiteintragitem.h"
 #include "ui_editzeiteintragitem.h"
 
+#include <QFile>
+
 EditZeiteintragItem::EditZeiteintragItem(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::EditZeiteintragItem)
@@ -19,8 +21,41 @@ EditZeiteintragItem::EditZeiteintragItem(QWidget *parent, int id, Timestamp* tim
 
     initPage();
 
-    connect(ui->startzeit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
-    connect(ui->endzeit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
+    connect(ui->startzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
+    connect(ui->endzeit_edit, &QDateTimeEdit::dateTimeChanged, this, &EditZeiteintragItem::updateTimestamp);
+//
+    validator = new InputValidator(this);
+
+
+//
+
+    // Load the first stylesheet from a file
+    QString stylesheetPath1 = ":/resourcen/styles/main.qss";
+    QFile stylesheetFile1(stylesheetPath1);
+    QString stylesheet1;
+    if (stylesheetFile1.open(QIODevice::ReadOnly)) {
+        stylesheet1 = stylesheetFile1.readAll();
+        stylesheetFile1.close();
+    } else {
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath1;
+    }
+
+    // Load the second stylesheet from a file
+    QString stylesheetPath2 = ":/resourcen/styles/auth_stylesheet.qss";
+    QFile stylesheetFile2(stylesheetPath2);
+    QString stylesheet2;
+    if (stylesheetFile2.open(QIODevice::ReadOnly)) {
+        stylesheet2 = stylesheetFile2.readAll();
+        stylesheetFile2.close();
+    } else {
+        qWarning() << "Failed to load stylesheet from" << stylesheetPath2;
+    }
+
+    // Combine the stylesheets
+    QString combinedStylesheet = stylesheet1 + "\n" + stylesheet2;
+
+    // Set the combined stylesheet
+    setStyleSheet(combinedStylesheet);
 
 }
 
@@ -30,8 +65,8 @@ EditZeiteintragItem::~EditZeiteintragItem()
 }
 
 void EditZeiteintragItem::initPage() {
-    ui->startzeit->setDateTime(this->timestamp->data.first);
-    ui->endzeit->setDateTime(this->timestamp->data.second);
+    ui->startzeit_edit->setDateTime(this->timestamp->data.first);
+    ui->endzeit_edit->setDateTime(this->timestamp->data.second);
 }
 
 QDateTime EditZeiteintragItem::getStartzeit() {
@@ -43,7 +78,7 @@ QDateTime EditZeiteintragItem::getEndzeit() {
 }
 
 QString EditZeiteintragItem::getNotiz() {
-    return ui->notiz->toPlainText();
+    return ui->notiz_edit->toPlainText();
 }
 
 int EditZeiteintragItem::getID() {
@@ -51,6 +86,17 @@ int EditZeiteintragItem::getID() {
 }
 
 void EditZeiteintragItem::updateTimestamp() {
-    this->timestamp->data.first = ui->startzeit->dateTime();
-    this->timestamp->data.second = ui->endzeit->dateTime();
+    this->timestamp->data.first = ui->startzeit_edit->dateTime();
+    this->timestamp->data.second = ui->endzeit_edit->dateTime();
 }
+//
+void EditZeiteintragItem::compareDatum(){
+    validator->ueberpruefeDatum(this);
+
+    if(validator->getDatum_erlaubt() == false){
+        ui->error_text->setText("Start Datum kann nicht nach End Datum liegen.");
+    }else
+        ui->error_text->setText("");
+
+}
+//
