@@ -57,6 +57,7 @@ void Antrag::setId(int id) {
 
 void Antrag::setEmployeeId(int employeeId) {
     this->employeeId = employeeId;
+    qDebug() << "antrag employee id" << this->employeeId;
 }
 
 void Antrag::setTitel(const QString &titel) {

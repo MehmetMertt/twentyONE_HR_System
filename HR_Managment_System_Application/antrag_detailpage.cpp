@@ -17,6 +17,8 @@ AntragDetails::AntragDetails(QWidget *parent, Antrag* antrag)
         ui->antrag_type->addItem(reason);
     }
 
+
+
     ui->antrag_type->setCurrentIndex(0);
 
     validator = new InputValidator(this);
@@ -78,6 +80,10 @@ void AntragDetails::setupPage(Mode mode) {
         ui->button_speichern->hide();
         ui->button_loeschen->show();
         ui->header->setText("Antrag details");
+        qDebug() << "get Mitarbeiter" << antrag->getEmployeeId();
+        this->person = dbZugriff->getMitarbeiterByID(this->antrag->getEmployeeId());
+
+        ui->userdata->setText("Von: " + this->person->getGender() + " " + this->person->getSurname() + " (" + this->person->getMail() + ")");
 
         enableInputs();
         if(this->antrag->getStatus() == "Neu") {
@@ -133,6 +139,7 @@ void AntragDetails::updateView() {
     ui->notiz->insertPlainText(this->antrag->getNotiz());
     ui->startzeit_edit->setDateTime(this->antrag->getStart());
     ui->endzeit_edit->setDateTime(this->antrag->getEnde());
+
 
 }
 

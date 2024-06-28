@@ -73,6 +73,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QLabel" name="userdata">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLineEdit" name="titel_field">

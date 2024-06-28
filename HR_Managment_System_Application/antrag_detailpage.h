@@ -5,6 +5,7 @@
 #include "Helpers.h"
 #include "antrag.h"
 #include "inputvalidator.h"
+#include "person.h"
 
 namespace Ui {
 class AntragDetails;
@@ -46,6 +47,7 @@ private:
     Ui::AntragDetails *ui;
     InputValidator *validator;
     Antrag* antrag;
+    Person* person;
 
     void setInputsEnabled(bool value);
     void disableInputs();
