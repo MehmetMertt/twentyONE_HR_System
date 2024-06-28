@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 //#include "dbmanager.h"
 #include <dbaccess.h>
-
 #include <QApplication>
 
 dbmanager* dbZugriff;
+Person* currentEmployee;
 
 int main(int argc, char *argv[])
 {

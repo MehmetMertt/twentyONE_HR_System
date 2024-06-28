@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QIcon>
 #include <QStyle>
+#include "dbaccess.h"
+#include "person.h"
 
 Navbar::Navbar(QWidget *parent)
     : QWidget(parent)
@@ -10,8 +12,7 @@ Navbar::Navbar(QWidget *parent)
 {
     ui->setupUi(this);
 
-    processLoginOutButton(1);
-    setUserData();
+    //setUserData();
 
     active_item = ui->dashboard;
 
@@ -19,9 +20,16 @@ Navbar::Navbar(QWidget *parent)
     items.insert("dashboard", ui->dashboard);
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
-    items.insert("settings", ui->settings);
-    items.insert("login_out", ui->login_out_button);
+    //items.insert("settings", ui->settings);
+    items.insert("login_out", ui->logout_button);
+    if(currentEmployee->getAdmin() == 1){
+        items.insert("admin_page", ui->admin_button); //kA, wie das mit items funktioniert und ob die nicht vllt iwie removed werden sollen, wenn currentUser nicht admin ist
+        ui->admin_button->setHidden(false); //sicherheitshalber falls admin sich mit nicht admin account einloggt
+    }else{
+        ui->admin_button->setHidden(true);
+    }
 
+    this->setUserData();
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -41,18 +49,9 @@ Navbar::~Navbar()
     delete ui;
 }
 
-void Navbar::processLoginOutButton(int logged) {
-    if(logged) {
-        ui->login_out_button->setText("Logout");
-        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/logout.svg"));
-    } else {
-        ui->login_out_button->setText("Login");
-        ui->login_out_button->setIcon(QIcon(":/resourcen/icons/login.svg"));
-    }
-}
-
 void Navbar::setUserData() {
-    ui->user->setText("Florian Mimmler");
+    qDebug() << currentEmployee->getName() << " " << currentEmployee->getSurname();
+    ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 }
 
 void Navbar::on_user_clicked()
@@ -77,7 +76,7 @@ void Navbar::on_timetracker_clicked()
     removeActiveItem();
     active_item = ui->timetracker;
     addActiveItem();
-    emit timetracker_clicked();
+    emit timetracker_clicked(LOAD_DATA);
 }
 
 void Navbar::on_request_clicked()
@@ -85,25 +84,25 @@ void Navbar::on_request_clicked()
     removeActiveItem();
     active_item = ui->request;
     addActiveItem();
-    emit request_clicked();
+    emit request_clicked(LOAD_DATA);
 }
 
 
-void Navbar::on_settings_clicked()
+/*void Navbar::on_settings_clicked()
 {
     removeActiveItem();
     active_item = ui->settings;
     addActiveItem();
     emit settings_clicked();
-}
+}*/
 
 
-void Navbar::on_login_out_button_clicked()
+void Navbar::on_logout_button_clicked()
 {
     removeActiveItem();
-    active_item = ui->login_out_button;
+    active_item = ui->logout_button;
     addActiveItem();
-    emit login_out_clicked();
+    emit logout_clicked();
 }
 
 void Navbar::removeActiveItem() {
@@ -128,10 +127,16 @@ QString Navbar::getActiveItem() {
     return items.key(active_item);
 }
 
+void Navbar::on_admin_button_clicked()
+{
+    removeActiveItem();
+    active_item = ui->admin_button;
+    addActiveItem();
+    emit admin_clicked();
+}
 
-
-
-
-
-
-
+void Navbar::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}

@@ -1,8 +1,12 @@
 #include "navbar_compact.h"
 #include "ui_navbar_compact.h"
-
 #include <QFile>
 #include <QStyle>
+#include "dbaccess.h"
+#include "person.h"
+
+
+#include "dbaccess.h"
 
 Navbar_compact::Navbar_compact(QWidget *parent)
     : QWidget(parent)
@@ -16,9 +20,15 @@ Navbar_compact::Navbar_compact(QWidget *parent)
     items.insert("dashboard", ui->dashboard);
     items.insert("timetracker", ui->timetracker);
     items.insert("requests", ui->request);
-    items.insert("settings", ui->settings);
-    items.insert("login_out", ui->login_out_button);
-
+    if(currentEmployee->getAdmin() == 1){
+        items.insert("admin_page", ui->admin_button);
+    }else
+        ui->admin_button->setHidden(true);
+    //items.insert("settings", ui->settings);
+    items.insert("login_out", ui->logout_button);
+    if(currentEmployee->getAdmin() == false){
+        ui->admin_button->setVisible(false);
+    }
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/sidebar_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
     QFile stylesheetFile(stylesheetPath);
@@ -59,7 +69,7 @@ void Navbar_compact::on_timetracker_clicked()
     removeActiveItem();
     active_item = ui->timetracker;
     addActiveItem();
-    emit timetracker_clicked();
+    emit timetracker_clicked(LOAD_DATA);
 }
 
 void Navbar_compact::on_request_clicked()
@@ -67,25 +77,25 @@ void Navbar_compact::on_request_clicked()
     removeActiveItem();
     active_item = ui->request;
     addActiveItem();
-    emit request_clicked();
+    emit request_clicked(LOAD_DATA);
 }
 
 
-void Navbar_compact::on_settings_clicked()
+/*void Navbar_compact::on_settings_clicked()
 {
     removeActiveItem();
-    active_item = ui->settings;
+    //active_item = ui->settings;
     addActiveItem();
     emit settings_clicked();
-}
+}*/
 
 
-void Navbar_compact::on_login_out_button_clicked()
+void Navbar_compact::on_logout_button_clicked()
 {
     removeActiveItem();
-    active_item = ui->login_out_button;
+    active_item = ui->logout_button;
     addActiveItem();
-    emit login_out_clicked();
+    emit logout_clicked();
 }
 
 
@@ -111,6 +121,18 @@ QString Navbar_compact::getActiveItem() {
     return items.key(active_item);
 }
 
+void Navbar_compact::on_admin_button_clicked()
+{
+    removeActiveItem();
+    active_item = ui->admin_button;
+    addActiveItem();
+    emit admin_clicked();
+}
 
 
+void Navbar_compact::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}
 

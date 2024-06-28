@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "inputvalidator.h"
+#pragma once
 
 namespace Ui {
 class Signup;
@@ -13,12 +14,16 @@ class Signup : public QWidget
     Q_OBJECT
 
 public:
-    explicit Signup(QWidget *parent = nullptr);
+    Signup(QWidget *parent = nullptr);
     ~Signup();
+
+signals:
+    void signup_success();
 
 private:
     Ui::Signup *ui;
     InputValidator *validator;
+
 
 private slots:
     void on_button_clicked();

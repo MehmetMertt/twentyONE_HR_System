@@ -2,7 +2,9 @@
 #define DASHBOARD_H
 
 #include <QWidget>
-#include <QLineSeries>
+#pragma once
+#include <QDateTime>
+#include <QFrame>
 
 namespace Ui {
 class Dashboard;
@@ -16,8 +18,23 @@ public:
     explicit Dashboard(QWidget *parent = nullptr);
     ~Dashboard();
 
+    void loadData();
+
+    void showStartTracker();
+    void showStopTracker();
+
+signals:
+    void goZeitaufzeichnung();
+    void stopZeitaufzeichnung();
+
+private slots:
+    void on_startTracker_clicked();
+    void on_stopTracker_clicked();
+
 private:
     Ui::Dashboard *ui;
+    void updateGreeting();
+    QFrame *myFrame;
 };
 
 #endif // DASHBOARD_H

@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QWidget>
+#pragma once
 
 namespace Ui {
 class Settings;
@@ -14,6 +15,11 @@ class Settings : public QWidget
 public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
+
+    void logout();
+
+signals:
+    void logout_success();
 
 private:
     Ui::Settings *ui;

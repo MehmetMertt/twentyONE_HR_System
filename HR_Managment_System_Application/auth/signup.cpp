@@ -1,13 +1,21 @@
 #include "signup.h"
 #include "ui_signup.h"
 #include <QFile>
+#include "dbaccess.h"
 
 Signup::Signup(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Signup)
 {
     ui->setupUi(this);
-    ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
+
+    dbZugriff->loadGenders();
+    for(int i = 0; i < dbZugriff->genders.size(); i++){
+        QString gender = dbZugriff->genders.value(i+1);
+        ui->anrede_input->addItem(gender);
+    }
+
+    ui->anrede_input->setCurrentIndex(0);
 
     // Load the stylesheet from a file (recommended)
     QString stylesheetPath = ":/resourcen/styles/auth_stylesheet.qss"; // Assuming your stylesheet is in a resources file named "login.qss"
@@ -96,15 +104,39 @@ void Signup::on_button_clicked()
         QString Email = ui->email_input->text();
         QString Telefon = ui->tel_input->text();
         QString Adresse = ui->adresse_input->text();
-        QString Plz = ui->plz_input->text();
+        int Plz = ui->plz_input->text().toInt();
         QString Ort = ui->ort_input->text();
         QString Passwort = ui->passwort_input->text();
+        QString title = ui->titel_input->text();
+        QString gender = ui->anrede_input->currentText();
 
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
+        //zuerst in ADRESS einfügen und dann EMPLOYEE, weil so solls angeblich funktionieren, funktioniert aber nicht
+        //bool signup = dbZugriff->addMitarbeiterAdresse(Plz, Ort, Adresse);
+        //signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort);
         //oder eine andere Funktion
+        bool signup = dbZugriff->addMitarbeiter(Vorname, Nachname, Email, Telefon, Passwort,Adresse,Plz,Ort, gender, title);
 
-        //FÜR DEBUGGING:
-        qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
-        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort << "\nPasswort: " << Passwort;
+        if(signup == true) {
+            ui->error_text->setText("");
+            ui->error_text->hide();
+
+            ui->vorname_input->clear();
+            ui->nachname_input->clear();
+            ui->email_input->clear();
+            ui->tel_input->clear();
+            ui->adresse_input->clear();
+            ui->plz_input->clear();
+            ui->ort_input->clear();
+            ui->passwort_input->clear();
+            ui->titel_input->clear();
+            ui->anrede_input->setCurrentIndex(2);
+
+            emit signup_success();
+
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+            ui->error_text->show();
+        }
     }
 }

@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QPropertyAnimation>
+#pragma once
 
 namespace Ui {
 class MainLoading;

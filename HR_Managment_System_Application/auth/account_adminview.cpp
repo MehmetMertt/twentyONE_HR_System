@@ -2,12 +2,15 @@
 #include "ui_account_adminview.h"
 #include <QFile>
 
+#include "dbaccess.h"
+
+QString oldEmail; //no other way currently
+
 Account_adminview::Account_adminview(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Account_adminview)
 {
     ui->setupUi(this);
-
     ui->anrede_input->addItems({"Herr", "Frau", "Divers"});
 
     // Load the stylesheet from a file (recommended)
@@ -43,11 +46,17 @@ Account_adminview::Account_adminview(QWidget *parent)
     connect(ui->ort_input, &QLineEdit::textChanged, this, &Account_adminview::onOrtInputChanged);
     connect(ui->passwort_input, &QLineEdit::textChanged, this, &Account_adminview::onPasswortInputChanged);
     connect(ui->passwort2_input, &QLineEdit::textChanged, this, &Account_adminview::onPasswort2InputChanged);
+    //oldEmail = ui->email_input->text();
+
 }
+
 
 Account_adminview::~Account_adminview()
 {
-    delete validator;
+    if(validator != nullptr) {
+        delete validator;
+    }
+
     delete ui;
 }
 
@@ -94,15 +103,30 @@ void Account_adminview::on_speichern1_button_clicked(){
         QString Email = ui->email_input->text();
         QString Telefon = ui->tel_input->text();
         QString Adresse = ui->adresse_input->text();
-        QString Plz = ui->plz_input->text();
+        int Plz = ui->plz_input->text().toInt();
         QString Ort = ui->ort_input->text();
-
+        QString Password = ui->passwort_input->text();
+        QString gender = ui->anrede_input->itemData(ui->anrede_input->currentIndex()).toString(); // Um value von combobox zu bekommen
+        QString title = ui->titel_input->text();
         //<Datenbankbefehl zum Einfügen der Personendaten in die DB>
         //oder eine andere Funktion
 
-        //FÜR DEBUGGING:
-        qWarning() << "Vorname: " << Vorname << "\nNachname: " << Nachname << "\nEmail: " << Email << "\nTelefon: " << Telefon;
-        qWarning() << "Adresse: " << Adresse << "\nPlz: " << Plz << "\nOrt: " << Ort;
+        int id = this->mitarbeiter->getID();
+        bool success = dbZugriff->editMitarbeiter(id,Vorname,Nachname,Email,Telefon,"",Adresse,Plz,Ort,gender,title);
+        if(success) {
+
+            this->mitarbeiter = dbZugriff->getMitarbeiterByID(id);
+
+            qDebug() << id << " - " << currentEmployee->getID();
+            if(id == currentEmployee->getID()) {
+                currentEmployee = this->mitarbeiter;
+                qDebug() << "emit";
+                emit updateNavbarData();
+            }
+            ui->success_text->setText("Daten erfolgreich bearbeitet");
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+        }
     }
 }
 
@@ -111,20 +135,65 @@ void Account_adminview::on_speichern2_button_clicked(){
     if(ui->passwort_input->text() == ""){
         ui->error_text->setText("Das Passwortfeld ist leer.");
         //ui->button->setEnabled(false);
-    }else if(ui->passwort_input->text() == ui->passwort2_input->text()){
+    }else if(ui->passwort_input->text() != ui->passwort2_input->text()){
+        ui->error_text->setText("Die eingegebenen Passwörter stimmen nicht überein.");
+        //ui->button->setEnabled(false);
+    } else {
+
         ui->error_text->setText("");
         //ui->button->setEnabled(true);
 
-        QString Passwort = ui->passwort_input->text();
-        QString Passwort2 = ui->passwort2_input->text();
+        QString passwort = ui->passwort_input->text();
+        //QString passwort2 = ui->passwort2_input->text();
 
         //Passwort in der DB aktualisieren
 
-        //FÜR DEBUGGING:
-        qWarning() << "Passwort: " << Passwort << "\nPasswort2: " << Passwort2;
+        int id = this->mitarbeiter->getID();
+        bool password_success = dbZugriff->changePassword(id, passwort);
 
-    }else{
-        ui->error_text->setText("Die eingegebenen Passwörter stimmen nicht überein.");
-        //ui->button->setEnabled(false);
+        if(password_success) {
+            ui->success_text->setText("Passwort erfolgreich bearbeitet");
+        } else {
+            ui->error_text->setText("Ein Fehler ist aufgetreten");
+        }
     }
+}
+
+void Account_adminview::initPage(int mitarbeiterID) {
+
+    loadMitarbeiter(mitarbeiterID);
+
+    setDataInView();
+
+}
+
+void Account_adminview::loadMitarbeiter(int mitarbeiterID) {
+
+    //TODO:
+    this->mitarbeiter = dbZugriff->persons.at(mitarbeiterID);
+
+    //check errors
+
+    //FOR TESTING:
+    //this->mitarbeiter = currentEmployee;
+
+}
+
+void Account_adminview::setDataInView() {
+
+        if (this->mitarbeiter!= nullptr) {
+            ui->email_input->setText(this->mitarbeiter->getMail());
+            ui->tel_input->setText(this->mitarbeiter->getPhone());
+            ui->anrede_input->setCurrentText(this->mitarbeiter->getGender());
+            ui->titel_input->setText(this->mitarbeiter->getTitle());
+            ui->nachname_input->setText(this->mitarbeiter->getSurname());
+            ui->vorname_input->setText(this->mitarbeiter->getName());
+            ui->adresse_input->setText(this->mitarbeiter->getStreet());
+            ui->ort_input->setText(this->mitarbeiter->getCity());
+            ui->plz_input->setText(this->mitarbeiter->getPLZ());
+        } else {
+            // Handle the case where mitarbeiter is not initialized
+            qDebug() << "Mitarbeiter object is not initialized.";
+        }
+
 }

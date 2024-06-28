@@ -35,15 +35,20 @@ QPushButton[button_type = "primary"]:hover {
     color: #F8F1F1;
 }
 
-#error_text {
-    color: red;
-    font-size: 12px;
+QPushButton[color = "delete"] {
+    color: #ff2700;
+    border: 1px solid #ff2700;
 }
 
-QComboBox{
+QPushButton[color = "delete"]:hover {
+    background-color: #ff2700;
+    color: #F8F1F1;
+}
+
+QComboBox, QDateTimeEdit {
     border: 1px solid #D3D3D3;
     border-radius: 6px;
-    padding: 8px;
+    padding: 6px;
     font-size: 14px;
     margin-top: 5%;
     background-color: #f0f0f0;
@@ -53,20 +58,30 @@ QComboBox:on {
     border-color: #11698E;
 }
 
-QComboBox::down-arrow{
+QComboBox::down-arrow, QDateTimeEdit::down-arrow {
     image:url(://resourcen/icons/arrow_down.svg);
 
 
 }
 
-QComboBox::drop-down:button {
+QComboBox::drop-down:button, QDateTimeEdit::drop-down:button {
     background-color: #f0f0f0;
     width: 18px;
     border-radius: 8px;
 }
 
-QComboBox:drop-down {
+QComboBox:drop-down, QDateTimeEdit:drop-down {
     padding-right: 2px;
+}
+
+
+.QDateTimeEdit[type="editable"] {
+    border: 1px solid #b5b5b5;
+    background-color: #fbfbfb;
+}
+
+.QDateTimeEdit[type="editable"]:focus {
+    border: 1px solid #11698E;
 }
 
 QLabel[text_type = "heading"] {
@@ -78,4 +93,14 @@ QLabel[text_type = "subheading"] {
     font-size: 16px;
     color: grey;
 
+}
+
+#error_text {
+    color: red;
+    font-size: 12px;
+}
+
+#success_text {
+    color: green;
+    font-size: 12px;
 }
