@@ -127,14 +127,6 @@ QString Navbar::getActiveItem() {
     return items.key(active_item);
 }
 
-
-
-
-
-
-
-
-
 void Navbar::on_admin_button_clicked()
 {
     removeActiveItem();
@@ -143,3 +135,8 @@ void Navbar::on_admin_button_clicked()
     emit admin_clicked();
 }
 
+void Navbar::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}

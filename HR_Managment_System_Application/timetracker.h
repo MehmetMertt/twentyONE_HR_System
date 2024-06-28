@@ -25,6 +25,8 @@ public:
     void loadData();
 
 signals:
+    void startTimetracker();
+    void stopTimetracker();
     void openEditZeiteintrag(QList<Timestamp*> timestamps);
 
 public slots:

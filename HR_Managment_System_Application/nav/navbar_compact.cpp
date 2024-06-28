@@ -130,3 +130,9 @@ void Navbar_compact::on_admin_button_clicked()
 }
 
 
+void Navbar_compact::setTimetrackerActive() {
+    removeActiveItem();
+    active_item = ui->timetracker;
+    addActiveItem();
+}
+

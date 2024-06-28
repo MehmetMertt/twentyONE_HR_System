@@ -2,7 +2,6 @@
 #define DASHBOARD_H
 
 #include <QWidget>
-#include <QLineSeries>
 #pragma once
 #include <QDateTime>
 #include <QFrame>
@@ -20,6 +19,9 @@ public:
     ~Dashboard();
 
     void loadData();
+
+    void showStartTracker();
+    void showStopTracker();
 
 signals:
     void goZeitaufzeichnung();

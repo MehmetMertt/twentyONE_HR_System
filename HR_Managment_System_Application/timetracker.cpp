@@ -155,6 +155,7 @@ void Timetracker::on_button_start_clicked()
 
     dbZugriff->addActiveEmployee(currentEmployee->getID());
 
+    emit startTimetracker();
 }
 
 
@@ -192,6 +193,7 @@ void Timetracker::on_button_stop_clicked()
         qDebug() << "Startzeit: " << timestamp->data.first.toString() << ", Endzeit: " << timestamp->data.second.toString();
     }*/
 
+    emit stopTimetracker();
     emit openEditZeiteintrag(timestamps);
 }
 

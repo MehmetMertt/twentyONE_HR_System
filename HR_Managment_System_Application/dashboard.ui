@@ -168,6 +168,9 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -242,6 +245,9 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -312,6 +318,9 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          </property>
+          <property name="labeltype" stdset="0">
+           <string>data_header</string>
           </property>
          </widget>
         </item>

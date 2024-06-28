@@ -20,6 +20,8 @@ public:
     QString getActiveItem();
     void setActiveItem(QString item);
 
+    void setTimetrackerActive();
+
 signals:
     void account_clicked();
     void dashboard_clicked();

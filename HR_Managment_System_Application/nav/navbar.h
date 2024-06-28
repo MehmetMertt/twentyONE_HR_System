@@ -20,6 +20,7 @@ public:
 
     QString getActiveItem();
     void setActiveItem(QString item);
+    void setTimetrackerActive();
 
 signals:
     void account_clicked();
@@ -55,6 +56,7 @@ private:
 
     void removeActiveItem();
     void addActiveItem();
+
 };
 
 #endif // NAVBAR_H

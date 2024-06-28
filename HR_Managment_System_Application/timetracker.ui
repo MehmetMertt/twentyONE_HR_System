@@ -199,7 +199,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>20</string>
+               <string>0</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -259,7 +259,7 @@
              <number>100</number>
             </property>
             <property name="value">
-             <number>52</number>
+             <number>0</number>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -311,7 +311,7 @@
              </font>
             </property>
             <property name="text">
-             <string>2</string>
+             <string>0</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -357,7 +357,7 @@
              </font>
             </property>
             <property name="text">
-             <string>7</string>
+             <string>0</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>

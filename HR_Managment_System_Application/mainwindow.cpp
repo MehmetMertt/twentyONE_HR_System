@@ -108,6 +108,9 @@ void MainWindow::login_finished()
     connect(settings_page, &Settings::logout_success, this, &MainWindow::processLogout);
 
     connect(timetracker_page, &Timetracker::openEditZeiteintrag, this, &MainWindow::openEditZeiteintragView);
+    connect(timetracker_page, &Timetracker::startTimetracker, dashboard, &Dashboard::showStopTracker);
+    connect(timetracker_page, &Timetracker::stopTimetracker, dashboard, &Dashboard::showStartTracker);
+
     connect(editZeiteintrag_page, &EditZeiteintrag::zeiteintrag_saved, this, &MainWindow::showTimetracker);
     connect(editZeiteintrag_page, &EditZeiteintrag::edit_cancel, this, &MainWindow::showTimetracker);
 
@@ -118,7 +121,10 @@ void MainWindow::login_finished()
 
     connect(dashboard, &Dashboard::goZeitaufzeichnung, this, &MainWindow::startZeitaufzeichnungFromDashboard);
     connect(dashboard, &Dashboard::stopZeitaufzeichnung, this, &MainWindow::stopZeitaufzeichnungFromDashboard);
-
+    connect(dashboard, &Dashboard::goZeitaufzeichnung, navbar, &Navbar::setTimetrackerActive);
+    connect(dashboard, &Dashboard::stopZeitaufzeichnung, navbar, &Navbar::setTimetrackerActive);
+    connect(dashboard, &Dashboard::goZeitaufzeichnung, navbar_comp, &Navbar_compact::setTimetrackerActive);
+    connect(dashboard, &Dashboard::stopZeitaufzeichnung, navbar_comp, &Navbar_compact::setTimetrackerActive);
 
 
     if(currentEmployee->getAdmin() == 1){

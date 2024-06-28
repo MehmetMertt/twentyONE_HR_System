@@ -111,3 +111,12 @@ void Dashboard::on_stopTracker_clicked(){
     emit this->stopZeitaufzeichnung();
 }
 
+void Dashboard::showStartTracker() {
+    ui->stopTracker->hide();
+    ui->startTracker->show();
+}
+
+void Dashboard::showStopTracker() {
+    ui->startTracker->hide();
+    ui->stopTracker->show();
+}
