@@ -16,13 +16,15 @@ twentyOne HR Management is an application designed to streamline and enhance the
 
 ### 1.	Clone git project
 <br>
+```
 git clone https://github.com/MehmetMertt/twentyONE_HR_System.git<br>
 cd twentyONE_HR_System<br>
 cd Database<br>
 docker compose up -d<br>
 cd ..<br>
 cd HR_Managment_System_Application<br>
-mkdir build<br>
+mkdir build<be>
+```
 
 ### 2.	Create Database<br>
 After that we need to create the database. Visit localhost:8080 and login using the default credential<br>
