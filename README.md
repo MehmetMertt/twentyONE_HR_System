@@ -15,35 +15,37 @@ twentyOne HR Management is an application designed to streamline and enhance the
 ## Deployment Guide
 
 ### 1.	Clone git project
+<br>
+git clone https://github.com/MehmetMertt/twentyONE_HR_System.git<br>
+cd twentyONE_HR_System<br>
+cd Database<br>
+docker compose up -d<br>
+cd ..<br>
+cd HR_Managment_System_Application<br>
+mkdir build<br>
 
-git clone https://github.com/MehmetMertt/twentyONE_HR_System.git
-cd twentyONE_HR_System
-cd Database
-docker compose up -d
-cd ..
-cd HR_Managment_System_Application
-mkdir build
+### 2.	Create Database<br>
+After that we need to create the database. Visit localhost:8080 and login using the default credential<br>
+Username: root<br>
+Password: admin<br>
+choose the database and navigate to the SQL Tab<br>
+And insert the hrmgt_create.sql into the databse<br>
 
-### 2.	Create Database
-After that we need to create the database. Visit localhost:8080 and login using the default credential
-Username: root
-Password: admin
-choose the database and navigate to the SQL Tab
-And insert the hrmgt_create.sql into the databse
+### 3.	Build project and create exe<br>
+Now use the Qt 6.7.0 (MinGW) that is installed after installing Qt 6.7.0  <br>
 
-### 3.	Build project and create exe
-Now use the Qt 6.7.0 (MinGW) that is installed after installing Qt 6.7.0  
-
-cd <into cloned folder>\HR_Managment_System_Application\build
-qmake ..\HR_Managment_System_Application.pro -spec win32-g++
-mingw32-make.exe -j4
-cd release
-windeployqt .
-cd ..
-mingw32-make.exe clean -j4
-move ..\..\Database\libmysql.dll .\release
-move ..\..\Database\qsqlmysql.dll .\release\sqldrivers
+cd <into cloned folder>\HR_Managment_System_Application\build<br>
+qmake ..\HR_Managment_System_Application.pro -spec win32-g++<br>
+mingw32-make.exe -j4<br>
+cd release<br>
+windeployqt .<br>
+cd ..<br>
+mingw32-make.exe clean -j4<br>
+move ..\..\Database\libmysql.dll .\release<br>
+move ..\..\Database\qsqlmysql.dll .\release\sqldrivers<br>
 
 
-Now you can use the files in the release folder for your deployment. And the exe is executable and will start the Application.
-
+Now you can use the files in the release folder for your deployment. And the exe is executable and will start the Application.<br>
+Please refrain from using any real credentials, passwords, or sensitive information, as this is a school project not intended to store valuable data.
+<br>
+Thank you!!!
