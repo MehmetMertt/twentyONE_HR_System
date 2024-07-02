@@ -3,8 +3,6 @@
 #include "zeiteintrag.h"
 #include "person.h"
 #include <QVariant>
-#include <iostream>
-#include <list>
 using namespace std;
 //Konstruktur der dbmanager klasse, ermögicht einssen zentralisierten Zugriff auf die DB
 dbmanager::dbmanager() {
@@ -83,7 +81,6 @@ void dbmanager::saveMitarbeiterLocally(Person* mitarbeiter) {
 
 Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
-    bool success;
     QString pw = sha512_hash(password);
     qDebug() << "Das PW lautet: " << pw;
     query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
@@ -109,7 +106,6 @@ Person* dbmanager::login(QString mail, QString password){
         qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
-        success = false; //mit dieser local variable wird fett gar nichts gemacht
         qDebug() << "Einloggen war NICHT erfolgreich";
     }
     return nullptr;
@@ -118,7 +114,6 @@ Person* dbmanager::login(QString mail, QString password){
 
 int dbmanager::getAddressID(int employeeID){
     QSqlQuery query;
-    bool success;
     query.prepare("SELECT adressid from EMPLOYEE where id = :employeeID");
     query.bindValue(":employeeID",employeeID);
 
@@ -126,16 +121,13 @@ int dbmanager::getAddressID(int employeeID){
         query.next();
         int id = query.value(0).toInt();
         return id;
-    } else {
-        success = false;
-        qDebug() << "getAddressID war NICHT erfolgreich";
     }
+    qDebug() << "getAddressID war NICHT erfolgreich";
     return -1;
 }
 
 int dbmanager::getUserIDByMail(QString oldMail){
     QSqlQuery query;
-    bool success;
     query.prepare("SELECT id from EMPLOYEE where mail = :oldMail");
     query.bindValue(":oldMail",oldMail);
 
@@ -143,10 +135,9 @@ int dbmanager::getUserIDByMail(QString oldMail){
         query.next();
         int id = query.value(0).toInt();
         return id;
-    } else {
-        success = false;
-        qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
     }
+
+    qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
     return -1;
 }
 
@@ -521,7 +512,6 @@ QList <Zeiteintrag*> getSpecificArbeitszeiten(int employeeID,QList <Zeiteintrag*
         //success = true;
         qDebug() << "getArbeitszeiten success";
 
-        int i = 0;
         while (query.next()) {
 
             Zeiteintrag *zeiteintrag1 = new Zeiteintrag(0,QDateTime::currentDateTime(),QDateTime::currentDateTime(),0,"",nullptr);
