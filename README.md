@@ -14,7 +14,7 @@ twentyOne HR Management is an application designed to streamline and enhance the
 
 ## Deployment Guide
 
-1.	Git Projekt Clonen
+### 1.	Clone git project
 
 git clone https://github.com/MehmetMertt/twentyONE_HR_System.git
 cd twentyONE_HR_System
@@ -24,14 +24,14 @@ cd ..
 cd HR_Managment_System_Application
 mkdir build
 
-2.	Datenbank erstellen
+### 2.	Create Database
 After that we need to create the database. Visit localhost:8080 and login using the default credential
 Username: root
 Password: admin
 choose the database and navigate to the SQL Tab
 And insert the hrmgt_create.sql into the databse
 
-3.	Projekt bauen und exe erstellen
+### 3.	Build project and create exe
 Now use the Qt 6.7.0 (MinGW) that is installed after installing Qt 6.7.0  
 
 cd <into cloned folder>\HR_Managment_System_Application\build
@@ -46,3 +46,4 @@ move ..\..\Database\qsqlmysql.dll .\release\sqldrivers
 
 
 Now you can use the files in the release folder for your deployment. And the exe is executable and will start the Application.
+
