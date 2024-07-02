@@ -48,7 +48,7 @@ void MitarbeiterView::initData() {
 
 void MitarbeiterView::on_button_edit_clicked()
 {
-    qDebug() << "emview edit";
+    //qDebug() << "emview edit";
     emit editEmployee(this->id-1);
 }
 

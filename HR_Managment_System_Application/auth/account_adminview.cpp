@@ -117,10 +117,10 @@ void Account_adminview::on_speichern1_button_clicked(){
 
             this->mitarbeiter = dbZugriff->getMitarbeiterByID(id);
 
-            qDebug() << id << " - " << currentEmployee->getID();
+            //qDebug() << id << " - " << currentEmployee->getID();
             if(id == currentEmployee->getID()) {
                 currentEmployee = this->mitarbeiter;
-                qDebug() << "emit";
+                //qDebug() << "emit";
                 emit updateNavbarData();
             }
             ui->success_text->setText("Daten erfolgreich bearbeitet");
@@ -193,7 +193,7 @@ void Account_adminview::setDataInView() {
             ui->plz_input->setText(this->mitarbeiter->getPLZ());
         } else {
             // Handle the case where mitarbeiter is not initialized
-            qDebug() << "Mitarbeiter object is not initialized.";
+            //qDebug() << "Mitarbeiter object is not initialized.";
         }
 
 }

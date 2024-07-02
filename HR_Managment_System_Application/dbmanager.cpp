@@ -18,11 +18,11 @@ dbmanager::dbmanager() {
     if (!m_db.open())
     {
         QString errorMessage = m_db.lastError().text();
-        qDebug() << "Error: connection with database failed: " << errorMessage;
+        //qDebug() << "Error: connection with database failed: " << errorMessage;
     }
     else
     {
-        qDebug() << "Database: connection ok";
+        //qDebug() << "Database: connection ok";
     }
 }
 
@@ -58,13 +58,13 @@ Person* dbmanager::getMitarbeiterByID(int id) {
         QString gender = query.value(9).toString();
         QString title = query.value(10).toString();
         Person * p = new Person(id,name,surname,mail,phone,street,city,plz,admin,gender, title);
-        qDebug() << "Get Mitarbeiter success " + QString::number(id);
+        //qDebug() << "Get Mitarbeiter success " + QString::number(id);
 
         this->saveMitarbeiterLocally(p);
         return p;
     }
 
-    qDebug() << "Get Mitarbeiter fail";
+    //qDebug() << "Get Mitarbeiter fail";
     return nullptr;
 
 }
@@ -82,7 +82,7 @@ void dbmanager::saveMitarbeiterLocally(Person* mitarbeiter) {
 Person* dbmanager::login(QString mail, QString password){
     QSqlQuery query;
     QString pw = sha512_hash(password);
-    qDebug() << "Das PW lautet: " << pw;
+    //qDebug() << "Das PW lautet: " << pw;
     query.prepare("SELECT e.id, name, surname, mail, phone, street, city, plz,admin, g.gender, e.title from EMPLOYEE as e JOIN GENDERS as g on e.gender = g.id JOIN ADDRESS as a on e.adressid = a.id WHERE mail = :mail && password = :password");
     query.bindValue(":password",QString("%1").arg(pw));
     query.bindValue(":mail",QString("%1").arg(mail));
@@ -101,12 +101,12 @@ Person* dbmanager::login(QString mail, QString password){
         QString gender = query.value(9).toString();
         QString title = query.value(10).toString();
         Person * p = new Person(id,name,surname,mail,phone,street,city,plz,admin,gender, title);
-        qDebug() << admin;
-        qDebug() << gender;
-        qDebug() << "Einloggen war erfolgreich " + QString::number(id);
+        //qDebug() << admin;
+        //qDebug() << gender;
+        //qDebug() << "Einloggen war erfolgreich " + QString::number(id);
         return p;
     } else {
-        qDebug() << "Einloggen war NICHT erfolgreich";
+        //qDebug() << "Einloggen war NICHT erfolgreich";
     }
     return nullptr;
 }
@@ -122,7 +122,7 @@ int dbmanager::getAddressID(int employeeID){
         int id = query.value(0).toInt();
         return id;
     }
-    qDebug() << "getAddressID war NICHT erfolgreich";
+    //qDebug() << "getAddressID war NICHT erfolgreich";
     return -1;
 }
 
@@ -137,7 +137,7 @@ int dbmanager::getUserIDByMail(QString oldMail){
         return id;
     }
 
-    qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
+    //qDebug() << "getID war NICHT erfolgreich: oldmail: " << oldMail;
     return -1;
 }
 
@@ -223,9 +223,9 @@ bool dbmanager::editMitarbeiter(int employeeID,QString name, QString surname, QS
 
     if (queryEmployee.exec()) {
         success = true;
-        qDebug() << "Employee Tabelle Edit erfolgreich";
+        //qDebug() << "Employee Tabelle Edit erfolgreich";
     } else {
-        qDebug() << "Employee Tabelle Edit fehlgeschlagen: " << queryEmployee.lastError();
+        //qDebug() << "Employee Tabelle Edit fehlgeschlagen: " << queryEmployee.lastError();
     }
 
     if(success == false){
@@ -234,7 +234,7 @@ bool dbmanager::editMitarbeiter(int employeeID,QString name, QString surname, QS
 
     int addressid = getAddressID(userId);
 
-    qDebug() << "Address ID: " << addressid;
+    //qDebug() << "Address ID: " << addressid;
 
     addressQueryString += addressSetters.join(", ") + " WHERE id =?"; // Assuming 'id' is the column name for the user's unique identifier
     addressValues.append(addressid);
@@ -248,9 +248,9 @@ bool dbmanager::editMitarbeiter(int employeeID,QString name, QString surname, QS
 
     if (queryAddress.exec()) {
         success = true;
-        qDebug() << "Address Tabelle Edit erfolgreich";
+        //qDebug() << "Address Tabelle Edit erfolgreich";
     } else {
-        qDebug() << "Address Tabelle Edit fehlgeschlagen: " << queryAddress.lastError();
+        //qDebug() << "Address Tabelle Edit fehlgeschlagen: " << queryAddress.lastError();
     }
 
 
@@ -270,8 +270,8 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
     queryAddress.bindValue(":plz",QString("%1").arg(plz));
     queryAddress.bindValue(":street",QString("%1").arg(address));
     if(queryAddress.exec() == false){
-        qDebug() << "inserting adress not working: "
-                 << queryAddress.lastError();
+        //qDebug() << "inserting adress not working: "
+                 //<< queryAddress.lastError();
         return false;
     }
     QVariant id = queryAddress.lastInsertId();
@@ -305,12 +305,12 @@ bool dbmanager::addMitarbeiter(QString name, QString surname, QString mail, QStr
     if(queryEmployee.exec())
     {
         success = true;
-        qDebug() << "addEmployee success";
+        //qDebug() << "addEmployee success";
     }
     else
     {
-        qDebug() << "addEmployee error: "
-                 << queryEmployee.lastError();
+        //qDebug() << "addEmployee error: "
+                 //<< queryEmployee.lastError();
     }
 
     return success;
@@ -327,9 +327,9 @@ bool dbmanager::addMitarbeiterAdresse(QString plz, QString city, QString street)
 
     if(query.exec()){
         success = true;
-        qDebug() << "addEmployee success";
-    }else
-        qDebug() << "addEmployee error:"  << query.lastError();
+        //qDebug() << "addEmployee success";
+    }
+        //qDebug() << "addEmployee error:"  << query.lastError();
 
     return success;
 }
@@ -340,20 +340,20 @@ bool dbmanager::changePassword(int employeeID, QString newPassword){
     QString pw = sha512_hash(newPassword);
 
     query.prepare("UPDATE EMPLOYEE SET EMPLOYEE.password = :newPassword WHERE id = :employeeID;");
-    qDebug() << pw;
+    //qDebug() << pw;
     query.bindValue(":newPassword",QString("%1").arg(pw));
     query.bindValue(":employeeID",QString("%1").arg(employeeID));
-    qDebug() << query.lastQuery();
+    //qDebug() << query.lastQuery();
 
     if(query.exec())
     {
         success = true;
-        qDebug() << "changePassword success";
+        //qDebug() << "changePassword success";
     }
     else
     {
-        qDebug() << "changePassword error:"
-                 << query.lastError();
+        //qDebug() << "changePassword error:"
+                 //<< query.lastError();
     }
 
     return success;
@@ -377,12 +377,12 @@ bool dbmanager::createZeiteintrag(QDateTime shiftstart, QDateTime shiftend, QStr
     if(query.exec())
     {
         success = true;
-        qDebug() << "createZeiteintrag success";
+        //qDebug() << "createZeiteintrag success";
     }
     else
     {
-        qDebug() << "createZeiteintrag error:"
-                 << query.lastError();
+        //qDebug() << "createZeiteintrag error:"
+                 //<< query.lastError();
     }
 
     return success;
@@ -402,7 +402,7 @@ QList<Zeiteintrag*> dbmanager::getArbeitszeiten(int employeeID){
     if(query.exec())
     {
         //success = true;
-        qDebug() << "getArbeitszeiten success";
+        //qDebug() << "getArbeitszeiten success";
 
         Zeiteintrag* zeiteintrag;
 
@@ -424,8 +424,8 @@ QList<Zeiteintrag*> dbmanager::getArbeitszeiten(int employeeID){
     }
     else
     {
-        qDebug() << "getArbeitszeiten error:"
-                 << query.lastError();
+        //qDebug() << "getArbeitszeiten error:"
+                 //<< query.lastError();
         return {};
     }
     return zeiteintrag_list;
@@ -450,7 +450,7 @@ void dbmanager::getAllEmployees(QVector<Person*> &persons){
             persons.push_back(person);
         }
     }else
-        qDebug() << "could not fetch employees from database.";
+        //qDebug() << "could not fetch employees from database.";
 }
 //*/
 void dbmanager::getAllEmployees(){
@@ -510,7 +510,7 @@ QList <Zeiteintrag*> getSpecificArbeitszeiten(int employeeID,QList <Zeiteintrag*
     if(query.exec())
     {
         //success = true;
-        qDebug() << "getArbeitszeiten success";
+        //qDebug() << "getArbeitszeiten success";
 
         while (query.next()) {
 
@@ -527,13 +527,13 @@ QList <Zeiteintrag*> getSpecificArbeitszeiten(int employeeID,QList <Zeiteintrag*
             liste.push_back(zeiteintrag1);
 
 
-            qDebug();
+            //qDebug();
         }
     }
     else
     {
-        qDebug() << "getArbeitszeiten error:"
-                 << query.lastError();
+        //qDebug() << "getArbeitszeiten error:"
+                 //<< query.lastError();
         return liste;// dont know what to return on fail
     }
 
@@ -574,13 +574,13 @@ bool dbmanager::submitAbsence(Antrag* antrag){
     {
         int id = query.lastInsertId().toInt();
         antrag->setId(id);
-        qDebug() << "Absence submission success";
+        //qDebug() << "Absence submission success";
         return true;
     }
     else
     {
-        qDebug() << "Absence submission error:"
-                 << query.lastError();
+        //qDebug() << "Absence submission error:"
+                 //<< query.lastError();
         return false;
     }
 }
@@ -608,9 +608,9 @@ void dbmanager::loadAllRequests() {
             Antrag* antrag = new Antrag(nullptr, id, employee_id, titel, start, ende, type, notiz, status);
             this->requests.push_back(antrag);
         }
-        qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
+        //qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
     } else {
-        qDebug() << "Error loading requests: " << query.lastError();
+        //qDebug() << "Error loading requests: " << query.lastError();
     }
 
 }
@@ -639,9 +639,9 @@ void dbmanager::loadRequestsByEmployee(int employeeID) {
             Antrag* antrag = new Antrag(nullptr, id, employeeID, titel, start, ende, type, notiz, status);
             this->currentEmployee_requests.push_back(antrag);
         }
-        qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
+        //qDebug() << "Successfully loaded requests: " << this->currentEmployee_requests.size();
     } else {
-        qDebug() << "Error loading requests: " << query.lastError();
+        //qDebug() << "Error loading requests: " << query.lastError();
     }
 }
 
@@ -659,13 +659,13 @@ bool dbmanager::editTimeentries(int timeentryId, QDateTime start, QDateTime end,
     if(query.exec())
     {
         success = true;
-        qDebug() << "Edit success";
+        //qDebug() << "Edit success";
         return success;
     }
     else
     {
-        qDebug() << "edit error:"
-                 << query.lastError();
+        //qDebug() << "edit error:"
+                 //<< query.lastError();
         return success;
     }
 
@@ -709,17 +709,17 @@ void dbmanager::loadActiveEmployees(){
 
             this->activepersons.push_back(person);
 
-            qDebug() << this->activepersons.size() << " fetched";
+            //qDebug() << this->activepersons.size() << " fetched";
         }
-    }else
-        qDebug() << "could not fetch employees from database.";
+    }
+        //qDebug() << "could not fetch employees from database.";
 }
 
 bool dbmanager::loadActiveEmployeeCount() {
     QSqlQuery query;
     query.prepare("SELECT COUNT(*) FROM ACTIVE_EMPLOYEE");
     if (!query.exec()) {
-        qDebug() << "Failed to execute query:" << query.lastError().text();
+        //qDebug() << "Failed to execute query:" << query.lastError().text();
         return -1;
     }
 
@@ -727,7 +727,7 @@ bool dbmanager::loadActiveEmployeeCount() {
         this->active_persons_count = query.value(0).toInt();
         return query.value(0).toInt();
     } else {
-        qDebug() << "Failed to retrieve the result from query";
+        //qDebug() << "Failed to retrieve the result from query";
         return -1;
     }
 }
@@ -740,10 +740,10 @@ bool dbmanager::addActiveEmployee(int employeeID) {
     query.bindValue(":employeeID", QString("%1").arg(employeeID));
 
     if(query.exec()) {
-        qDebug() << "Add active success";
+        //qDebug() << "Add active success";
         return true;
     } else {
-        qDebug() << "Add active fail: " << query.lastError();
+        //qDebug() << "Add active fail: " << query.lastError();
         return false;
     }
 }
@@ -755,10 +755,10 @@ bool dbmanager::removeActiveEmployee(int employeeID) {
     query.bindValue(":employeeID", QString("%1").arg(employeeID));
 
     if(query.exec()) {
-        qDebug() << "Remove active success";
+        //qDebug() << "Remove active success";
         return true;
     } else {
-        qDebug() << "Remove active fail: " << query.lastError();
+        //qDebug() << "Remove active fail: " << query.lastError();
         return false;
     }
 }
@@ -801,14 +801,14 @@ double dbmanager::getArbeitsstundenSpecific( int employeeID){
         if (query.next()) {
             QVariant result = query.value(0);
             if (result.isNull()) {
-                qDebug() << "No working hours recorded for this week.";
+                //qDebug() << "No working hours recorded for this week.";
             } else {
                 double totalHours = result.toDouble();
-                qDebug() << "Total hours worked this week:" << totalHours;
+                //qDebug() << "Total hours worked this week:" << totalHours;
                 return totalHours;
             }
         } else {
-            qDebug() << "No records found.";
+            //qDebug() << "No records found.";
             return 0;
         }
     } else {
@@ -825,7 +825,7 @@ bool dbmanager::changeStatusOfRequest(int requestid,int statusId ){
         //Akzeptiert -> statusId == 2
         //Abgelehnt -> statusId == 3
     if(statusId > 3 || statusId < 1) {
-        qDebug() << "Error: Not valid statusId";
+        //qDebug() << "Error: Not valid statusId";
         return false;
     }
     bool success = false;
@@ -838,13 +838,13 @@ bool dbmanager::changeStatusOfRequest(int requestid,int statusId ){
     if(query.exec())
     {
         success = true;
-        qDebug() << "Edit Status of Absence success";
+        //qDebug() << "Edit Status of Absence success";
         return success;
     }
     else
     {
-        qDebug() << "edit status of absence error:"
-                 << query.lastError();
+        //qDebug() << "edit status of absence error:"
+                 //<< query.lastError();
         return success;
     }
 
@@ -860,13 +860,13 @@ bool dbmanager::deleteRequest(int requestid){
     if(query.exec())
     {
         success = true;
-        qDebug() << "Delete of Absence success";
+        //qDebug() << "Delete of Absence success";
         return success;
     }
     else
     {
-        qDebug() << "delete of absence error:"
-                 << query.lastError();
+        //qDebug() << "delete of absence error:"
+                 //<< query.lastError();
         return success;
     }
 
@@ -890,13 +890,13 @@ bool dbmanager::editRequest(int requestid,QString titel, QDateTime start, QDateT
     if(query.exec())
     {
         success = true;
-        qDebug() << "Edit of Absence success";
+        //qDebug() << "Edit of Absence success";
         return success;
     }
     else
     {
-        qDebug() << "Edit of Absenc error:"
-                 << query.lastError();
+        //qDebug() << "Edit of Absenc error:"
+                 //<< query.lastError();
         return success;
     }
 

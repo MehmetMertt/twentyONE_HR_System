@@ -50,7 +50,7 @@ Navbar::~Navbar()
 }
 
 void Navbar::setUserData() {
-    qDebug() << currentEmployee->getName() << " " << currentEmployee->getSurname();
+    //qDebug() << currentEmployee->getName() << " " << currentEmployee->getSurname();
     ui->user->setText(currentEmployee->getName() + " " + currentEmployee->getSurname());
 }
 

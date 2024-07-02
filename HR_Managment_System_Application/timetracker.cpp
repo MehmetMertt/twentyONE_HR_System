@@ -79,9 +79,9 @@ void Timetracker::loadTimeentries() {
         connect(zeiteintrag, &Zeiteintrag::zeiteintrag_removed, this, &Timetracker::removeZeiteintragLocal);
     }
 
-    for(auto& item: this->listitems) {
-        qDebug() << item;
-    }
+    /*for(auto& item: this->listitems) {
+        //qDebug() << item;
+    }*/
 }
 
 void Timetracker::loadDashboardData() {
@@ -99,7 +99,7 @@ void Timetracker::loadDashboardData() {
     ui->progress_wochenstunden->setValue(wochenstunden_percent);
     ui->progress_wochenstunden->update();
 
-    qDebug() << wochenstunden_percent;
+    //qDebug() << wochenstunden_percent;
 
     double ueberstunden = wochenstunden - general_wochenstunden;
     if(ueberstunden <= 0) {
@@ -149,7 +149,7 @@ void Timetracker::on_button_start_clicked()
     timestamps.clear();
 
     timestamps.push_back(new Timestamp(this, QDateTime::currentDateTime(), QDateTime::currentDateTime().addDays(-1)));
-    //qDebug() << "Startzeit: " << QDateTime::currentDateTime().toString() << ", Endzeit: " << QDateTime::currentDateTime().addDays(-1).toString();
+    ////qDebug() << "Startzeit: " << QDateTime::currentDateTime().toString() << ", Endzeit: " << QDateTime::currentDateTime().addDays(-1).toString();
     timer->start(1000);
     timer_running = true;
 
@@ -190,7 +190,7 @@ void Timetracker::on_button_stop_clicked()
     dbZugriff->removeActiveEmployee(currentEmployee->getID());
 
     /*foreach(const auto &timestamp, timestamps) {
-        qDebug() << "Startzeit: " << timestamp->data.first.toString() << ", Endzeit: " << timestamp->data.second.toString();
+        //qDebug() << "Startzeit: " << timestamp->data.first.toString() << ", Endzeit: " << timestamp->data.second.toString();
     }*/
 
     emit stopTimetracker();
@@ -246,6 +246,6 @@ void Timetracker::deleteAllZeiteinträge() {
     this->listitems.clear();
 
     // At this point, the map should be empty
-    qDebug() << "All Zeiteinträge and list items have been deleted.";
+    //qDebug() << "All Zeiteinträge and list items have been deleted.";
 }
 

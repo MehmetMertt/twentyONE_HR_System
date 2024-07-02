@@ -65,30 +65,30 @@ void EditZeiteintrag::on_save_clicked()
     for(int i = 0; i < this->timestampItems.size(); i++){
         this->timestampItems[i]->compareDatum();
         datum_valid = this->timestampItems[i]->validator->getDatum_erlaubt();
-        qDebug() << "valid: " << (datum_valid == true) << " Zeiteintrag: " << i;
+        //qDebug() << "valid: " << (datum_valid == true) << " Zeiteintrag: " << i;
         if(datum_valid == false)
             break;
     }
 
     if(datum_valid == false){
-        qDebug() << "Datum is wrong";
+        //qDebug() << "Datum is wrong";
         return;
     }
 
     bool success = false;
     for (auto& timestamp : this->timestampItems) {
-        qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
+        //qDebug() << timestamp->getStartzeit().toString() << " - " << timestamp->getEndzeit().toString();
 
         success = dbZugriff->createZeiteintrag(timestamp->getStartzeit().toLocalTime(), timestamp->getEndzeit(), timestamp->getNotiz(), currentEmployee->getID());
 
         if(!success) {
-            qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
+            //qDebug() << "Create Zeiteintrag " << timestamp->getID() << " failed";
             break;
         }
     }
 
     if(!success) {
-        qDebug() << "Error saving Zeiteinträge";
+        //qDebug() << "Error saving Zeiteinträge";
         //UI updaten
         return;
     }

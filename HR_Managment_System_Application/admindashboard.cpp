@@ -10,7 +10,7 @@ AdminDashboard::AdminDashboard(QWidget *parent)
 {
 
     if(currentEmployee->getAdmin() == false){ // double check if current Employeee is Admin
-        qDebug() << "User tries to get into Admin-Page somehow";
+        //qDebug() << "User tries to get into Admin-Page somehow";
         return;
     }
 
@@ -67,7 +67,7 @@ void AdminDashboard::on_new_employee_button_clicked()
 }
 
 void AdminDashboard::processEditMitarbeiter(int id) {
-    qDebug() << "dashboard edit " << id;
+    //qDebug() << "dashboard edit " << id;
     emit edit_employee(id);
 }
 

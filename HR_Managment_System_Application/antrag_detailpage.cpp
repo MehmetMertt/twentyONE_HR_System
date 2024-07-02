@@ -60,7 +60,7 @@ AntragDetails::~AntragDetails()
 
 void AntragDetails::setupPage(Mode mode) {
 
-    qDebug() << "Setup details";
+    //qDebug() << "Setup details";
 
     switch (mode) {
     case CREATE_ANTRAG:
@@ -80,7 +80,7 @@ void AntragDetails::setupPage(Mode mode) {
         ui->button_speichern->hide();
         ui->button_loeschen->show();
         ui->header->setText("Antrag details");
-        qDebug() << "get Mitarbeiter" << antrag->getEmployeeId();
+        //qDebug() << "get Mitarbeiter" << antrag->getEmployeeId();
         this->person = dbZugriff->getMitarbeiterByID(this->antrag->getEmployeeId());
 
         ui->userdata->setText("Von: " + this->person->getGender() + " " + this->person->getSurname() + " (" + this->person->getMail() + ")");
@@ -131,7 +131,7 @@ void AntragDetails::enableInputs() {
 
 void AntragDetails::updateView() {
 
-    qDebug() << "update view";
+    //qDebug() << "update view";
 
     ui->titel_field->setText(this->antrag->getTitel());
     ui->antrag_type->setCurrentText(this->antrag->getReason());
@@ -196,10 +196,10 @@ void AntragDetails::on_button_ablehnen_clicked()
     int antragId = this->antrag->getId();
     bool success = dbZugriff->changeStatusOfRequest(antragId,3);
     if(success){
-        qDebug() << "Status wurde geändert!";
+        //qDebug() << "Status wurde geändert!";
         this->emitFinishSignal(LOAD_DATA);
     } else {
-        qDebug() << "Status wurde nicht geändert!";
+        //qDebug() << "Status wurde nicht geändert!";
     }
 }
 
@@ -209,10 +209,10 @@ void AntragDetails::on_button_akzeptieren_clicked()
     int antragId = this->antrag->getId();
     bool success = dbZugriff->changeStatusOfRequest(antragId,2);
     if(success){
-        qDebug() << "Status wurde geändert!";
+        //qDebug() << "Status wurde geändert!";
         this->emitFinishSignal(LOAD_DATA);
     } else {
-        qDebug() << "Status wurde nicht geändert!";
+        //qDebug() << "Status wurde nicht geändert!";
     }
 }
 
@@ -233,10 +233,10 @@ void AntragDetails::on_button_loeschen_clicked()
 {
     bool success = dbZugriff->deleteRequest(this->antrag->getId());
     if(success){
-        qDebug() << "Request wurde gelöscht!";
+        //qDebug() << "Request wurde gelöscht!";
         this->emitFinishSignal(LOAD_DATA);
     } else {
-        qDebug() << "Request wurde nicht gelöscht!";
+        //qDebug() << "Request wurde nicht gelöscht!";
     }
 }
 
@@ -250,10 +250,10 @@ void AntragDetails::on_button_speichern_clicked()
     QString note = ui->notiz->toPlainText();
     bool success = dbZugriff->editRequest(antragId,titel,start,ende,reason,note);
     if(success){
-        qDebug() << "Antrag gespeichert!";
+        //qDebug() << "Antrag gespeichert!";
         this->emitFinishSignal(LOAD_DATA);
     } else {
-        qDebug() << "Antrag wurde nicht gespeichert!";
+        //qDebug() << "Antrag wurde nicht gespeichert!";
     }
 }
 

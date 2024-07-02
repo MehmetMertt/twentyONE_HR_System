@@ -19,7 +19,7 @@ void Settings::logout() {
 
     delete currentEmployee;
 
-    qDebug() << "curennt employee removed";
+    //qDebug() << "curennt employee removed";
     emit logout_success();
 
 }

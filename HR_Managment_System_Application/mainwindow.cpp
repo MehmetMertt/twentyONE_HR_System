@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QPropertyAnimation>
 #include <QtSql/QSqlDatabase>
-#include <QDebug>
+#include <//qDebug>
 */
 
 using namespace std;
@@ -148,55 +148,55 @@ void MainWindow::login_finished()
 MainWindow::~MainWindow()
 {
     if (settings_page != nullptr) {
-        qDebug() << "1";
+        //qDebug() << "1";
         delete settings_page;
     }
     if (request_page != nullptr) {
-        qDebug() << "2";
+        //qDebug() << "2";
         delete request_page;
     }
     if (timetracker_page != nullptr) {
-        qDebug() << "3";
+        //qDebug() << "3";
         delete timetracker_page;
     }
     if (account_page != nullptr) {
-        qDebug() << "4";
+        //qDebug() << "4";
         delete account_page;
     }
     if (dashboard != nullptr) {
-        qDebug() << "5";
+        //qDebug() << "5";
         delete dashboard;
     }
     if (admin_dashboard != nullptr) {
-        qDebug() << "6";
+        //qDebug() << "6";
         delete admin_dashboard;
     }
     if (account_adminview_page != nullptr) {
-        qDebug() << "7";
+        //qDebug() << "7";
         delete account_adminview_page;
     }
     if (signup_page != nullptr) {
-        qDebug() << "8";
+        //qDebug() << "8";
         delete signup_page;
     }
     if (navbar != nullptr) {
-        qDebug() << "9";
+        //qDebug() << "9";
         delete navbar;
     }
     if (navbar_comp != nullptr) {
-        qDebug() << "10";
+        //qDebug() << "10";
         delete navbar_comp;
     }
     if (login_page != nullptr) {
-        qDebug() << "11";
+        //qDebug() << "11";
         delete login_page;
     }
     if (main_loading_page != nullptr) {
-        qDebug() << "12";
+        //qDebug() << "12";
         delete main_loading_page;
     }
     if (editZeiteintrag_page != nullptr) {
-        qDebug() << "13";
+        //qDebug() << "13";
         delete editZeiteintrag_page;
     }
 
@@ -325,7 +325,7 @@ void MainWindow::showAntragDetailPage(Mode mode, Mode page, Antrag* antrag) {
     antrag_detail_page->setPreviousPage(page);
     antrag_detail_page->setupPage(mode);
     antrag_detail_page->updateView();
-    qDebug() << "set widget";
+    //qDebug() << "set widget";
     ui->main->setCurrentWidget(antrag_detail_page);
 }
 
