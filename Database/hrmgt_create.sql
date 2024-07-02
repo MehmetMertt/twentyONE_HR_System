@@ -110,7 +110,8 @@
   --
 
   INSERT INTO `ADDRESS` (`id`, `plz`, `city`, `street`) VALUES
-  (1, 1230, 'Wien', 'Ringstraße 02');
+  (1, 1230, 'Wien', 'Ringstraße 02'),
+  (2, 1010, 'Wien', 'Gonzagagasse 10');
 
   -- --------------------------------------------------------
 
@@ -151,7 +152,8 @@
   --
 
   INSERT INTO `EMPLOYEE` (`id`, `password`, `name`, `surname`, `mail`, `phone`, `employmentdate`, `terminationdate`, `adressid`, `departmentid`, `salaryid`, `admin`, `gender`, `title`) VALUES
-  (0, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Mehmet', 'Mert', 'fmimmler@gmail.com', '+4367006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Dr.');
+  (0, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'John', 'Doe', 'jdoe@twentyone.at', '+4367006070522', NULL, NULL, 1, NULL, NULL, 1, 1, 'Dr.'),
+  (1, 'd787a3c0317fd70de01da92b71d1808bf3d4ae75ff6693dae9289b5fe9997d24bf2f1d4810526b9f12ea38ffe7fd526b53811bf8b9df567c2ac9fa177a09b0d8', 'Max', 'Schwartz', 'mschwartz@twentyone.at', '+4367006070522', NULL, NULL, 2, NULL, NULL, 1, 1, NULL);
 
   -- --------------------------------------------------------
 
