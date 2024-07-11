@@ -36,15 +36,15 @@ And insert the hrmgt_create.sql into the databse<br>
 ### 3.	Build project and create exe<br>
 Now use the Qt 6.7.0 (MinGW) that is installed after installing Qt 6.7.0 
 ```
-cd <into cloned folder>\HR_Managment_System_Application\build<br>
-qmake ..\HR_Managment_System_Application.pro -spec win32-g++<br>
-mingw32-make.exe -j4<br>
-cd release<br>
-windeployqt .<br>
-cd ..<br>
-mingw32-make.exe clean -j4<br>
-move ..\..\Database\libmysql.dll .\release<br>
-move ..\..\Database\qsqlmysql.dll .\release\sqldrivers<br>
+cd <into cloned folder>\HR_Managment_System_Application\build
+qmake ..\HR_Managment_System_Application.pro -spec win32-g++
+mingw32-make.exe -j4
+cd release
+windeployqt .
+cd ..
+mingw32-make.exe clean -j4
+move ..\..\Database\libmysql.dll .\release
+move ..\..\Database\qsqlmysql.dll .\release\sqldrivers
 ```
 
 Now you can use the files in the release folder for your deployment. And the exe is executable and will start the Application.<be><br>
