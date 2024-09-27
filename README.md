@@ -8,7 +8,7 @@
 
 </div>
 
-## What is twntyOne HR Management Application?
+## What is twentyOne HR Management Application?
 twentyOne HR Management is an application designed to streamline and enhance the efficiency of human resources (HR) departments. It provides a comprehensive suite of tools for managing various HR functions, including employee records, working hours, and request handling
 
 
